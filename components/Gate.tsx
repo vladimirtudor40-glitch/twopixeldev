@@ -7,8 +7,8 @@ import type { IntroController } from './twopixel-intro-engine';
 import { useRouter } from 'next/navigation';
 import { currentUser } from '@/lib/backend';
 
-// Login is off until real accounts exist (set NEXT_PUBLIC_LOGIN_ENABLED=true to turn it on).
-const LOGIN_ENABLED = process.env.NEXT_PUBLIC_LOGIN_ENABLED === 'true';
+// Set NEXT_PUBLIC_LOGIN_ENABLED=false to hide the login and drop /app from the build.
+const LOGIN_ENABLED = process.env.NEXT_PUBLIC_LOGIN_ENABLED !== 'false';
 
 type Box = { left: string; top: string; width: string; height: string };
 

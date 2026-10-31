@@ -2,7 +2,7 @@
 // so /app does not exist on the server at all (not just hidden in the UI).
 import { rmSync, existsSync } from 'node:fs';
 
-if (process.env.NEXT_PUBLIC_LOGIN_ENABLED !== 'true') {
+if (process.env.NEXT_PUBLIC_LOGIN_ENABLED === 'false') {
   for (const p of ['out/app', 'out/app.html', 'out/app.txt']) {
     if (existsSync(p)) rmSync(p, { recursive: true, force: true });
   }

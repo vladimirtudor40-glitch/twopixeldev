@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn, isDemo } from '@/lib/backend';
+import { signIn } from '@/lib/backend';
 
-/** Login form (Supabase email + password; see lib/backend.ts). */
+/** Login form. The password is checked by the Worker (worker/index.ts). */
 export default function LoginPanel({ onClose }: { onClose: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +27,7 @@ export default function LoginPanel({ onClose }: { onClose: () => void }) {
     const error = await signIn(email.trim(), password);
     if (error) {
       setStatus('error');
-      setMessage('ACCESS DENIED // email sau parolă greșită');
+      setMessage(error === 'too_many_attempts' ? 'LOCKED // prea multe încercări, revino în 15 minute' : 'ACCESS DENIED // email sau parolă greșită');
       return;
     }
     setMessage('ACCESS GRANTED');
@@ -50,7 +50,6 @@ export default function LoginPanel({ onClose }: { onClose: () => void }) {
           <input type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
 
-        {isDemo && <p className="login-demo">demo mode // orice email + parolă intră</p>}
         <p className="login-msg" role="status" aria-live="polite">{message}</p>
 
         <button type="submit" className="login-btn" disabled={status === 'busy'}>

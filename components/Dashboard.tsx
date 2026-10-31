@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { currentUser, deleteSite, isDemo, listSites, saveSite, signOut } from '@/lib/backend';
+import { currentUser, deleteSite, listSites, saveSite, signOut } from '@/lib/backend';
 import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput, type Status } from '@/lib/types';
 import SiteForm from './SiteForm';
 
@@ -20,8 +20,11 @@ export default function Dashboard() {
 
   const load = useCallback(async () => {
     try { setSites(await listSites()); setError(''); }
-    catch (e) { setError(e instanceof Error ? e.message : 'Eroare la încărcare'); }
-  }, []);
+    catch (e) {
+      if (e instanceof Error && e.message === 'unauthorized') router.replace('/');
+      else setError(e instanceof Error ? e.message : 'Eroare la încărcare');
+    }
+  }, [router]);
 
   useEffect(() => {
     currentUser().then((u) => {
@@ -71,7 +74,6 @@ export default function Dashboard() {
       <header className="dash-top">
         <Link href="/" className="brand" aria-label="twopixeldev"><i className="px c" /><i className="px m" /><b>twopixeldev</b><span>// control</span></Link>
         <div className="who">
-          {isDemo && <span className="demo-tag">demo</span>}
           <span className="dim">{user}</span>
           <button className="ghost" onClick={logout}>ieșire</button>
         </div>

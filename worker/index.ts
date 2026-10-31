@@ -1,0 +1,175 @@
+// twopixeldev Worker: serves the static site and guards the internal app.
+// - Login is checked here, on the server, against the USERS secret (PBKDF2 hashes).
+// - A signed, HttpOnly session cookie protects /app and /api.
+// - Site records live in the SITES KV namespace, shared by both accounts.
+
+interface Fetcher { fetch(req: Request): Promise<Response> }
+interface KV {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void>;
+  delete(key: string): Promise<void>;
+}
+interface Env {
+  ASSETS: Fetcher;
+  SITES: KV;
+  /** JSON: { "email": "pbkdf2$<iterations>$<saltB64>$<hashB64>" } */
+  USERS: string;
+  /** Random string used to sign session cookies. */
+  SESSION_SECRET: string;
+}
+
+const COOKIE = 'tpd_session';
+const SESSION_DAYS = 30;
+const MAX_FAILS = 8; // per IP per 15 minutes
+const enc = new TextEncoder();
+
+const b64 = (buf: ArrayBuffer | Uint8Array) => btoa(String.fromCharCode(...new Uint8Array(buf as ArrayBuffer)));
+const unb64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+const b64url = (s: string) => btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64url = (s: string) => atob(s.replace(/-/g, '+').replace(/_/g, '/'));
+
+function json(data: unknown, status = 200, headers: Record<string, string> = {}) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'content-type': 'application/json', 'cache-control': 'no-store', ...headers },
+  });
+}
+
+function sameBytes(a: Uint8Array, b: Uint8Array) {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a[i] ^ b[i];
+  return d === 0;
+}
+
+async function verifyPassword(password: string, stored: string) {
+  const [alg, iter, salt, hash] = stored.split('$');
+  if (alg !== 'pbkdf2') return false;
+  const key = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-256', salt: unb64(salt), iterations: Number(iter) },
+    key,
+    256,
+  );
+  return sameBytes(new Uint8Array(bits), unb64(hash));
+}
+
+async function hmac(secret: string, data: string) {
+  const key = await crypto.subtle.importKey('raw', enc.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return b64(await crypto.subtle.sign('HMAC', key, enc.encode(data)));
+}
+
+async function makeSession(env: Env, email: string) {
+  const payload = b64url(JSON.stringify({ e: email, x: Date.now() + SESSION_DAYS * 86_400_000 }));
+  return `${payload}.${b64url(await hmac(env.SESSION_SECRET, payload))}`;
+}
+
+async function readSession(req: Request, env: Env): Promise<string | null> {
+  const m = (req.headers.get('cookie') || '').match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`));
+  if (!m) return null;
+  const [payload, sig] = m[1].split('.');
+  if (!payload || !sig) return null;
+  const expected = b64url(await hmac(env.SESSION_SECRET, payload));
+  if (!sameBytes(enc.encode(sig), enc.encode(expected))) return null;
+  try {
+    const { e, x } = JSON.parse(unb64url(payload)) as { e: string; x: number };
+    if (Date.now() > x) return null;
+    const users = JSON.parse(env.USERS) as Record<string, string>;
+    return users[e] ? e : null; // removing a user from USERS logs them out
+  } catch {
+    return null;
+  }
+}
+
+const cookie = (value: string, maxAge: number) =>
+  `${COOKIE}=${value}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${maxAge}`;
+
+async function login(req: Request, env: Env) {
+  const ip = req.headers.get('cf-connecting-ip') || 'unknown';
+  const failKey = `fail:${ip}`;
+  const fails = Number((await env.SITES.get(failKey)) || 0);
+  if (fails >= MAX_FAILS) return json({ error: 'too_many_attempts' }, 429);
+
+  let email = '', password = '';
+  try {
+    const body = (await req.json()) as { email?: string; password?: string };
+    email = String(body.email || '').trim().toLowerCase();
+    password = String(body.password || '');
+  } catch { /* fall through to rejection */ }
+
+  const users = JSON.parse(env.USERS) as Record<string, string>;
+  const stored = users[email];
+  // Always run a hash so timing does not reveal which emails exist.
+  const ok = await verifyPassword(password, stored || 'pbkdf2$100000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=');
+  if (!stored || !ok) {
+    await env.SITES.put(failKey, String(fails + 1), { expirationTtl: 900 });
+    return json({ error: 'invalid' }, 401);
+  }
+  return json({ email }, 200, { 'set-cookie': cookie(await makeSession(env, email), SESSION_DAYS * 86400) });
+}
+
+type Site = { id: string; [k: string]: unknown };
+const loadSites = async (env: Env) => JSON.parse((await env.SITES.get('sites')) || '[]') as Site[];
+const storeSites = (env: Env, sites: Site[]) => env.SITES.put('sites', JSON.stringify(sites));
+
+async function api(req: Request, env: Env, path: string) {
+  const method = req.method;
+  // Mutations must be JSON (blocks plain cross-site form posts; cookie is SameSite=Strict too).
+  if (method !== 'GET' && !(req.headers.get('content-type') || '').includes('application/json')) {
+    return json({ error: 'bad_request' }, 400);
+  }
+  if (path === '/api/login' && method === 'POST') return login(req, env);
+  if (path === '/api/logout' && method === 'POST') return json({ ok: true }, 200, { 'set-cookie': cookie('', 0) });
+
+  const user = await readSession(req, env);
+  if (!user) return json({ error: 'unauthorized' }, 401);
+
+  if (path === '/api/me' && method === 'GET') return json({ email: user });
+
+  if (path === '/api/sites' && method === 'GET') return json(await loadSites(env));
+
+  if (path === '/api/sites' && method === 'POST') {
+    const input = (await req.json()) as Partial<Site>;
+    const sites = await loadSites(env);
+    const now = new Date().toISOString();
+    const i = input.id ? sites.findIndex((s) => s.id === input.id) : -1;
+    let saved: Site;
+    if (i >= 0) {
+      saved = { ...sites[i], ...input, id: sites[i].id, updated_at: now, updated_by: user };
+      sites[i] = saved;
+    } else {
+      saved = { ...input, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user };
+      sites.unshift(saved);
+    }
+    await storeSites(env, sites);
+    return json(saved);
+  }
+
+  const del = path.match(/^\/api\/sites\/([\w-]+)$/);
+  if (del && method === 'DELETE') {
+    await storeSites(env, (await loadSites(env)).filter((s) => s.id !== del[1]));
+    return json({ ok: true });
+  }
+
+  return json({ error: 'not_found' }, 404);
+}
+
+export default {
+  async fetch(req: Request, env: Env): Promise<Response> {
+    const url = new URL(req.url);
+    const path = url.pathname;
+
+    if (path.startsWith('/api/')) return api(req, env, path);
+
+    // The internal app is only served to signed-in users.
+    if (path === '/app' || path.startsWith('/app/')) {
+      if (!(await readSession(req, env))) return Response.redirect(`${url.origin}/`, 302);
+      const res = await env.ASSETS.fetch(req);
+      const out = new Response(res.body, res);
+      out.headers.set('cache-control', 'no-store');
+      return out;
+    }
+
+    return env.ASSETS.fetch(req);
+  },
+};
