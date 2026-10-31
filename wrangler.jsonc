@@ -1,0 +1,10 @@
+{
+  // Cloudflare Workers: serves the static build in ./out
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "twopixeldev",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
