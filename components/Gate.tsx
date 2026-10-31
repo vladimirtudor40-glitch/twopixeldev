@@ -7,6 +7,9 @@ import type { IntroController } from './twopixel-intro-engine';
 import { useRouter } from 'next/navigation';
 import { currentUser } from '@/lib/backend';
 
+// Login is off until real accounts exist (set NEXT_PUBLIC_LOGIN_ENABLED=true to turn it on).
+const LOGIN_ENABLED = process.env.NEXT_PUBLIC_LOGIN_ENABLED === 'true';
+
 type Box = { left: string; top: string; width: string; height: string };
 
 /** Logo intro → (click the logo) → login panel. */
@@ -43,16 +46,16 @@ export default function Gate({ displayFont, monoFont }: { displayFont: string; m
       <TwoPixelIntro
         className="intro"
         once
-        tagline="[ RESTRICTED ACCESS // CLICK LOGO TO LOGIN ]"
+        tagline={LOGIN_ENABLED ? '[ RESTRICTED ACCESS // CLICK LOGO TO LOGIN ]' : '[ SYSTEM INITIALIZING // SITE IN DEVELOPMENT ]'}
         displayFont={displayFont}
         monoFont={monoFont}
         onReady={(c) => { intro.current = c; }}
         onComplete={() => setReady(true)}
       />
-      {ready && box && !open && (
+      {LOGIN_ENABLED && ready && box && !open && (
         <button className="logo-hit" style={box} onClick={onLogo} aria-label="Open login" autoFocus />
       )}
-      {open && <LoginPanel onClose={() => setOpen(false)} />}
+      {LOGIN_ENABLED && open && <LoginPanel onClose={() => setOpen(false)} />}
     </div>
   );
 }

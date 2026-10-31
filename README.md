@@ -35,8 +35,4 @@ Without `.env.local` the app runs in DEMO mode (any login works, data stays in t
 - `components/LoginPanel.tsx`, `components/Dashboard.tsx`, `components/SiteForm.tsx`: login and the management app (`/app`).
 - `lib/backend.ts`: Supabase auth + data (or demo mode). `lib/types.ts`: site fields.
 
-## Preview (GitHub Pages)
-
-Every push to `main` builds and publishes https://vladimirtudor40-glitch.github.io/twopixeldev/ via `.github/workflows/pages.yml`.
-
 `old-landing/` holds the earlier agency landing page.
