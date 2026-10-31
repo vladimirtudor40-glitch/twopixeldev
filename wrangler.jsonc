@@ -6,5 +6,9 @@
   "assets": {
     "directory": "./out",
     "not_found_handling": "404-page"
-  }
+  },
+  "routes": [
+    { "pattern": "twopixeldev.com", "custom_domain": true },
+    { "pattern": "www.twopixeldev.com", "custom_domain": true }
+  ]
 }
