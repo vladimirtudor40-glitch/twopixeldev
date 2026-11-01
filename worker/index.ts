@@ -3,7 +3,7 @@
 // - A signed, HttpOnly session cookie protects /app and /api.
 // - Site records live in the SITES KV namespace, shared by both accounts.
 
-import { SEED_LEADS, SEED_SKILLS } from './seed';
+import { SEED_LEADS } from './seed';
 
 interface Fetcher { fetch(req: Request): Promise<Response> }
 interface KV {
@@ -113,7 +113,7 @@ async function login(req: Request, env: Env) {
 type Item = { id: string; [k: string]: unknown };
 
 // Shared collections in KV, one key per collection. `sites` is the original one.
-const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, skills: SEED_SKILLS, todos: [] };
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, todos: [] };
 const COLLECTIONS = Object.keys(SEEDS);
 
 async function loadCol(env: Env, col: string): Promise<Item[]> {
@@ -163,7 +163,7 @@ async function api(req: Request, env: Env, path: string) {
 
   if (path === '/api/me' && method === 'GET') return json({ email: user });
 
-  // /api/sites (original) and /api/c/<collection> for leads, skills, ...
+  // /api/sites (original) and /api/c/<collection> for leads, todos
   const m = path.match(/^\/api\/(?:c\/)?(\w+)(?:\/([\w-]+))?$/);
   if (m && COLLECTIONS.includes(m[1])) {
     const [, col, id] = m;

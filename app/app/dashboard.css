@@ -121,7 +121,7 @@ legend { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; col
 .card { height: 100%; align-content: start; min-width: 0; }
 .card dl { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
-/* section switch: Site-uri / Leaduri / Skill-uri */
+/* section switch */
 .sections { display: flex; gap: 0; margin-top: 20px; border-bottom: 1px solid rgba(244, 247, 250, 0.08); overflow-x: auto; }
 .sections button {
   background: none; border: 0; border-bottom: 2px solid transparent; color: var(--dim);
@@ -151,24 +151,6 @@ legend { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; col
 .ls-oferta { color: var(--magenta); }
 .ls-castigat { color: var(--cyan); }
 .ls-pierdut { color: var(--dim); }
-
-/* skills */
-.check { display: flex; align-items: center; gap: 8px; margin: -8px 0 16px; }
-.skill-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(244, 247, 250, 0.08); }
-.skill { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(244, 247, 250, 0.08); }
-.skill-main { display: grid; gap: 4px; min-width: 0; flex: 1; }
-.skill-main p { margin: 0; color: rgba(244, 247, 250, 0.78); }
-.skill-title { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
-.skill-title a, .skill-title b { color: var(--white); font-weight: 600; text-decoration: none; }
-.skill-title a:hover { color: var(--cyan); }
-.skill-note { background: transparent; border: 0; border-bottom: 1px dashed rgba(244, 247, 250, 0.12); color: var(--dim); padding: 4px 0; max-width: 480px; font: inherit; }
-.skill-note:focus { color: var(--white); border-bottom-color: var(--cyan); outline: none; }
-.ss-neevaluat { color: var(--dim); }
-.ss-de_incercat { color: var(--magenta); }
-.ss-instalat { color: var(--cyan); }
-.ss-avem_deja { color: #7cf29c; }
-.ss-nu_ne_trebuie { color: rgba(244, 247, 250, 0.35); }
-@media (max-width: 560px) { .skill { flex-direction: column; gap: 8px; } }
 
 /* to-do */
 .todo-add { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }

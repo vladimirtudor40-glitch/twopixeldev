@@ -91,31 +91,6 @@ export const emptyLead = (): LeadInput => ({
 });
 export const leadStatusLabel = (s: LeadStatus) => LEAD_STATUSES.find((x) => x.id === s)?.label ?? s;
 
-// ---------- Skill-uri Claude ----------
-export const SKILL_STATUSES = [
-  { id: 'neevaluat', label: 'Neevaluat' },
-  { id: 'de_incercat', label: 'De încercat' },
-  { id: 'instalat', label: 'Instalat' },
-  { id: 'avem_deja', label: 'Avem deja' },
-  { id: 'nu_ne_trebuie', label: 'Nu ne trebuie' },
-] as const;
-export type SkillStatus = (typeof SKILL_STATUSES)[number]['id'];
-
-export type Skill = {
-  id: string;
-  name: string;
-  category: string;
-  url: string | null;
-  description: string | null;
-  status: SkillStatus;
-  notes: string | null;
-  created_at: string;
-  updated_at: string;
-  updated_by?: string;
-};
-export type SkillInput = Omit<Skill, 'id' | 'created_at' | 'updated_at' | 'updated_by'>;
-export const skillStatusLabel = (s: SkillStatus) => SKILL_STATUSES.find((x) => x.id === s)?.label ?? s;
-
 // ---------- To-do ----------
 export type Todo = {
   id: string;

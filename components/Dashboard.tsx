@@ -7,14 +7,12 @@ import { currentUser, deleteSite, listSites, saveSite, signOut } from '@/lib/bac
 import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput, type Status } from '@/lib/types';
 import SiteForm from './SiteForm';
 import Leads from './Leads';
-import Skills from './Skills';
 import Todos from './Todos';
 
 const SECTIONS = [
   { id: 'sites', label: 'Site-uri' },
   { id: 'todos', label: 'To-do' },
   { id: 'leads', label: 'Leaduri' },
-  { id: 'skills', label: 'Skill-uri Claude' },
 ] as const;
 type Section = (typeof SECTIONS)[number]['id'];
 
@@ -110,7 +108,6 @@ export default function Dashboard() {
 
       {section === 'todos' && <Todos onUnauthorized={toLogin} />}
       {section === 'leads' && <Leads onUnauthorized={toLogin} />}
-      {section === 'skills' && <Skills onUnauthorized={toLogin} />}
 
       {section === 'sites' && (<>
       <section className="stats" aria-label="Rezumat">

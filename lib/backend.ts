@@ -51,8 +51,8 @@ export async function deleteSite(id: string): Promise<void> {
   await call(`/api/sites/${encodeURIComponent(id)}`, { method: 'DELETE', body: '{}' });
 }
 
-// Generic shared collections (leads, skills, todos) — same KV store as sites.
-export type Col = 'leads' | 'skills' | 'todos';
+// Generic shared collections (leads, todos) — same KV store as sites.
+export type Col = 'leads' | 'todos';
 export async function listCol<T>(col: Col): Promise<T[]> {
   return call<T[]>(`/api/c/${col}`);
 }
