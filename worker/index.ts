@@ -3,8 +3,6 @@
 // - A signed, HttpOnly session cookie protects /app and /api.
 // - Site records live in the SITES KV namespace, shared by both accounts.
 
-import { SEED_LEADS } from './seed';
-
 interface Fetcher { fetch(req: Request): Promise<Response> }
 interface KV {
   get(key: string): Promise<string | null>;
@@ -113,7 +111,7 @@ async function login(req: Request, env: Env) {
 type Item = { id: string; [k: string]: unknown };
 
 // Shared collections in KV, one key per collection. `sites` is the original one.
-const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, todos: [] };
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: [], todos: [] };
 const COLLECTIONS = Object.keys(SEEDS);
 
 async function loadCol(env: Env, col: string): Promise<Item[]> {
