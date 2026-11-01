@@ -169,3 +169,21 @@ legend { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; col
 .ss-avem_deja { color: #7cf29c; }
 .ss-nu_ne_trebuie { color: rgba(244, 247, 250, 0.35); }
 @media (max-width: 560px) { .skill { flex-direction: column; gap: 8px; } }
+
+/* to-do */
+.todo-add { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.todo-add .todo-title { flex: 1 1 260px; min-width: 0; }
+.todo-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(244, 247, 250, 0.08); }
+.todo { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid rgba(244, 247, 250, 0.08); }
+.todo > input[type='checkbox'] { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--cyan); cursor: pointer; flex: none; }
+.todo-main { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.todo-text { background: transparent; border: 0; border-bottom: 1px dashed transparent; color: var(--white); font: inherit; padding: 2px 0; width: 100%; }
+.todo-text:focus { border-bottom-color: var(--cyan); outline: none; }
+.todo.done .todo-text { color: var(--dim); text-decoration: line-through; }
+.todo-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.todo-site { color: #c9b6ff; }
+.todo-due { color: var(--dim); }
+.todo-due.soon { color: #ffd166; }
+.todo-due.late { color: var(--magenta); }
+.todo-del { background: none; border: 0; color: var(--dim); font-size: 20px; line-height: 1; padding: 2px 6px; cursor: pointer; }
+.todo-del:hover { color: var(--magenta); }

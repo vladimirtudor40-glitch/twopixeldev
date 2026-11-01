@@ -113,7 +113,7 @@ async function login(req: Request, env: Env) {
 type Item = { id: string; [k: string]: unknown };
 
 // Shared collections in KV, one key per collection. `sites` is the original one.
-const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, skills: SEED_SKILLS };
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, skills: SEED_SKILLS, todos: [] };
 const COLLECTIONS = Object.keys(SEEDS);
 
 async function loadCol(env: Env, col: string): Promise<Item[]> {

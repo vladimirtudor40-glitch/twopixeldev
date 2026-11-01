@@ -115,3 +115,16 @@ export type Skill = {
 };
 export type SkillInput = Omit<Skill, 'id' | 'created_at' | 'updated_at' | 'updated_by'>;
 export const skillStatusLabel = (s: SkillStatus) => SKILL_STATUSES.find((x) => x.id === s)?.label ?? s;
+
+// ---------- To-do ----------
+export type Todo = {
+  id: string;
+  title: string;
+  done: boolean;
+  owner: Owner;
+  due: string | null; // YYYY-MM-DD
+  site_id: string | null;
+  created_at: string;
+  updated_at: string;
+  updated_by?: string;
+};

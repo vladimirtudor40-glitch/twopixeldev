@@ -8,9 +8,11 @@ import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput,
 import SiteForm from './SiteForm';
 import Leads from './Leads';
 import Skills from './Skills';
+import Todos from './Todos';
 
 const SECTIONS = [
   { id: 'sites', label: 'Site-uri' },
+  { id: 'todos', label: 'To-do' },
   { id: 'leads', label: 'Leaduri' },
   { id: 'skills', label: 'Skill-uri Claude' },
 ] as const;
@@ -106,6 +108,7 @@ export default function Dashboard() {
         ))}
       </nav>
 
+      {section === 'todos' && <Todos onUnauthorized={toLogin} />}
       {section === 'leads' && <Leads onUnauthorized={toLogin} />}
       {section === 'skills' && <Skills onUnauthorized={toLogin} />}
 
