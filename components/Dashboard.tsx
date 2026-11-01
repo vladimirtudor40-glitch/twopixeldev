@@ -6,6 +6,15 @@ import { useRouter } from 'next/navigation';
 import { currentUser, deleteSite, listSites, saveSite, signOut } from '@/lib/backend';
 import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput, type Status } from '@/lib/types';
 import SiteForm from './SiteForm';
+import Leads from './Leads';
+import Skills from './Skills';
+
+const SECTIONS = [
+  { id: 'sites', label: 'Site-uri' },
+  { id: 'leads', label: 'Leaduri' },
+  { id: 'skills', label: 'Skill-uri Claude' },
+] as const;
+type Section = (typeof SECTIONS)[number]['id'];
 
 const money = (n: number, c = 'RON') => `${n.toLocaleString('ro-RO', { maximumFractionDigits: 2 })} ${c}`;
 
@@ -17,6 +26,18 @@ export default function Dashboard() {
   const [filter, setFilter] = useState<Status | 'toate'>('toate');
   const [q, setQ] = useState('');
   const [editing, setEditing] = useState<Site | 'new' | null>(null);
+  const [section, setSection] = useState<Section>('sites');
+
+  // Remember the open section in the URL (#leads), so a refresh stays put.
+  useEffect(() => {
+    const h = window.location.hash.slice(1);
+    if (SECTIONS.some((x) => x.id === h)) setSection(h as Section);
+  }, []);
+  function go(s: Section) {
+    setSection(s);
+    history.replaceState(null, '', s === 'sites' ? window.location.pathname : `#${s}`);
+  }
+  const toLogin = useCallback(() => router.replace('/'), [router]);
 
   const load = useCallback(async () => {
     try { setSites(await listSites()); setError(''); }
@@ -79,6 +100,16 @@ export default function Dashboard() {
         </div>
       </header>
 
+      <nav className="sections" aria-label="Secțiuni">
+        {SECTIONS.map((x) => (
+          <button key={x.id} className={section === x.id ? 'on' : ''} aria-current={section === x.id ? 'page' : undefined} onClick={() => go(x.id)}>{x.label}</button>
+        ))}
+      </nav>
+
+      {section === 'leads' && <Leads onUnauthorized={toLogin} />}
+      {section === 'skills' && <Skills onUnauthorized={toLogin} />}
+
+      {section === 'sites' && (<>
       <section className="stats" aria-label="Rezumat">
         <Stat label="site-uri" value={stats.total} />
         <Stat label="în lucru" value={stats.active} />
@@ -115,6 +146,8 @@ export default function Dashboard() {
           {shown.map((s) => <Card key={s.id} site={s} onOpen={() => setEditing(s)} />)}
         </ul>
       )}
+
+      </>)}
 
       {editing && (
         <SiteForm

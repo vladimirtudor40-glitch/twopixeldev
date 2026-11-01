@@ -3,6 +3,8 @@
 // - A signed, HttpOnly session cookie protects /app and /api.
 // - Site records live in the SITES KV namespace, shared by both accounts.
 
+import { SEED_LEADS, SEED_SKILLS } from './seed';
+
 interface Fetcher { fetch(req: Request): Promise<Response> }
 interface KV {
   get(key: string): Promise<string | null>;
@@ -108,9 +110,44 @@ async function login(req: Request, env: Env) {
   return json({ email }, 200, { 'set-cookie': cookie(await makeSession(env, email), SESSION_DAYS * 86400) });
 }
 
-type Site = { id: string; [k: string]: unknown };
-const loadSites = async (env: Env) => JSON.parse((await env.SITES.get('sites')) || '[]') as Site[];
-const storeSites = (env: Env, sites: Site[]) => env.SITES.put('sites', JSON.stringify(sites));
+type Item = { id: string; [k: string]: unknown };
+
+// Shared collections in KV, one key per collection. `sites` is the original one.
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: SEED_LEADS, skills: SEED_SKILLS };
+const COLLECTIONS = Object.keys(SEEDS);
+
+async function loadCol(env: Env, col: string): Promise<Item[]> {
+  const raw = await env.SITES.get(col);
+  if (raw !== null) return JSON.parse(raw) as Item[];
+  // First read: fill with the starting data so both accounts see the same list.
+  const now = new Date().toISOString();
+  const seeded = SEEDS[col].map((x) => ({ ...x, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: 'seed' }));
+  await env.SITES.put(col, JSON.stringify(seeded));
+  return seeded;
+}
+const storeCol = (env: Env, col: string, items: Item[]) => env.SITES.put(col, JSON.stringify(items));
+
+async function saveItem(req: Request, env: Env, col: string, user: string) {
+  const input = (await req.json()) as Partial<Item>;
+  const items = await loadCol(env, col);
+  const now = new Date().toISOString();
+  const i = input.id ? items.findIndex((s) => s.id === input.id) : -1;
+  let saved: Item;
+  if (i >= 0) {
+    saved = { ...items[i], ...input, id: items[i].id, updated_at: now, updated_by: user };
+    items[i] = saved;
+  } else {
+    saved = { ...input, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user };
+    items.unshift(saved);
+  }
+  await storeCol(env, col, items);
+  return json(saved);
+}
+
+async function deleteItem(env: Env, col: string, id: string) {
+  await storeCol(env, col, (await loadCol(env, col)).filter((s) => s.id !== id));
+  return json({ ok: true });
+}
 
 async function api(req: Request, env: Env, path: string) {
   const method = req.method;
@@ -126,29 +163,13 @@ async function api(req: Request, env: Env, path: string) {
 
   if (path === '/api/me' && method === 'GET') return json({ email: user });
 
-  if (path === '/api/sites' && method === 'GET') return json(await loadSites(env));
-
-  if (path === '/api/sites' && method === 'POST') {
-    const input = (await req.json()) as Partial<Site>;
-    const sites = await loadSites(env);
-    const now = new Date().toISOString();
-    const i = input.id ? sites.findIndex((s) => s.id === input.id) : -1;
-    let saved: Site;
-    if (i >= 0) {
-      saved = { ...sites[i], ...input, id: sites[i].id, updated_at: now, updated_by: user };
-      sites[i] = saved;
-    } else {
-      saved = { ...input, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user };
-      sites.unshift(saved);
-    }
-    await storeSites(env, sites);
-    return json(saved);
-  }
-
-  const del = path.match(/^\/api\/sites\/([\w-]+)$/);
-  if (del && method === 'DELETE') {
-    await storeSites(env, (await loadSites(env)).filter((s) => s.id !== del[1]));
-    return json({ ok: true });
+  // /api/sites (original) and /api/c/<collection> for leads, skills, ...
+  const m = path.match(/^\/api\/(?:c\/)?(\w+)(?:\/([\w-]+))?$/);
+  if (m && COLLECTIONS.includes(m[1])) {
+    const [, col, id] = m;
+    if (!id && method === 'GET') return json(await loadCol(env, col));
+    if (!id && method === 'POST') return saveItem(req, env, col, user);
+    if (id && method === 'DELETE') return deleteItem(env, col, id);
   }
 
   return json({ error: 'not_found' }, 404);
