@@ -9,7 +9,7 @@ export const STATUSES = [
 export const OWNERS = [
   { id: 'amandoi', label: 'Amândoi' },
   { id: 'vladimir', label: 'Vladimir' },
-  { id: 'eve', label: 'Eve' },
+  { id: 'eve', label: 'Evelina' },
 ] as const;
 
 export type Status = (typeof STATUSES)[number]['id'];

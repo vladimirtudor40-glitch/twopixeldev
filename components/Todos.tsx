@@ -8,7 +8,7 @@ type Filter = 'deschise' | Owner | 'gata';
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'deschise', label: 'De făcut' },
   { id: 'vladimir', label: 'Vladimir' },
-  { id: 'eve', label: 'Eve' },
+  { id: 'eve', label: 'Evelina' },
   { id: 'gata', label: 'Gata' },
 ];
 
