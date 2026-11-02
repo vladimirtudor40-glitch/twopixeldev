@@ -23,7 +23,7 @@ Then in Cloudflare: Workers & Pages → twopixeldev → Settings → Domains & R
 ## Accounts + data (Supabase)
 
 1. Create a Supabase project, run `supabase/schema.sql` in the SQL Editor.
-2. Authentication → Users → add Vladimir and Eve. Turn off public sign-ups.
+2. Authentication → Users → add Vladimir and Evelina. Turn off public sign-ups.
 3. Copy `.env.example` to `.env.local` and fill in the URL + anon key, then `npm run deploy`.
 
 Without `.env.local` the app runs in DEMO mode (any login works, data stays in the browser).

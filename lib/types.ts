@@ -9,7 +9,7 @@ export const STATUSES = [
 export const OWNERS = [
   { id: 'amandoi', label: 'Amândoi' },
   { id: 'vladimir', label: 'Vladimir' },
-  { id: 'eve', label: 'Eve' },
+  { id: 'eve', label: 'Evelina' },
 ] as const;
 
 export type Status = (typeof STATUSES)[number]['id'];
@@ -53,3 +53,53 @@ export function daysLeft(date: string | null) {
   const ms = new Date(date + 'T00:00:00').getTime() - new Date(new Date().toDateString()).getTime();
   return Math.round(ms / 86_400_000);
 }
+
+// ---------- Leaduri ----------
+export const LEAD_STATUSES = [
+  { id: 'nou', label: 'Nou' },
+  { id: 'contactat', label: 'Contactat' },
+  { id: 'raspuns', label: 'A răspuns' },
+  { id: 'oferta', label: 'Ofertă trimisă' },
+  { id: 'castigat', label: 'Câștigat' },
+  { id: 'pierdut', label: 'Pierdut' },
+] as const;
+export type LeadStatus = (typeof LEAD_STATUSES)[number]['id'];
+
+export type Lead = {
+  id: string;
+  name: string;
+  category: string | null;
+  city: string | null;
+  address: string | null;
+  phone: string | null;
+  website: string | null;
+  score: number; // 1-10
+  status: LeadStatus;
+  owner: Owner;
+  next_step: string | null;
+  pitch: string | null;
+  notes: string | null;
+  source: string | null;
+  created_at: string;
+  updated_at: string;
+  updated_by?: string;
+};
+export type LeadInput = Omit<Lead, 'id' | 'created_at' | 'updated_at' | 'updated_by'>;
+export const emptyLead = (): LeadInput => ({
+  name: '', category: '', city: 'Constanța', address: '', phone: '', website: '', score: 5,
+  status: 'nou', owner: 'amandoi', next_step: '', pitch: '', notes: '', source: '',
+});
+export const leadStatusLabel = (s: LeadStatus) => LEAD_STATUSES.find((x) => x.id === s)?.label ?? s;
+
+// ---------- To-do ----------
+export type Todo = {
+  id: string;
+  title: string;
+  done: boolean;
+  owner: Owner;
+  due: string | null; // YYYY-MM-DD
+  site_id: string | null;
+  created_at: string;
+  updated_at: string;
+  updated_by?: string;
+};

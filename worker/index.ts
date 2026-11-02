@@ -14,6 +14,8 @@ interface Env {
   SITES: KV;
   /** JSON: { "email": "pbkdf2$<iterations>$<saltB64>$<hashB64>" } */
   USERS: string;
+  /** Optional JSON {email: hash} that overrides USERS per account (to change one password without the others). */
+  USERS_OVERRIDE?: string;
   /** Random string used to sign session cookies. */
   SESSION_SECRET: string;
 }
@@ -74,11 +76,20 @@ async function readSession(req: Request, env: Env): Promise<string | null> {
   try {
     const { e, x } = JSON.parse(unb64url(payload)) as { e: string; x: number };
     if (Date.now() > x) return null;
-    const users = JSON.parse(env.USERS) as Record<string, string>;
+    const users = loadUsers(env);
     return users[e] ? e : null; // removing a user from USERS logs them out
   } catch {
     return null;
   }
+}
+
+// Only the accounts in USERS exist; USERS_OVERRIDE can only replace their hashes.
+function loadUsers(env: Env): Record<string, string> {
+  const users = JSON.parse(env.USERS) as Record<string, string>;
+  let extra: Record<string, string> = {};
+  try { extra = JSON.parse(env.USERS_OVERRIDE || '{}'); } catch { /* ignore a malformed override */ }
+  for (const [e, h] of Object.entries(extra)) if (e in users && typeof h === 'string') users[e] = h;
+  return users;
 }
 
 const cookie = (value: string, maxAge: number) =>
@@ -97,7 +108,7 @@ async function login(req: Request, env: Env) {
     password = String(body.password || '');
   } catch { /* fall through to rejection */ }
 
-  const users = JSON.parse(env.USERS) as Record<string, string>;
+  const users = loadUsers(env);
   const stored = users[email];
   // Always run a hash so timing does not reveal which emails exist.
   const ok = await verifyPassword(password, stored || 'pbkdf2$100000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=');
@@ -108,9 +119,44 @@ async function login(req: Request, env: Env) {
   return json({ email }, 200, { 'set-cookie': cookie(await makeSession(env, email), SESSION_DAYS * 86400) });
 }
 
-type Site = { id: string; [k: string]: unknown };
-const loadSites = async (env: Env) => JSON.parse((await env.SITES.get('sites')) || '[]') as Site[];
-const storeSites = (env: Env, sites: Site[]) => env.SITES.put('sites', JSON.stringify(sites));
+type Item = { id: string; [k: string]: unknown };
+
+// Shared collections in KV, one key per collection. `sites` is the original one.
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: [], todos: [] };
+const COLLECTIONS = Object.keys(SEEDS);
+
+async function loadCol(env: Env, col: string): Promise<Item[]> {
+  const raw = await env.SITES.get(col);
+  if (raw !== null) return JSON.parse(raw) as Item[];
+  // First read: fill with the starting data so both accounts see the same list.
+  const now = new Date().toISOString();
+  const seeded = SEEDS[col].map((x) => ({ ...x, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: 'seed' }));
+  await env.SITES.put(col, JSON.stringify(seeded));
+  return seeded;
+}
+const storeCol = (env: Env, col: string, items: Item[]) => env.SITES.put(col, JSON.stringify(items));
+
+async function saveItem(req: Request, env: Env, col: string, user: string) {
+  const input = (await req.json()) as Partial<Item>;
+  const items = await loadCol(env, col);
+  const now = new Date().toISOString();
+  const i = input.id ? items.findIndex((s) => s.id === input.id) : -1;
+  let saved: Item;
+  if (i >= 0) {
+    saved = { ...items[i], ...input, id: items[i].id, updated_at: now, updated_by: user };
+    items[i] = saved;
+  } else {
+    saved = { ...input, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user };
+    items.unshift(saved);
+  }
+  await storeCol(env, col, items);
+  return json(saved);
+}
+
+async function deleteItem(env: Env, col: string, id: string) {
+  await storeCol(env, col, (await loadCol(env, col)).filter((s) => s.id !== id));
+  return json({ ok: true });
+}
 
 async function api(req: Request, env: Env, path: string) {
   const method = req.method;
@@ -126,29 +172,13 @@ async function api(req: Request, env: Env, path: string) {
 
   if (path === '/api/me' && method === 'GET') return json({ email: user });
 
-  if (path === '/api/sites' && method === 'GET') return json(await loadSites(env));
-
-  if (path === '/api/sites' && method === 'POST') {
-    const input = (await req.json()) as Partial<Site>;
-    const sites = await loadSites(env);
-    const now = new Date().toISOString();
-    const i = input.id ? sites.findIndex((s) => s.id === input.id) : -1;
-    let saved: Site;
-    if (i >= 0) {
-      saved = { ...sites[i], ...input, id: sites[i].id, updated_at: now, updated_by: user };
-      sites[i] = saved;
-    } else {
-      saved = { ...input, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user };
-      sites.unshift(saved);
-    }
-    await storeSites(env, sites);
-    return json(saved);
-  }
-
-  const del = path.match(/^\/api\/sites\/([\w-]+)$/);
-  if (del && method === 'DELETE') {
-    await storeSites(env, (await loadSites(env)).filter((s) => s.id !== del[1]));
-    return json({ ok: true });
+  // /api/sites (original) and /api/c/<collection> for leads, todos
+  const m = path.match(/^\/api\/(?:c\/)?(\w+)(?:\/([\w-]+))?$/);
+  if (m && COLLECTIONS.includes(m[1])) {
+    const [, col, id] = m;
+    if (!id && method === 'GET') return json(await loadCol(env, col));
+    if (!id && method === 'POST') return saveItem(req, env, col, user);
+    if (id && method === 'DELETE') return deleteItem(env, col, id);
   }
 
   return json({ error: 'not_found' }, 404);
