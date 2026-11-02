@@ -14,6 +14,8 @@ interface Env {
   SITES: KV;
   /** JSON: { "email": "pbkdf2$<iterations>$<saltB64>$<hashB64>" } */
   USERS: string;
+  /** Optional JSON {email: hash} that overrides USERS per account (to change one password without the others). */
+  USERS_OVERRIDE?: string;
   /** Random string used to sign session cookies. */
   SESSION_SECRET: string;
 }
@@ -74,11 +76,20 @@ async function readSession(req: Request, env: Env): Promise<string | null> {
   try {
     const { e, x } = JSON.parse(unb64url(payload)) as { e: string; x: number };
     if (Date.now() > x) return null;
-    const users = JSON.parse(env.USERS) as Record<string, string>;
+    const users = loadUsers(env);
     return users[e] ? e : null; // removing a user from USERS logs them out
   } catch {
     return null;
   }
+}
+
+// Only the accounts in USERS exist; USERS_OVERRIDE can only replace their hashes.
+function loadUsers(env: Env): Record<string, string> {
+  const users = JSON.parse(env.USERS) as Record<string, string>;
+  let extra: Record<string, string> = {};
+  try { extra = JSON.parse(env.USERS_OVERRIDE || '{}'); } catch { /* ignore a malformed override */ }
+  for (const [e, h] of Object.entries(extra)) if (e in users && typeof h === 'string') users[e] = h;
+  return users;
 }
 
 const cookie = (value: string, maxAge: number) =>
@@ -97,7 +108,7 @@ async function login(req: Request, env: Env) {
     password = String(body.password || '');
   } catch { /* fall through to rejection */ }
 
-  const users = JSON.parse(env.USERS) as Record<string, string>;
+  const users = loadUsers(env);
   const stored = users[email];
   // Always run a hash so timing does not reveal which emails exist.
   const ok = await verifyPassword(password, stored || 'pbkdf2$100000$AAAAAAAAAAAAAAAAAAAAAA==$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=');
