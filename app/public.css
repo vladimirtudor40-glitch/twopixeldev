@@ -187,3 +187,17 @@ a.ncard { display: block; text-decoration: none; }
 [data-theme="light"] .neu .gate-open .intro { filter: blur(6px) brightness(0.55) invert(1) hue-rotate(180deg); }
 [data-theme="light"] .neu .stage { background: #f7f8fa; }
 .steps strong { display: block; margin-bottom: 4px; font-size: 14px; color: var(--ink); }
+
+/* WhatsApp buttons */
+.icon-btn { width: 40px; min-height: 40px; padding: 0; }
+.icon-btn svg, .gbtn-wa svg { width: 18px; height: 18px; flex: none; }
+.neu .icon-btn.wa { color: #25d366 !important; }
+.gbtn-wa {
+  color: #fff !important;
+  background: linear-gradient(180deg, #5ef08f, #25d366 55%, #128c4a);
+  border-color: rgba(190, 255, 215, 0.95);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75), inset 0 -8px 16px rgba(0,70,30,0.25), 0 12px 26px -8px rgba(37, 211, 102, 0.5);
+  text-shadow: 0 1px 1px rgba(0, 70, 30, 0.4);
+}
+.gbtn-wa::before { background: linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0)); }
+@media (max-width: 420px) { .nav-end { gap: 8px; } .neu .nav .gbtn-sm { padding: 0 14px; } }

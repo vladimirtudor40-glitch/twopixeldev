@@ -1,4 +1,5 @@
 import { site } from '@/site.config';
+import WhatsAppIcon from './WhatsAppIcon';
 
 const services = [
   { t: 'Site-uri web', d: 'Site-uri de prezentare, magazine online și landing page-uri rapide, ușor de administrat și gândite întâi pentru telefon.' },
@@ -23,12 +24,13 @@ export default function About() {
     name: site.name,
     url: site.url,
     description: site.description,
-    email: site.contacts[0].email,
+    email: site.email,
+    ...(site.whatsapp ? { telephone: `+${site.whatsapp}` } : {}),
     founder: site.contacts.map((c) => ({ '@type': 'Person', name: c.name, email: c.email })),
     areaServed: 'RO',
   };
 
-  const mail = `mailto:${site.contacts[0].email}`;
+  const mail = `mailto:${site.email}`;
   return (
     <>
       <section className="wrap hero-copy">
@@ -95,11 +97,12 @@ export default function About() {
             </p>
           </div>
           <div className="cta">
-            {site.contacts.map((c, i) => (
-              <a key={c.email} className={`gbtn ${i === 0 ? 'gbtn-primary' : 'gbtn-teal'}`} href={`mailto:${c.email}`}>
-                {c.email}
+            <a className="gbtn gbtn-primary" href={mail}>{site.email}</a>
+            {site.whatsapp && (
+              <a className="gbtn gbtn-wa" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">
+                <WhatsAppIcon /> WhatsApp
               </a>
-            ))}
+            )}
           </div>
         </div>
       </section>

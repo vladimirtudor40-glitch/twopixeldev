@@ -10,7 +10,7 @@ export default function SiteFooter() {
           <Link href="/">Acasă</Link>
           <Link href="/confidentialitate/">Confidențialitate</Link>
           <Link href="/termeni/">Termeni</Link>
-          <a href={`mailto:${site.contacts[0].email}`}>Contact</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
         </nav>
       </div>
     </footer>

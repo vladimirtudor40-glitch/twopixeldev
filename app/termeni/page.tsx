@@ -42,7 +42,7 @@ export default function Terms() {
       <h2>Lege aplicabilă și contact</h2>
       <p>
         Acești termeni sunt guvernați de legea română. Pentru întrebări ne scrii la{' '}
-        <a href={`mailto:${site.contacts[0].email}`}>{site.contacts[0].email}</a>.
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
     </LegalPage>
   );

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { site } from '@/site.config';
 import ThemeToggle from './ThemeToggle';
+import WhatsAppIcon from './WhatsAppIcon';
 
 export default function SiteNav({ home = false }: { home?: boolean }) {
   const h = (id: string) => (home ? `#${id}` : `/#${id}`);
@@ -14,7 +15,12 @@ export default function SiteNav({ home = false }: { home?: boolean }) {
       </nav>
       <div className="nav-end">
         <ThemeToggle />
-        <a className="gbtn gbtn-sm" href={`mailto:${site.contacts[0].email}`}>Scrie-ne</a>
+        {site.whatsapp && (
+          <a className="gbtn icon-btn wa" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" aria-label="Scrie-ne pe WhatsApp" title="WhatsApp">
+            <WhatsAppIcon />
+          </a>
+        )}
+        <a className="gbtn gbtn-sm" href={`mailto:${site.email}`}>Scrie-ne</a>
       </div>
     </header>
   );
