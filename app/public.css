@@ -1,24 +1,53 @@
 /* Public pages: soft neumorphic surface + glass buttons in twopixeldev colors.
-   The logo intro stays dark and sits in a raised "screen" on the light surface. */
+   Dark is the default; [data-theme="light"] on <html> switches to the light surface.
+   The logo intro is a canvas; in light mode it is inverted (hues kept) so it sits on white. */
 .neu {
+  --bg: #121419;
+  --ink: #f4f7fa;
+  --ink-2: #a3acbd;
+  --ink-3: #6f7889;
+  --hi: rgba(255, 255, 255, 0.055);
+  --lo: rgba(0, 0, 0, 0.62);
+  --teal: #00f0ff;
+  --mag: #ff2a6d;
+  --cy: #00f0ff;
+  --rule: rgba(255, 255, 255, 0.08);
+  --glass-a: rgba(255, 255, 255, 0.16);
+  --glass-b: rgba(255, 255, 255, 0.05);
+  --glass-c: rgba(255, 255, 255, 0.02);
+  --glass-edge: rgba(255, 255, 255, 0.22);
+  --glass-in: rgba(255, 255, 255, 0.25);
+  --gloss: rgba(255, 255, 255, 0.22);
+  --frame-in: inset 0 0 0 1px rgba(0, 240, 255, 0.12), inset 0 0 60px rgba(0, 0, 0, 0.6);
+  --raised: 9px 9px 22px var(--lo), -9px -9px 22px var(--hi);
+  --raised-sm: 5px 5px 12px var(--lo), -5px -5px 12px var(--hi);
+  --inset: inset 5px 5px 11px var(--lo), inset -5px -5px 11px var(--hi);
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono), ui-monospace, Menlo, Consolas, monospace;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+[data-theme="light"] .neu {
   --bg: #e8ebf0;
   --ink: #0d0f14;
   --ink-2: #4a5263;
   --ink-3: #7a8396;
   --hi: #ffffff;
   --lo: rgba(155, 166, 186, 0.55);
-  --raised: 9px 9px 22px var(--lo), -9px -9px 22px var(--hi);
-  --raised-sm: 5px 5px 12px var(--lo), -5px -5px 12px var(--hi);
-  --inset: inset 5px 5px 11px var(--lo), inset -5px -5px 11px var(--hi);
   --teal: #00838c;          /* cyan darkened for text on light */
   --mag: #ff0055;
-  --cy: #00f0ff;
-  min-height: 100dvh;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-mono), ui-monospace, Menlo, Consolas, monospace;
+  --rule: rgba(155, 166, 186, 0.35);
+  --glass-a: rgba(255, 255, 255, 0.85);
+  --glass-b: rgba(255, 255, 255, 0.55);
+  --glass-c: rgba(255, 255, 255, 0.35);
+  --glass-edge: rgba(255, 255, 255, 0.95);
+  --glass-in: rgba(255, 255, 255, 0.95);
+  --gloss: rgba(255, 255, 255, 0.9);
+  --frame-in: inset 0 0 0 1px rgba(0, 131, 140, 0.18), inset 0 0 50px rgba(120, 130, 150, 0.25);
 }
-html:has(.neu), body:has(.neu) { height: auto; background: #e8ebf0; scroll-behavior: smooth; }
+html:has(.neu), body:has(.neu) { height: auto; background: #121419; scroll-behavior: smooth; }
+html[data-theme="light"]:has(.neu), html[data-theme="light"] body:has(.neu) { background: #e8ebf0; }
 .neu a { color: var(--teal); }
 .neu .wrap { width: min(1120px, 100%); margin: 0 auto; padding: 0 16px; }
 .neu :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
@@ -34,24 +63,22 @@ html:has(.neu), body:has(.neu) { height: auto; background: #e8ebf0; scroll-behav
 
 /* glass buttons */
 .gbtn {
-  --tint: rgba(255, 255, 255, 0.55);
-  --edge: rgba(255, 255, 255, 0.95);
   --glow: rgba(0, 240, 255, 0.35);
   position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   min-height: 48px; padding: 0 26px; border-radius: 999px; isolation: isolate;
   font: inherit; font-size: 14px; letter-spacing: 0.04em; text-decoration: none; cursor: pointer;
   color: var(--ink) !important;
-  background: linear-gradient(180deg, rgba(255,255,255,0.85), var(--tint) 55%, rgba(255,255,255,0.35));
-  border: 1px solid var(--edge);
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b) 55%, var(--glass-c));
+  border: 1px solid var(--glass-edge);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -6px 14px rgba(255,255,255,0.35),
+    inset 0 1px 0 var(--glass-in), inset 0 -6px 14px var(--glass-c),
     0 10px 22px -8px var(--lo), 6px 8px 18px -10px var(--glow);
   backdrop-filter: blur(10px) saturate(1.4);
   transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 .gbtn::before { /* top gloss */
   content: ''; position: absolute; left: 10%; right: 10%; top: 3px; height: 42%; border-radius: 999px; z-index: -1;
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  background: linear-gradient(180deg, var(--gloss), rgba(255,255,255,0));
 }
 .gbtn::after { /* prism edge, like the reference */
   content: ''; position: absolute; inset: -1px; border-radius: inherit; z-index: -2; padding: 1px;
@@ -86,7 +113,7 @@ html:has(.neu), body:has(.neu) { height: auto; background: #e8ebf0; scroll-behav
 .neu .stage {
   color: var(--white);
   height: min(74dvh, 680px); min-height: 380px; border-radius: 26px;
-  box-shadow: inset 0 0 0 1px rgba(0, 240, 255, 0.12), inset 0 0 60px rgba(0,0,0,0.6);
+  box-shadow: var(--frame-in);
 }
 .neu .hero-copy { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: end; margin-top: 48px; padding-left: 24px; padding-right: 24px; }
 .hero-copy h1 { margin: 0; font-family: var(--font-display), sans-serif; font-size: clamp(26px, 4.4vw, 50px); line-height: 1.08; letter-spacing: -0.02em; }
@@ -130,7 +157,7 @@ a.ncard { display: block; text-decoration: none; }
 
 /* footer */
 .neu .foot { margin-top: 96px; padding-top: 26px; padding-bottom: 30px; font-size: 12px; color: var(--ink-3); }
-.foot-in { display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1px solid rgba(155,166,186,0.35); }
+.foot-in { display: flex; flex-wrap: wrap; gap: 14px 24px; justify-content: space-between; align-items: center; padding-top: 22px; border-top: 1px solid var(--rule); }
 .foot nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .foot a { color: var(--ink-2); text-decoration: none; }
 .foot a:hover { color: var(--ink); }
@@ -144,3 +171,17 @@ a.ncard { display: block; text-decoration: none; }
 .muted { color: var(--ink-3); font-size: 12px; }
 
 @media (prefers-reduced-motion: reduce) { .gbtn, .ncard { transition: none; } html:has(.neu) { scroll-behavior: auto; } }
+
+/* theme toggle */
+.nav-end { display: flex; align-items: center; gap: 12px; }
+.theme-btn { width: 40px; min-height: 40px; padding: 0; }
+.theme-btn svg { width: 18px; height: 18px; }
+.theme-btn .sun { display: none; }
+[data-theme="light"] .theme-btn .sun { display: block; }
+[data-theme="light"] .theme-btn .moon { display: none; }
+
+/* light mode: invert the logo canvas but keep its hues */
+.neu .intro { transition: filter 0.45s ease, transform 0.6s ease; }
+[data-theme="light"] .neu .intro { filter: invert(1) hue-rotate(180deg) saturate(1.15); }
+[data-theme="light"] .neu .gate-open .intro { filter: blur(6px) brightness(0.55) invert(1) hue-rotate(180deg); }
+[data-theme="light"] .neu .stage { background: #f7f8fa; }

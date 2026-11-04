@@ -24,7 +24,11 @@ export const viewport: Viewport = { themeColor: '#070709' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ro" className={`${display.variable} ${mono.variable}`}>
+    <html lang="ro" data-theme="dark" className={`${display.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* apply the saved theme before first paint, so light mode does not flash dark */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(localStorage.getItem('tpd-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}" }} />
+      </head>
       <body>{children}</body>
     </html>
   );

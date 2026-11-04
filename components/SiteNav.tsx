@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/site.config';
+import ThemeToggle from './ThemeToggle';
 
 export default function SiteNav({ home = false }: { home?: boolean }) {
   const h = (id: string) => (home ? `#${id}` : `/#${id}`);
@@ -11,7 +12,10 @@ export default function SiteNav({ home = false }: { home?: boolean }) {
         <a href={h('cum-lucram')}>Cum lucrăm</a>
         <a href={h('contact')}>Contact</a>
       </nav>
-      <a className="gbtn gbtn-sm" href={`mailto:${site.contacts[0].email}`}>Scrie-ne</a>
+      <div className="nav-end">
+        <ThemeToggle />
+        <a className="gbtn gbtn-sm" href={`mailto:${site.contacts[0].email}`}>Scrie-ne</a>
+      </div>
     </header>
   );
 }
