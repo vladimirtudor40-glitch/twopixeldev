@@ -1,16 +1,19 @@
 import { site } from '@/site.config';
 
 const services = [
-  { t: 'Site-uri de prezentare', d: 'Pentru frizerii, saloane, pensiuni, restaurante și alte afaceri locale. Program, prețuri, galerie, hartă și buton de sunat, totul gândit întâi pentru telefon.' },
-  { t: 'Domeniu, găzduire, email', d: 'Ne ocupăm de domeniu, DNS, certificat SSL și adrese de email pe domeniul tău, ca să nu-ți mai faci griji de reînnoiri.' },
-  { t: 'Întreținere', d: 'Actualizăm meniul, prețurile sau pozele când ne scrii și urmărim ca site-ul să rămână rapid și online.' },
-  { t: 'Vizibilitate pe Google', d: 'Structură corectă pentru motoarele de căutare, profil Google Business și pagini care se încarcă repede.' },
+  { t: 'Site-uri web', d: 'Site-uri de prezentare, magazine online și landing page-uri rapide, ușor de administrat și gândite întâi pentru telefon.' },
+  { t: 'Aplicații web și mobile', d: 'Platforme online, portaluri pentru clienți și aplicații pentru iOS și Android, construite pe tehnologii moderne care cresc odată cu afacerea ta.' },
+  { t: 'Software la comandă', d: 'Panouri de administrare, CRM-uri, sisteme de rezervări sau de gestiune, făcute exact după felul în care lucrează echipa ta.' },
+  { t: 'Automatizări și integrări', d: 'Conectăm aplicațiile pe care le folosești deja, de la plăți și email la calendar și contabilitate, și automatizăm sarcinile repetitive.' },
+  { t: 'Design UI/UX', d: 'Interfețe clare, coerente cu brandul tău, de la schița inițială până la prototipul pe care îl poți testa înainte de dezvoltare.' },
+  { t: 'Infrastructură și mentenanță', d: 'Domeniu, găzduire, email profesional, securitate și backup. După lansare ne ocupăm noi de partea tehnică, ca tu să te poți ocupa de afacere.' },
 ];
 
 const steps = [
-  'Ne scrii pe email ce afacere ai și ce vrei să afle clienții tăi.',
-  'Îți arătăm o primă variantă a site-ului și o ajustăm împreună.',
-  'Îl publicăm pe domeniul tău și rămânem la un email distanță pentru modificări.',
+  { t: 'Discuție', d: 'Ne spui ce vrei să rezolvi. Clarificăm împreună obiectivele, bugetul și termenul.' },
+  { t: 'Propunere', d: 'Primești o ofertă clară, cu etapele proiectului, costul și tot ce primești la final.' },
+  { t: 'Dezvoltare', d: 'Lucrăm în etape scurte și îți arătăm progresul pe parcurs, ca să poți da feedback din timp.' },
+  { t: 'Lansare și suport', d: 'Publicăm proiectul, îți arătăm cum se folosește și rămânem alături pentru actualizări și îmbunătățiri.' },
 ];
 
 export default function About() {
@@ -29,11 +32,12 @@ export default function About() {
   return (
     <>
       <section className="wrap hero-copy">
-        <h1>Site-uri web pentru afaceri locale, făcute <span>pixel cu pixel</span>.</h1>
+        <h1>Site-uri, aplicații și soluții IT, construite <span>pixel cu pixel</span>.</h1>
         <div className="hero-side">
           <p>
-            Suntem Vladimir și Evelina, un studio mic de web development. Facem site-uri rapide și clare și le ținem
-            la zi după lansare. Vorbești direct cu oamenii care construiesc site-ul.
+            Suntem Vladimir și Evelina, fondatorii twopixeldev. Transformăm ideile în produse digitale, de la un site de
+            prezentare la o aplicație completă sau un sistem intern pentru firma ta. Lucrezi direct cu noi, de la prima
+            discuție până după lansare.
           </p>
           <div className="cta">
             <a className="gbtn gbtn-primary" href={mail}>Începe un proiect</a>
@@ -73,9 +77,11 @@ export default function About() {
 
       <section className="wrap sec" id="cum-lucram">
         <p className="kicker">cum lucrăm</p>
-        <h2 className="h">Trei pași</h2>
+        <h2 className="h">De la idee la lansare</h2>
         <ol className="steps">
-          {steps.map((s, i) => <li key={s}><b>{i + 1}</b><span>{s}</span></li>)}
+          {steps.map((s, i) => (
+            <li key={s.t}><b>{i + 1}</b><span><strong>{s.t}</strong>{s.d}</span></li>
+          ))}
         </ol>
       </section>
 
@@ -83,8 +89,10 @@ export default function About() {
         <div className="contact-panel">
           <div>
             <p className="kicker">contact</p>
-            <h2 className="h">Hai să vorbim</h2>
-            <p className="lede">Scrie-ne un email și îți răspundem în cel mult o zi lucrătoare.</p>
+            <h2 className="h">Ai un proiect în minte?</h2>
+            <p className="lede">
+              Spune-ne pe scurt ce vrei să construiești. Îți răspundem în cel mult o zi lucrătoare cu pașii următori.
+            </p>
           </div>
           <div className="cta">
             {site.contacts.map((c, i) => (

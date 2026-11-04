@@ -135,7 +135,7 @@ html[data-theme="light"]:has(.neu), html[data-theme="light"] body:has(.neu) { ba
 .neu h2.h { margin: 0 0 22px; font-family: var(--font-display), sans-serif; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.15; letter-spacing: -0.01em; }
 .lede { max-width: 700px; margin: 0; font-size: 15px; line-height: 1.8; color: var(--ink-2); }
 
-.cards { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.cards { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
 .ncard { padding: 26px 24px; border-radius: 26px; background: var(--bg); box-shadow: var(--raised); transition: box-shadow 0.25s; }
 .ncard:hover { box-shadow: 12px 12px 28px var(--lo), -12px -12px 28px var(--hi); }
 .ncard .ico {
@@ -146,7 +146,7 @@ html[data-theme="light"]:has(.neu), html[data-theme="light"] body:has(.neu) { ba
 .ncard p { margin: 0; font-size: 13px; line-height: 1.75; color: var(--ink-2); }
 a.ncard { display: block; text-decoration: none; }
 
-.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); }
 .steps li { display: flex; gap: 16px; align-items: flex-start; padding: 22px; border-radius: 24px; box-shadow: var(--raised-sm); font-size: 13px; line-height: 1.75; color: var(--ink-2); }
 .steps b { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--inset);
   font-family: var(--font-display), sans-serif; font-size: 14px; color: var(--teal); }
@@ -185,3 +185,4 @@ a.ncard { display: block; text-decoration: none; }
 [data-theme="light"] .neu .intro { filter: invert(1) hue-rotate(180deg) saturate(1.15); }
 [data-theme="light"] .neu .gate-open .intro { filter: blur(6px) brightness(0.55) invert(1) hue-rotate(180deg); }
 [data-theme="light"] .neu .stage { background: #f7f8fa; }
+.steps strong { display: block; margin-bottom: 4px; font-size: 14px; color: var(--ink); }
