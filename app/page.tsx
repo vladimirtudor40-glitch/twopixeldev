@@ -1,11 +1,10 @@
-import Gate from '@/components/Gate';
-import { display, mono } from './fonts';
+import type { Metadata } from 'next';
+import HomePage from '@/components/HomePage';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/', languages: { ro: '/', en: '/en/', 'x-default': '/' } },
+};
 
 export default function Home() {
-  return (
-    <main className="stage">
-      <h1 className="sr-only">twopixeldev</h1>
-      <Gate displayFont={display.style.fontFamily} monoFont={mono.style.fontFamily} />
-    </main>
-  );
+  return <HomePage lang="ro" />;
 }

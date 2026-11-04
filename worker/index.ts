@@ -2,6 +2,9 @@
 // - Login is checked here, on the server, against the USERS secret (PBKDF2 hashes).
 // - A signed, HttpOnly session cookie protects /app and /api.
 // - Site records live in the SITES KV namespace, shared by both accounts.
+// - The login page has no public link: it is served only at /app/<LOGIN_KEY> (a Wrangler secret).
+
+import { LOGIN_HTML } from './login-page';
 
 interface Fetcher { fetch(req: Request): Promise<Response> }
 interface KV {
@@ -18,6 +21,8 @@ interface Env {
   USERS_OVERRIDE?: string;
   /** Random string used to sign session cookies. */
   SESSION_SECRET: string;
+  /** Secret path segment: the login page lives at /app/<LOGIN_KEY>. Unset = no login page. */
+  LOGIN_KEY?: string;
 }
 
 const COOKIE = 'tpd_session';
@@ -193,6 +198,18 @@ export default {
 
     // The internal app is only served to signed-in users.
     if (path === '/app' || path.startsWith('/app/')) {
+      const key = (env.LOGIN_KEY || '').trim();
+      if (key.length >= 8 && (path === `/app/${key}` || path === `/app/${key}/`)) {
+        return new Response(LOGIN_HTML, {
+          headers: {
+            'content-type': 'text/html; charset=utf-8',
+            'cache-control': 'no-store',
+            'x-robots-tag': 'noindex, nofollow',
+            'referrer-policy': 'no-referrer',
+            'x-frame-options': 'DENY',
+          },
+        });
+      }
       if (!(await readSession(req, env))) return Response.redirect(`${url.origin}/`, 302);
       const res = await env.ASSETS.fetch(req);
       const out = new Response(res.body, res);

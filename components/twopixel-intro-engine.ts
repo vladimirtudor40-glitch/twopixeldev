@@ -130,7 +130,7 @@ export function createTwoPixelIntro(canvas: HTMLCanvasElement, options: IntroOpt
     displayFont: '"Unbounded", "Arial Black", "Helvetica Neue", sans-serif',
     monoFont: '"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace',
     autoplay: true,
-    maxPixels: 2_400_000,
+    maxPixels: 1_200_000,
     once: false,
     holdAt: 6.2,
     ...options,
@@ -770,34 +770,63 @@ export function createTwoPixelIntro(canvas: HTMLCanvasElement, options: IntroOpt
     render(quantize(time));
     o.onFrame?.(time);
   }
+  // Once the logo holds, only a slow CRT band and the cursor move: redraw at ~15 fps instead of 60.
+  const IDLE_FRAME_MS = 1000 / 15;
+  let lastDraw = 0;
+  let visible = true;
+  // While the page scrolls, the held logo is not redrawn at all, so scrolling gets the whole frame budget.
+  let lastScroll = -1e9;
+  const onScroll = () => { lastScroll = performance.now(); };
+  window.addEventListener('scroll', onScroll, { passive: true });
   function tick(now: number) {
     const elapsed = (now - origin) / 1000;
+    let holding = false;
     if (o.once && elapsed >= o.holdAt) {
       time = o.holdAt;
       idle = elapsed - o.holdAt;
+      holding = true;
       if (!completed) { completed = true; o.onComplete?.(); }
     } else {
       time = ((elapsed % LOOP_SECONDS) + LOOP_SECONDS) % LOOP_SECONDS;
     }
-    draw();
+    const scrolling = now - lastScroll < 300;
+    if (!holding || (!scrolling && now - lastDraw >= IDLE_FRAME_MS)) { lastDraw = now; draw(); }
     raf = requestAnimationFrame(tick);
   }
 
   const ro = new ResizeObserver(() => { if (resize()) draw(); });
   ro.observe(canvas);
+
+  // Stop rendering while the canvas is scrolled out of view or the tab is hidden.
+  let wanted = false;
+  const sync = () => {
+    const run = wanted && visible && !document.hidden;
+    if (run && !playing) start();
+    else if (!run && playing) stop();
+  };
+  const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); });
+  io.observe(canvas);
+  document.addEventListener('visibilitychange', sync);
+  function start() {
+    playing = true;
+    origin = performance.now() - (o.once && completed ? o.holdAt + idle : time) * 1000;
+    raf = requestAnimationFrame(tick);
+  }
+  function stop() {
+    playing = false;
+    cancelAnimationFrame(raf);
+  }
   resize();
   document.fonts?.ready.then(() => { layoutText(); if (!playing) draw(); });
 
   const api: IntroController = {
     play() {
-      if (playing) return;
-      playing = true;
-      origin = performance.now() - time * 1000;
-      raf = requestAnimationFrame(tick);
+      wanted = true;
+      sync();
     },
     pause() {
-      playing = false;
-      cancelAnimationFrame(raf);
+      wanted = false;
+      stop();
     },
     seek(seconds: number) {
       time = ((seconds % LOOP_SECONDS) + LOOP_SECONDS) % LOOP_SECONDS;
@@ -814,6 +843,9 @@ export function createTwoPixelIntro(canvas: HTMLCanvasElement, options: IntroOpt
     destroy() {
       api.pause();
       ro.disconnect();
+      io.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('visibilitychange', sync);
     },
   };
 
