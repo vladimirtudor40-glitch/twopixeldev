@@ -5,26 +5,26 @@ import { site } from '@/site.config';
 export const metadata: Metadata = {
   title: 'Politica de confidențialitate | twopixeldev',
   description: 'Ce date personale prelucrează twopixeldev.com și ce drepturi ai.',
-  alternates: { canonical: '/confidentialitate/' },
+  alternates: { canonical: '/confidentialitate/', languages: { ro: '/confidentialitate/', en: '/en/privacy/' } },
 };
 
 export default function Privacy() {
   const [v, e] = site.contacts;
   return (
-    <LegalPage title="Politica de confidențialitate">
+    <LegalPage lang="ro" page="privacy" title="Politica de confidențialitate">
       <h2>Cine suntem</h2>
       <p>
         twopixeldev.com este site-ul studioului twopixeldev, condus de {v.name} și {e.name}. Pentru orice întrebare despre
-        datele tale ne poți scrie la <a href={`mailto:${v.email}`}>{v.email}</a> sau <a href={`mailto:${e.email}`}>{e.email}</a>.
+        datele tale ne poți scrie la <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 
       <h2>Ce date prelucrăm</h2>
       <ul>
-        <li><strong>Emailurile pe care ni le trimiți.</strong> Le folosim doar ca să-ți răspundem și să lucrăm la proiectul discutat.</li>
+        <li><strong>Emailurile și mesajele WhatsApp pe care ni le trimiți.</strong> Le folosim doar ca să-ți răspundem și să lucrăm la proiectul discutat.</li>
         <li><strong>Date tehnice de vizită.</strong> Furnizorul nostru de găzduire, Cloudflare, procesează adresa IP și informații despre browser ca să livreze paginile și să blocheze atacurile.</li>
         <li><strong>Un cookie de sesiune</strong>, setat doar când membrii echipei intră în zona internă. Vizitatorii obișnuiți nu primesc cookie-uri de la noi.</li>
       </ul>
-      <p>Nu folosim cookie-uri de reclame sau de analiză și nu vindem date nimănui.</p>
+      <p>Nu folosim cookie-uri de reclame sau de analiză și nu vindem date nimănui. Tema aleasă (deschisă sau întunecată) se păstrează doar în browserul tău.</p>
 
       <h2>De ce și pe ce temei</h2>
       <p>
@@ -41,7 +41,7 @@ export default function Privacy() {
 
       <h2>Cine mai are acces</h2>
       <p>
-        Folosim Cloudflare pentru găzduire și protecție și Namecheap Private Email pentru email. Ei prelucrează datele doar
+        Folosim Cloudflare pentru găzduire și protecție și Namecheap Private Email pentru email și WhatsApp pentru mesaje. Ei prelucrează datele doar
         ca să ne ofere aceste servicii.
       </p>
 

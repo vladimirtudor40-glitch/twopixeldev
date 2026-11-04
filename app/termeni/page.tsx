@@ -5,12 +5,12 @@ import { site } from '@/site.config';
 export const metadata: Metadata = {
   title: 'Termeni și condiții | twopixeldev',
   description: 'Condițiile de folosire a site-ului twopixeldev.com.',
-  alternates: { canonical: '/termeni/' },
+  alternates: { canonical: '/termeni/', languages: { ro: '/termeni/', en: '/en/terms/' } },
 };
 
 export default function Terms() {
   return (
-    <LegalPage title="Termeni și condiții">
+    <LegalPage lang="ro" page="terms" title="Termeni și condiții">
       <h2>Despre site</h2>
       <p>
         twopixeldev.com prezintă serviciile studioului twopixeldev. Informațiile de aici sunt orientative și nu reprezintă

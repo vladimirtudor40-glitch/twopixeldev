@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { t, type Lang } from '@/lib/i18n';
 
 type Theme = 'dark' | 'light';
 
 /** Switches the public pages (and the logo animation) between dark and light. Remembered per browser. */
-export default function ThemeToggle() {
+export default function ThemeToggle({ lang }: { lang: Lang }) {
+  const c = t[lang].theme;
   const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
@@ -24,8 +26,8 @@ export default function ThemeToggle() {
       type="button"
       className="gbtn theme-btn"
       onClick={toggle}
-      aria-label={theme === 'dark' ? 'Comută pe tema deschisă' : 'Comută pe tema întunecată'}
-      title={theme === 'dark' ? 'Temă deschisă' : 'Temă întunecată'}
+      aria-label={theme === 'dark' ? c.toLight : c.toDark}
+      title={theme === 'dark' ? c.light : c.dark}
     >
       <svg className="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />

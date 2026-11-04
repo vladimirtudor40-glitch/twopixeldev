@@ -201,3 +201,7 @@ a.ncard { display: block; text-decoration: none; }
 }
 .gbtn-wa::before { background: linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0)); }
 @media (max-width: 420px) { .nav-end { gap: 8px; } .neu .nav .gbtn-sm { padding: 0 14px; } }
+
+/* language switch */
+.lang-btn { font-size: 12px; letter-spacing: 0.08em; text-decoration: none; }
+@media (max-width: 460px) { .neu .nav-write { display: none; } }

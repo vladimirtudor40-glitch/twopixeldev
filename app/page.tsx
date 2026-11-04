@@ -1,25 +1,10 @@
-import Gate from '@/components/Gate';
-import About from '@/components/About';
-import SiteNav from '@/components/SiteNav';
-import SiteFooter from '@/components/SiteFooter';
-import { display, mono } from './fonts';
-import './public.css';
+import type { Metadata } from 'next';
+import HomePage from '@/components/HomePage';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/', languages: { ro: '/', en: '/en/', 'x-default': '/' } },
+};
 
 export default function Home() {
-  return (
-    <div className="neu">
-      <SiteNav home />
-      <main>
-        <div className="wrap">
-          <div className="hero-frame">
-            <div className="stage">
-              <Gate displayFont={display.style.fontFamily} monoFont={mono.style.fontFamily} />
-            </div>
-          </div>
-        </div>
-        <About />
-      </main>
-      <SiteFooter />
-    </div>
-  );
+  return <HomePage lang="ro" />;
 }
