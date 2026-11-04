@@ -22,9 +22,21 @@ export default function Privacy() {
       <ul>
         <li><strong>Emailurile și mesajele WhatsApp pe care ni le trimiți.</strong> Le folosim doar ca să-ți răspundem și să lucrăm la proiectul discutat.</li>
         <li><strong>Date tehnice de vizită.</strong> Furnizorul nostru de găzduire, Cloudflare, procesează adresa IP și informații despre browser ca să livreze paginile și să blocheze atacurile.</li>
-        <li><strong>Un cookie de sesiune</strong>, setat doar când membrii echipei intră în zona internă. Vizitatorii obișnuiți nu primesc cookie-uri de la noi.</li>
       </ul>
-      <p>Nu folosim cookie-uri de reclame sau de analiză și nu vindem date nimănui. Tema aleasă (deschisă sau întunecată) se păstrează doar în browserul tău.</p>
+      <p>Nu vindem date nimănui.</p>
+
+      <h2 id="cookies">Cookie-uri și stocare în browser</h2>
+      <p>
+        Folosim doar elemente strict necesare pentru funcționarea și securitatea site-ului. Nu folosim cookie-uri de reclame,
+        de analiză sau de urmărire, așa că nu avem nevoie de consimțământul tău pentru ele.
+      </p>
+      <ul>
+        <li><strong>__cf_bm</strong> (Cloudflare, cel mult 30 de minute): poate fi setat de furnizorul nostru de găzduire ca să deosebească vizitatorii reali de roboți.</li>
+        <li><strong>tpd_session</strong> (cel mult 30 de zile): cookie de autentificare, setat doar membrilor echipei care intră în zona internă.</li>
+        <li><strong>tpd-theme</strong> (stocare locală): ține minte tema deschisă sau întunecată, dacă ai ales-o.</li>
+        <li><strong>tpd-cookie-notice</strong> (stocare locală): ține minte că ai închis informarea despre cookie-uri.</li>
+      </ul>
+      <p>Le poți șterge oricând din setările browserului. Site-ul va funcționa în continuare.</p>
 
       <h2>De ce și pe ce temei</h2>
       <p>

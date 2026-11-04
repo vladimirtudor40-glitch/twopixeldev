@@ -1,6 +1,7 @@
 import SiteNav from './SiteNav';
 import SiteFooter from './SiteFooter';
 import SetLang from './SetLang';
+import CookieNotice from './CookieNotice';
 import { site } from '@/site.config';
 import { t, type Lang } from '@/lib/i18n';
 import '@/app/public.css';
@@ -20,6 +21,7 @@ export default function LegalPage({ lang, page, title, children }: {
         </article>
       </main>
       <SiteFooter lang={lang} />
+      <CookieNotice lang={lang} />
     </div>
   );
 }

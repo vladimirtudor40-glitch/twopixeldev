@@ -53,6 +53,12 @@ export const t = {
     },
     footer: { home: 'Acasă', privacy: 'Confidențialitate', terms: 'Termeni', legal: 'Legal' },
     legal: { updated: 'Ultima actualizare' },
+    cookies: {
+      label: 'Informare cookie-uri',
+      text: 'Folosim doar cookie-uri strict necesare pentru securitatea și funcționarea site-ului. Fără reclame, fără analiză, fără urmărire.',
+      more: 'Detalii',
+      ok: 'Am înțeles',
+    },
   },
   en: {
     title: 'twopixeldev: websites, apps and custom IT solutions',
@@ -100,5 +106,11 @@ export const t = {
     },
     footer: { home: 'Home', privacy: 'Privacy', terms: 'Terms', legal: 'Legal' },
     legal: { updated: 'Last updated' },
+    cookies: {
+      label: 'Cookie notice',
+      text: 'We only use cookies that are strictly necessary for security and for the site to work. No ads, no analytics, no tracking.',
+      more: 'Details',
+      ok: 'Got it',
+    },
   },
 };

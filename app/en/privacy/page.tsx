@@ -22,9 +22,21 @@ export default function PrivacyEn() {
       <ul>
         <li><strong>Emails and WhatsApp messages you send us.</strong> We use them only to reply and to work on the project we discuss.</li>
         <li><strong>Technical visit data.</strong> Our hosting provider, Cloudflare, processes your IP address and browser information to deliver the pages and block attacks.</li>
-        <li><strong>A session cookie</strong>, set only when members of our team sign in to the internal area. Regular visitors receive no cookies from us.</li>
       </ul>
-      <p>We use no advertising or analytics cookies, and we never sell data. Your light or dark theme choice is stored only in your own browser.</p>
+      <p>We never sell data.</p>
+
+      <h2 id="cookies">Cookies and browser storage</h2>
+      <p>
+        We only use items that are strictly necessary for the site to work and stay secure. We use no advertising, analytics or
+        tracking cookies, so no consent is needed for them.
+      </p>
+      <ul>
+        <li><strong>__cf_bm</strong> (Cloudflare, up to 30 minutes): may be set by our hosting provider to tell real visitors apart from bots.</li>
+        <li><strong>tpd_session</strong> (up to 30 days): sign-in cookie, set only for team members who log in to the internal area.</li>
+        <li><strong>tpd-theme</strong> (local storage): remembers the light or dark theme, if you chose one.</li>
+        <li><strong>tpd-cookie-notice</strong> (local storage): remembers that you closed the cookie notice.</li>
+      </ul>
+      <p>You can delete them at any time in your browser settings. The site will keep working.</p>
 
       <h2>Why, and on what legal basis</h2>
       <p>
