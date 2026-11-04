@@ -52,13 +52,13 @@ export async function deleteSite(id: string): Promise<void> {
 }
 
 // Generic shared collections (leads, todos) — same KV store as sites.
-export type Col = 'leads' | 'todos';
+export type Col = 'leads' | 'todos' | 'clients' | 'projects' | 'payments' | 'sites';
 export async function listCol<T>(col: Col): Promise<T[]> {
   return call<T[]>(`/api/c/${col}`);
 }
 
-export async function saveItem(col: Col, input: object, id?: string): Promise<void> {
-  await call(`/api/c/${col}`, { method: 'POST', body: JSON.stringify({ ...input, id }) });
+export async function saveItem<T = unknown>(col: Col, input: object, id?: string): Promise<T> {
+  return call<T>(`/api/c/${col}`, { method: 'POST', body: JSON.stringify({ ...input, id }) });
 }
 
 export async function deleteItem(col: Col, id: string): Promise<void> {

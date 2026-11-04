@@ -1,199 +1,184 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { currentUser, deleteSite, listSites, saveSite, signOut } from '@/lib/backend';
-import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput, type Status } from '@/lib/types';
-import SiteForm from './SiteForm';
+import { currentUser, signOut } from '@/lib/backend';
+import type { Payment, Project } from '@/lib/types';
 import Leads from './Leads';
 import Todos from './Todos';
+import Icon from './crm/Icons';
+import Overview from './crm/Overview';
+import Projects, { ProjectForm } from './crm/Projects';
+import Clients from './crm/Clients';
+import Payments, { PaymentForm } from './crm/Payments';
+import { Domains, Prices, Sites } from './crm/Misc';
+import { SECTIONS, type Section } from './crm/nav';
+import { useCrm } from './crm/store';
+import { Avatar, PageHead } from './crm/ui';
 
-const SECTIONS = [
-  { id: 'sites', label: 'Site-uri' },
-  { id: 'todos', label: 'To-do' },
-  { id: 'leads', label: 'Leaduri' },
-] as const;
-type Section = (typeof SECTIONS)[number]['id'];
-
-const money = (n: number, c = 'RON') => `${n.toLocaleString('ro-RO', { maximumFractionDigits: 2 })} ${c}`;
+type ProjectEdit = { project: Project | null; preset?: string; clientId?: string };
 
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState<string | null>(null);
-  const [sites, setSites] = useState<Site[] | null>(null);
-  const [error, setError] = useState('');
-  const [filter, setFilter] = useState<Status | 'toate'>('toate');
-  const [q, setQ] = useState('');
-  const [editing, setEditing] = useState<Site | 'new' | null>(null);
-  const [section, setSection] = useState<Section>('sites');
+  const [section, setSection] = useState<Section>('overview');
+  const [projectEdit, setProjectEdit] = useState<ProjectEdit | null>(null);
+  const [paymentEdit, setPaymentEdit] = useState<Payment | 'new' | null>(null);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const toLogin = useCallback(() => router.replace('/'), [router]);
+  const crm = useCrm(toLogin);
 
-  // Remember the open section in the URL (#leads), so a refresh stays put.
   useEffect(() => {
     const h = window.location.hash.slice(1);
     if (SECTIONS.some((x) => x.id === h)) setSection(h as Section);
-  }, []);
-  function go(s: Section) {
-    setSection(s);
-    history.replaceState(null, '', s === 'sites' ? window.location.pathname : `#${s}`);
-  }
-  const toLogin = useCallback(() => router.replace('/'), [router]);
-
-  const load = useCallback(async () => {
-    try { setSites(await listSites()); setError(''); }
-    catch (e) {
-      if (e instanceof Error && e.message === 'unauthorized') router.replace('/');
-      else setError(e instanceof Error ? e.message : 'Eroare la încărcare');
-    }
+    setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    currentUser().then((u) => (u ? setUser(u) : router.replace('/')));
   }, [router]);
 
-  useEffect(() => {
-    currentUser().then((u) => {
-      if (!u) { router.replace('/'); return; }
-      setUser(u);
-      load();
-    });
-  }, [router, load]);
+  const go = useCallback((s: Section) => {
+    setSection(s);
+    history.replaceState(null, '', s === 'overview' ? window.location.pathname : `#${s}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  const shown = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    return (sites ?? []).filter((s) =>
-      (filter === 'toate' || s.status === filter) &&
-      (!term || [s.name, s.client_name, s.domain, s.hosting, s.notes].some((v) => v?.toLowerCase().includes(term))));
-  }, [sites, filter, q]);
-
-  const stats = useMemo(() => {
-    const all = sites ?? [];
-    return {
-      total: all.length,
-      live: all.filter((s) => s.status === 'live' || s.status === 'mentenanta').length,
-      active: all.filter((s) => s.status === 'in_lucru').length,
-      due: all.reduce((sum, s) => sum + Math.max(0, s.price - s.paid), 0),
-      expiring: all.filter((s) => { const d = daysLeft(s.domain_expires); return d !== null && d <= 30; }).length,
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('tpd-theme', next); } catch {}
+      setTheme(next);
     };
-  }, [sites]);
-
-  async function onSave(input: SiteInput, id?: string) {
-    await saveSite(input, id);
-    setEditing(null);
-    await load();
-  }
-  async function onDelete(id: string) {
-    await deleteSite(id);
-    setEditing(null);
-    await load();
-  }
-  async function logout() {
-    await signOut();
-    router.replace('/');
+    const d = document as Document & { startViewTransition?: (cb: () => void) => void };
+    if (d.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.startViewTransition(apply);
+    else apply();
   }
 
-  if (!user) return <div className="dash-boot">[ loading… ]</div>;
+  async function logout() { await signOut(); router.replace('/'); }
+
+  const openProject = (p: Project | 'new', preset?: string, clientId?: string) =>
+    setProjectEdit({ project: p === 'new' ? null : p, preset, clientId });
+
+  if (!user || !crm.data) {
+    return (
+      <div className="crm boot">
+        <span className="boot-px"><i /><i /></span>
+        {crm.error ? <p className="err">{crm.error}</p> : <p>se încarcă…</p>}
+      </div>
+    );
+  }
+  const data = crm.data;
+  const display = user.startsWith('evelina') ? 'Evelina' : user.startsWith('vladimir') ? 'Vladimir' : user.split('@')[0];
 
   return (
-    <div className="dash">
-      <header className="dash-top">
-        <Link href="/" className="brand" aria-label="twopixeldev"><i className="px c" /><i className="px m" /><b>twopixeldev</b><span>// control</span></Link>
-        <div className="who">
-          <span className="dim">{user}</span>
-          <button className="ghost" onClick={logout}>ieșire</button>
+    <div className="crm">
+      <header className="top">
+        <a href="/" className="logo" aria-label="twopixeldev, pagina publică">
+          <span className="logo-px"><i /><i /></span>
+          <b>twopixel<em>dev</em></b>
+        </a>
+        <GlobalSearch data={data} onPick={(s, open) => { go(s); open?.(); }} openProject={(p) => openProject(p)} />
+        <div className="top-r">
+          <button className="icon-btn" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Temă deschisă' : 'Temă închisă'} title="Schimbă tema">
+            <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
+          </button>
+          <span className="hi">Salut, {display}!</span>
+          <Avatar name={display} size={44} />
         </div>
       </header>
 
-      <nav className="sections" aria-label="Secțiuni">
-        {SECTIONS.map((x) => (
-          <button key={x.id} className={section === x.id ? 'on' : ''} aria-current={section === x.id ? 'page' : undefined} onClick={() => go(x.id)}>{x.label}</button>
-        ))}
-      </nav>
-
-      {section === 'todos' && <Todos onUnauthorized={toLogin} />}
-      {section === 'leads' && <Leads onUnauthorized={toLogin} />}
-
-      {section === 'sites' && (<>
-      <section className="stats" aria-label="Rezumat">
-        <Stat label="site-uri" value={stats.total} />
-        <Stat label="în lucru" value={stats.active} />
-        <Stat label="live" value={stats.live} accent="cyan" />
-        <Stat label="de încasat" value={money(stats.due)} accent={stats.due > 0 ? 'magenta' : undefined} />
-        <Stat label="domenii ≤ 30 zile" value={stats.expiring} accent={stats.expiring ? 'magenta' : undefined} />
-      </section>
-
-      <section className="toolbar">
-        <div className="tabs" role="tablist">
-          {[{ id: 'toate', label: 'Toate' } as const, ...STATUSES].map((t) => (
-            <button key={t.id} role="tab" aria-selected={filter === t.id} className={filter === t.id ? 'on' : ''} onClick={() => setFilter(t.id)}>
-              {t.label}
+      <nav className="rail" aria-label="Secțiuni">
+        <div className="rail-g">
+          {SECTIONS.map((s) => (
+            <button key={s.id} className={section === s.id ? 'on' : ''} aria-current={section === s.id ? 'page' : undefined} onClick={() => go(s.id)} data-tip={s.label}>
+              <Icon name={s.icon} size={20} /><span>{s.label}</span>
             </button>
           ))}
         </div>
-        <div className="toolbar-right">
-          <input className="search" placeholder="caută…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Caută" />
-          <button className="primary" onClick={() => setEditing('new')}>+ site nou</button>
+        <div className="rail-g rail-b">
+          <button onClick={logout} data-tip="Ieșire" aria-label="Ieșire"><Icon name="logout" size={20} /><span>Ieșire</span></button>
         </div>
-      </section>
+      </nav>
 
-      {error && <p className="err">{error}</p>}
+      <main className="main" key={section}>
+        {section === 'overview' && <Overview data={data} crm={crm} go={go} user={user} onNewProject={() => openProject('new')} onOpenPayment={setPaymentEdit} />}
+        {section === 'projects' && <Projects data={data} crm={crm} onOpen={(p) => openProject(p)} />}
+        {section === 'clients' && <Clients data={data} crm={crm} onOpenProject={(id) => openProject('new', undefined, id)} />}
+        {section === 'payments' && <Payments data={data} onOpen={setPaymentEdit} />}
+        {section === 'sites' && <Sites data={data} crm={crm} />}
+        {section === 'domains' && <Domains data={data} crm={crm} />}
+        {section === 'prices' && <Prices onUse={(id) => openProject('new', id)} />}
+        {section === 'todos' && <div className="view legacy"><PageHead title="To-do" sub="Sarcinile voastre, cu termen și site legat." /><Todos onUnauthorized={toLogin} /></div>}
+        {section === 'leads' && <div className="view legacy"><PageHead title="Leaduri" sub="Firme de contactat, ordonate după scor." /><Leads onUnauthorized={toLogin} /></div>}
+      </main>
 
-      {sites === null ? (
-        <p className="dim pad">se încarcă…</p>
-      ) : shown.length === 0 ? (
-        <div className="empty">
-          <p>{sites.length ? 'Nimic pentru filtrul ăsta.' : 'Niciun site încă.'}</p>
-          {!sites.length && <button className="primary" onClick={() => setEditing('new')}>+ adaugă primul site</button>}
-        </div>
-      ) : (
-        <ul className="grid">
-          {shown.map((s) => <Card key={s.id} site={s} onOpen={() => setEditing(s)} />)}
-        </ul>
-      )}
-
-      </>)}
-
-      {editing && (
-        <SiteForm
-          site={editing === 'new' ? null : editing}
-          onCancel={() => setEditing(null)}
-          onSave={onSave}
-          onDelete={onDelete}
+      {projectEdit && (
+        <ProjectForm
+          key={projectEdit.project?.id ?? 'new'}
+          project={projectEdit.project}
+          preset={projectEdit.preset}
+          data={data}
+          crm={crm}
+          onClose={() => setProjectEdit(null)}
+          initialClient={projectEdit.clientId}
         />
       )}
+      {paymentEdit && <PaymentForm payment={paymentEdit === 'new' ? null : paymentEdit} data={data} crm={crm} onClose={() => setPaymentEdit(null)} />}
     </div>
   );
 }
 
-function Stat({ label, value, accent }: { label: string; value: string | number; accent?: 'cyan' | 'magenta' }) {
-  return (
-    <div className={`stat ${accent ?? ''}`}>
-      <span className="stat-v">{value}</span>
-      <span className="stat-l">{label}</span>
-    </div>
-  );
-}
+type Hit = { key: string; label: string; sub: string; section: Section; open?: () => void };
 
-function Card({ site: s, onOpen }: { site: Site; onOpen: () => void }) {
-  const d = daysLeft(s.domain_expires);
-  const due = Math.max(0, s.price - s.paid);
+function GlobalSearch({ data, onPick, openProject }: {
+  data: NonNullable<ReturnType<typeof useCrm>['data']>; onPick: (s: Section, open?: () => void) => void; openProject: (p: Project) => void;
+}) {
+  const [q, setQ] = useState('');
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const close = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
+    const key = (e: KeyboardEvent) => {
+      if (e.key === '/' && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement)) {
+        e.preventDefault(); ref.current?.querySelector('input')?.focus();
+      }
+    };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', key);
+    return () => { document.removeEventListener('mousedown', close); document.removeEventListener('keydown', key); };
+  }, []);
+
+  const hits = useMemo<Hit[]>(() => {
+    const t = q.trim().toLowerCase();
+    if (t.length < 2) return [];
+    const has = (...v: (string | null | undefined)[]) => v.some((x) => x?.toLowerCase().includes(t));
+    return [
+      ...data.projects.filter((p) => has(p.name, p.notes)).map((p) => ({ key: p.id, label: p.name, sub: 'proiect', section: 'projects' as Section, open: () => openProject(p) })),
+      ...data.clients.filter((c) => has(c.name, c.company, c.email, c.phone)).map((c) => ({ key: c.id, label: c.name, sub: 'client', section: 'clients' as Section })),
+      ...data.sites.filter((s) => has(s.name, s.domain, s.client_name)).map((s) => ({ key: s.id, label: s.name, sub: s.domain || 'site', section: 'sites' as Section })),
+      ...data.leads.filter((l) => has(l.name, l.category, l.city)).map((l) => ({ key: l.id, label: l.name, sub: 'lead', section: 'leads' as Section })),
+    ].slice(0, 8);
+  }, [q, data, openProject]);
+
   return (
-    <li>
-      <button className="card" onClick={onOpen}>
-        <div className="card-head">
-          <span className={`badge st-${s.status}`}>{statusLabel(s.status)}</span>
-          <span className="dim small">{ownerLabel(s.owner)}</span>
-        </div>
-        <h3>{s.name}</h3>
-        <p className="dim small">{s.client_name || '—'}</p>
-        <dl>
-          <div><dt>domeniu</dt><dd>{s.domain || '—'}</dd></div>
-          <div>
-            <dt>expiră</dt>
-            <dd className={d !== null && d <= 30 ? 'warn' : ''}>
-              {s.domain_expires ? (d! < 0 ? `expirat (${-d!} zile)` : `${d} zile`) : '—'}
-            </dd>
-          </div>
-          <div><dt>hosting</dt><dd>{s.hosting || '—'}</dd></div>
-          <div><dt>plată</dt><dd className={due > 0 ? 'warn' : ''}>{s.price ? (due > 0 ? `${money(due, s.currency)} rest` : 'încasat') : '—'}</dd></div>
-        </dl>
-      </button>
-    </li>
+    <div className="gsearch" ref={ref}>
+      <label className="search-in big">
+        <Icon name="search" size={18} />
+        <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)}
+          placeholder="Caută client, proiect, site…" aria-label="Caută în CRM" />
+        <kbd>/</kbd>
+      </label>
+      {open && q.trim().length >= 2 && (
+        <ul className="gs-list">
+          {hits.length === 0 && <li className="dim small">Nimic găsit.</li>}
+          {hits.map((h) => (
+            <li key={h.section + h.key}>
+              <button onClick={() => { onPick(h.section, h.open); setOpen(false); setQ(''); }}>
+                <b>{h.label}</b><span className="dim small">{h.sub}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
