@@ -25,24 +25,30 @@ export default function About() {
     areaServed: 'RO',
   };
 
+  const mail = `mailto:${site.contacts[0].email}`;
   return (
-    <div className="about">
-      <section className="wrap sec" id="despre">
-        <p className="kicker">[ despre noi ]</p>
-        <h2>Site-uri web făcute cu atenție, pixel cu pixel.</h2>
-        <p className="lede">
-          twopixeldev este un studio mic de web development condus de Vladimir și Evelina.
-          Facem site-uri rapide și clare pentru afaceri locale și le ținem la zi după lansare.
-          Vorbești direct cu oamenii care construiesc site-ul.
-        </p>
+    <>
+      <section className="wrap hero-copy">
+        <h1>Site-uri web pentru afaceri locale, făcute <span>pixel cu pixel</span>.</h1>
+        <div className="hero-side">
+          <p>
+            Suntem Vladimir și Evelina, un studio mic de web development. Facem site-uri rapide și clare și le ținem
+            la zi după lansare. Vorbești direct cu oamenii care construiesc site-ul.
+          </p>
+          <div className="cta">
+            <a className="gbtn gbtn-primary" href={mail}>Începe un proiect</a>
+            <a className="gbtn" href="#servicii">Vezi serviciile</a>
+          </div>
+        </div>
       </section>
 
       <section className="wrap sec" id="servicii">
-        <p className="kicker">[ servicii ]</p>
-        <h2>Ce facem</h2>
+        <p className="kicker">servicii</p>
+        <h2 className="h">Ce facem</h2>
         <div className="cards">
-          {services.map((s) => (
-            <article key={s.t} className="card">
+          {services.map((s, i) => (
+            <article key={s.t} className="ncard">
+              <div className="ico" aria-hidden>{String(i + 1).padStart(2, '0')}</div>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
             </article>
@@ -52,11 +58,11 @@ export default function About() {
 
       {site.portfolio.length > 0 && (
         <section className="wrap sec" id="portofoliu">
-          <p className="kicker">[ portofoliu ]</p>
-          <h2>Proiecte</h2>
+          <p className="kicker">portofoliu</p>
+          <h2 className="h">Proiecte</h2>
           <div className="cards">
             {site.portfolio.map((p) => (
-              <a key={p.url} className="card card-link" href={p.url} target="_blank" rel="noopener">
+              <a key={p.url} className="ncard" href={p.url} target="_blank" rel="noopener">
                 <h3>{p.name}</h3>
                 <p>{p.note}</p>
               </a>
@@ -66,28 +72,31 @@ export default function About() {
       )}
 
       <section className="wrap sec" id="cum-lucram">
-        <p className="kicker">[ cum lucrăm ]</p>
-        <h2>Trei pași</h2>
+        <p className="kicker">cum lucrăm</p>
+        <h2 className="h">Trei pași</h2>
         <ol className="steps">
-          {steps.map((s) => <li key={s}>{s}</li>)}
+          {steps.map((s, i) => <li key={s}><b>{i + 1}</b><span>{s}</span></li>)}
         </ol>
       </section>
 
       <section className="wrap sec" id="contact">
-        <p className="kicker">[ contact ]</p>
-        <h2>Hai să vorbim</h2>
-        <p className="lede">Scrie-ne un email și îți răspundem în cel mult o zi lucrătoare.</p>
-        <div className="contacts">
-          {site.contacts.map((c) => (
-            <a key={c.email} className="contact" href={`mailto:${c.email}`}>
-              <span>{c.name}</span>
-              <strong>{c.email}</strong>
-            </a>
-          ))}
+        <div className="contact-panel">
+          <div>
+            <p className="kicker">contact</p>
+            <h2 className="h">Hai să vorbim</h2>
+            <p className="lede">Scrie-ne un email și îți răspundem în cel mult o zi lucrătoare.</p>
+          </div>
+          <div className="cta">
+            {site.contacts.map((c, i) => (
+              <a key={c.email} className={`gbtn ${i === 0 ? 'gbtn-primary' : 'gbtn-teal'}`} href={`mailto:${c.email}`}>
+                {c.email}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    </div>
+    </>
   );
 }

@@ -3,8 +3,8 @@ import { site } from '@/site.config';
 
 export default function SiteFooter() {
   return (
-    <footer className="foot">
-      <div className="wrap foot-in">
+    <footer className="wrap foot">
+      <div className="foot-in">
         <span>© {new Date().getFullYear()} {site.name}</span>
         <nav aria-label="Legal">
           <Link href="/">Acasă</Link>
