@@ -1,9 +1,9 @@
 export const site = {
   name: 'twopixeldev',
   url: 'https://twopixeldev.com',
-  title: 'twopixeldev: site-uri web pentru afaceri locale',
+  title: 'twopixeldev: site-uri, aplicații și soluții IT la comandă',
   description:
-    'twopixeldev este un studio mic de web development condus de Vladimir și Evelina. Facem site-uri rapide pentru afaceri locale și le ținem la zi: domeniu, găzduire, actualizări.',
+    'twopixeldev este un studio de dezvoltare software condus de Vladimir și Evelina. Construim site-uri, aplicații web și mobile și soluții IT la comandă, de la idee până la lansare și mentenanță.',
   contacts: [
     { name: 'Vladimir', email: 'vladimir@twopixeldev.com' },
     { name: 'Evelina', email: 'evelina@twopixeldev.com' },
