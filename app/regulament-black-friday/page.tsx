@@ -23,20 +23,20 @@ export default function BlackFridayRules() {
 
       <h2>2. Durata</h2>
       <p>
-        Campania are loc pe pagina de Facebook twopixeldev, din ziua în care este publicată postarea până pe 26 noiembrie
-        2026, ora 23:59 (ora României). Extragerea are loc pe 27 noiembrie 2026, ora 18:00.
+        Campania are loc pe conturile twopixeldev de Facebook, Instagram și TikTok, din ziua în care este publicată
+        postarea până pe 26 noiembrie 2026, ora 23:59 (ora României). Extragerea are loc pe 27 noiembrie 2026, ora 18:00.
       </p>
 
       <h2>3. Cine poate participa</h2>
       <p>
-        Poate participa orice persoană de cel puțin 18 ani, cu domiciliul sau reședința în România, care are un cont real de
-        Facebook. Nu pot participa organizatorul, colaboratorii lui și rudele lor de gradul I și II.
+        Poate participa orice persoană de cel puțin 18 ani, cu domiciliul sau reședința în România, care are un cont real pe
+        cel puțin una dintre aceste platforme. Nu pot participa organizatorul, colaboratorii lui și rudele lor de gradul I și II.
       </p>
 
       <h2>4. Cum participi</h2>
       <p>
-        Urmărești pagina twopixeldev și lași un comentariu la postarea campaniei. În comentariu spui ce afacere ai sau vrei
-        să pornești și de ce ai nevoie de un site. Contează un singur comentariu de persoană. Eliminăm comentariile
+        Urmărești contul twopixeldev și lași un comentariu la postarea campaniei, pe Facebook, Instagram sau TikTok. În comentariu spui ce afacere ai sau vrei
+        să pornești și de ce ai nevoie de un site. Contează un singur comentariu de persoană pe fiecare platformă, deci poți avea cel mult trei înscrieri. Eliminăm comentariile
         jignitoare, spamul și conturile false. Participarea este gratuită.
       </p>
 
@@ -61,8 +61,9 @@ export default function BlackFridayRules() {
 
       <h2>6. Alegerea câștigătorului</h2>
       <p>
-        Câștigătorul și 2 rezerve se aleg aleatoriu dintre comentariile valide, la o extragere transmisă live pe pagina
-        twopixeldev. Câștigătorul este anunțat în comentarii și contactat prin Messenger. Dacă nu răspunde în 5 zile sau nu
+        Câștigătorul și 2 rezerve se aleg aleatoriu dintre comentariile valide de pe toate cele trei
+        platforme, la o extragere transmisă live pe pagina de Facebook twopixeldev. Câștigătorul este anunțat în comentarii
+        și contactat prin mesaj privat pe platforma pe care a participat. Dacă nu răspunde în 5 zile sau nu
         îndeplinește condițiile, premiul trece la prima rezervă și apoi la a doua.
       </p>
 
@@ -75,15 +76,15 @@ export default function BlackFridayRules() {
         <a href="/confidentialitate/">Politica de confidențialitate</a>.
       </p>
 
-      <h2>8. Facebook</h2>
+      <h2>8. Platformele</h2>
       <p>
-        Campania nu este sponsorizată, susținută sau administrată de Facebook / Meta și nu are legătură cu acestea. Fiecare
-        participant eliberează Meta de orice răspundere.
+        Campania nu este sponsorizată, susținută sau administrată de Facebook, Instagram (Meta) sau TikTok și nu are
+        legătură cu acestea. Fiecare participant eliberează Meta și TikTok de orice răspundere.
       </p>
 
       <h2>9. Alte prevederi</h2>
       <p>
-        Organizatorul poate modifica regulamentul. Orice schimbare o anunțăm public, pe această pagină și la postare, înainte
+        Organizatorul poate modifica regulamentul. Orice schimbare o anunțăm public, pe această pagină și la postări, înainte
         să se aplice. Prin participare accepți acest regulament. Neînțelegerile le rezolvăm pe cale amiabilă, iar dacă nu se
         poate, de instanțele competente din Constanța.
       </p>
