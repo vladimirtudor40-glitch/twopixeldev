@@ -127,7 +127,7 @@ async function login(req: Request, env: Env) {
 type Item = { id: string; [k: string]: unknown };
 
 // Shared collections in KV, one key per collection. `sites` is the original one.
-const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: [], todos: [] };
+const SEEDS: Record<string, Record<string, unknown>[]> = { sites: [], leads: [], todos: [], clients: [], projects: [], payments: [] };
 const COLLECTIONS = Object.keys(SEEDS);
 
 async function loadCol(env: Env, col: string): Promise<Item[]> {
@@ -177,7 +177,7 @@ async function api(req: Request, env: Env, path: string) {
 
   if (path === '/api/me' && method === 'GET') return json({ email: user });
 
-  // /api/sites (original) and /api/c/<collection> for leads, todos
+  // /api/sites (original) and /api/c/<collection> for leads, todos, clients, projects, payments
   const m = path.match(/^\/api\/(?:c\/)?(\w+)(?:\/([\w-]+))?$/);
   if (m && COLLECTIONS.includes(m[1])) {
     const [, col, id] = m;
