@@ -3,7 +3,6 @@ import { display, mono } from './fonts';
 import { site } from '@/site.config';
 import './globals.css';
 
-
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: site.title,
@@ -20,15 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: '#070709' };
+export const viewport: Viewport = { themeColor: '#e8ebf0' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ro" data-theme="dark" className={`${display.variable} ${mono.variable}`} suppressHydrationWarning>
-      <head>
-        {/* apply the saved theme before first paint, so light mode does not flash dark */}
-        <script dangerouslySetInnerHTML={{ __html: "try{if(localStorage.getItem('tpd-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}" }} />
-      </head>
+    <html lang="ro" className={`${display.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

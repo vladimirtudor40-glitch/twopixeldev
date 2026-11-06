@@ -1,6 +1,7 @@
 import { site } from '@/site.config';
 import { t, type Lang } from '@/lib/i18n';
 import WhatsAppIcon from './WhatsAppIcon';
+import Hero3D from './Hero3D';
 
 export default function About({ lang }: { lang: Lang }) {
   const c = t[lang];
@@ -13,21 +14,23 @@ export default function About({ lang }: { lang: Lang }) {
     email: site.email,
     ...(site.whatsapp ? { telephone: `+${site.whatsapp}` } : {}),
     founder: site.contacts.map((p) => ({ '@type': 'Person', name: p.name, email: p.email })),
-    knowsLanguage: ['ro', 'en'],
+    knowsLanguage: ['ro'],
   };
 
   const mail = `mailto:${site.email}`;
   return (
     <>
-      <section className="wrap hero-copy">
-        <h1>{c.hero.h1a}<span>{c.hero.h1b}</span>.</h1>
-        <div className="hero-side">
-          <p>{c.hero.lead}</p>
+      <section className="wrap hero">
+        <div className="hero-copy">
+          <p className="kicker">{c.tagline}</p>
+          <h1>{c.hero.h1a}<span>{c.hero.h1b}</span>.</h1>
+          <p className="hero-lead">{c.hero.lead}</p>
           <div className="cta">
             <a className="gbtn gbtn-primary" href={mail}>{c.hero.start}</a>
             <a className="gbtn" href={`#${c.ids.services}`}>{c.hero.see}</a>
           </div>
         </div>
+        <Hero3D />
       </section>
 
       <section className="wrap sec" id={c.ids.services}>
@@ -36,7 +39,7 @@ export default function About({ lang }: { lang: Lang }) {
         <div className="cards">
           {c.services.items.map((s, i) => (
             <article key={s.t} className="ncard">
-              <div className="ico" aria-hidden>{String(i + 1).padStart(2, '0')}</div>
+              <div className={`cube cube-${i % 2 ? 'mag' : 'cy'}`} aria-hidden><i /><i /><i /><i /><i /></div>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
             </article>
@@ -64,13 +67,18 @@ export default function About({ lang }: { lang: Lang }) {
         <h2 className="h">{c.process.title}</h2>
         <ol className="steps">
           {c.process.items.map((s, i) => (
-            <li key={s.t}><b>{i + 1}</b><span><strong>{s.t}</strong>{s.d}</span></li>
+            <li key={s.t}>
+              <b className="step-n" aria-hidden>{i + 1}</b>
+              <span><strong>{s.t}</strong>{s.d}</span>
+              <span className="stack" aria-hidden>{Array.from({ length: i + 1 }, (_, k) => <i key={k} />)}</span>
+            </li>
           ))}
         </ol>
       </section>
 
       <section className="wrap sec" id={c.ids.contact}>
         <div className="contact-panel">
+          <div className="contact-px" aria-hidden><i /><i /></div>
           <div>
             <p className="kicker">{c.contact.kicker}</p>
             <h2 className="h">{c.contact.title}</h2>

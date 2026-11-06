@@ -31,7 +31,11 @@ export default function Dashboard() {
   useEffect(() => {
     const h = window.location.hash.slice(1);
     if (SECTIONS.some((x) => x.id === h)) setSection(h as Section);
-    setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    // The public site is light only; the CRM keeps its own saved dark/light choice.
+    let saved: 'dark' | 'light' = 'dark';
+    try { if (localStorage.getItem('tpd-theme') === 'light') saved = 'light'; } catch {}
+    document.documentElement.dataset.theme = saved;
+    setTheme(saved);
     currentUser().then((u) => (u ? setUser(u) : router.replace('/')));
   }, [router]);
 

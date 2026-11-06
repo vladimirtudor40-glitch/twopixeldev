@@ -14,5 +14,5 @@ export const site = {
   ],
   // Add finished client sites here; the Portfolio section appears once the list is not empty.
   portfolio: [] as { name: string; url: string; note: string }[],
-  updated: '2026-11-04',
+  updated: '2026-11-06',
 };
