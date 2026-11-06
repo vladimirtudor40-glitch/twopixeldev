@@ -31,7 +31,11 @@ export default function Dashboard() {
   useEffect(() => {
     const h = window.location.hash.slice(1);
     if (SECTIONS.some((x) => x.id === h)) setSection(h as Section);
-    setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    // The public site is light only; the CRM keeps its own saved dark/light choice.
+    let saved: 'dark' | 'light' = 'dark';
+    try { if (localStorage.getItem('tpd-theme') === 'light') saved = 'light'; } catch {}
+    document.documentElement.dataset.theme = saved;
+    setTheme(saved);
     currentUser().then((u) => (u ? setUser(u) : router.replace('/')));
   }, [router]);
 
@@ -53,7 +57,12 @@ export default function Dashboard() {
     else apply();
   }
 
-  async function logout() { await signOut(); router.replace('/'); }
+  const [leaving, setLeaving] = useState(false);
+  async function logout() {
+    setLeaving(true);
+    await signOut();
+    window.location.replace('/');
+  }
 
   const openProject = (p: Project | 'new', preset?: string, clientId?: string) =>
     setProjectEdit({ project: p === 'new' ? null : p, preset, clientId });
@@ -83,6 +92,9 @@ export default function Dashboard() {
           </button>
           <span className="hi">Salut, {display}!</span>
           <Avatar name={display} size={44} />
+          <button className="logout-btn" onClick={logout} disabled={leaving} aria-label="Ieșire din cont" title="Ieșire din cont">
+            <Icon name="logout" size={18} /><span>{leaving ? 'ieșire…' : 'Ieșire'}</span>
+          </button>
         </div>
       </header>
 

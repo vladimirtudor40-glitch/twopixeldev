@@ -1,9 +1,8 @@
-// Public-site texts in Romanian and English. Romanian lives at /, English at /en/.
-export type Lang = 'ro' | 'en';
+// Public-site texts. The site is Romanian only.
+export type Lang = 'ro';
 
 export const paths = {
   ro: { home: '/', privacy: '/confidentialitate/', terms: '/termeni/' },
-  en: { home: '/en/', privacy: '/en/privacy/', terms: '/en/terms/' },
 } as const;
 
 export const t = {
@@ -12,10 +11,9 @@ export const t = {
     description:
       'twopixeldev este un studio de dezvoltare software condus de Vladimir și Evelina. Construim site-uri, aplicații web și mobile și soluții IT la comandă, de la idee până la lansare și mentenanță.',
     ogLocale: 'ro_RO',
-    tagline: '[ SITE-URI // APLICAȚII // SOLUȚII IT ]',
+    tagline: 'site-uri · aplicații · soluții IT',
     ids: { services: 'servicii', process: 'cum-lucram', contact: 'contact' },
-    nav: { services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp', switchTo: 'English', switchLabel: 'Switch to English' },
-    theme: { toLight: 'Comută pe tema deschisă', toDark: 'Comută pe tema întunecată', light: 'Temă deschisă', dark: 'Temă întunecată' },
+    nav: { services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp' },
     hero: {
       h1a: 'Site-uri, aplicații și soluții IT, construite ',
       h1b: 'pixel cu pixel',
@@ -53,52 +51,11 @@ export const t = {
     },
     footer: { home: 'Acasă', privacy: 'Confidențialitate', terms: 'Termeni', legal: 'Legal' },
     legal: { updated: 'Ultima actualizare' },
-  },
-  en: {
-    title: 'twopixeldev: websites, apps and custom IT solutions',
-    description:
-      'twopixeldev is a software development studio run by Vladimir and Evelina. We build websites, web and mobile apps and custom IT solutions, from the first idea through launch and maintenance.',
-    ogLocale: 'en_US',
-    tagline: '[ WEBSITES // APPS // IT SOLUTIONS ]',
-    ids: { services: 'services', process: 'how-we-work', contact: 'contact' },
-    nav: { services: 'Services', process: 'How we work', contact: 'Contact', write: 'Contact us', main: 'Main', waLabel: 'Message us on WhatsApp', switchTo: 'Română', switchLabel: 'Schimbă în română' },
-    theme: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme', light: 'Light theme', dark: 'Dark theme' },
-    hero: {
-      h1a: 'Websites, apps and IT solutions, built ',
-      h1b: 'pixel by pixel',
-      lead: 'We are Vladimir and Evelina, the founders of twopixeldev. We turn ideas into digital products, from a company website to a full application or an internal system for your business. You work directly with us, from the first call until well after launch.',
-      start: 'Start a project',
-      see: 'See our services',
+    cookies: {
+      label: 'Informare cookie-uri',
+      text: 'Folosim doar cookie-uri strict necesare pentru securitatea și funcționarea site-ului. Fără reclame, fără analiză, fără urmărire.',
+      more: 'Detalii',
+      ok: 'Am înțeles',
     },
-    services: {
-      kicker: 'services',
-      title: 'What we do',
-      items: [
-        { t: 'Websites', d: 'Company websites, online stores and fast landing pages that are easy to manage and designed mobile-first.' },
-        { t: 'Web and mobile apps', d: 'Online platforms, client portals and iOS and Android apps, built on modern technology that grows with your business.' },
-        { t: 'Custom software', d: 'Admin dashboards, CRMs, booking and management systems, shaped around the way your team actually works.' },
-        { t: 'Automation and integrations', d: 'We connect the tools you already use, from payments and email to calendars and accounting, and automate repetitive work.' },
-        { t: 'UI/UX design', d: 'Clear interfaces that fit your brand, from the first sketch to a clickable prototype you can test before development.' },
-        { t: 'Infrastructure and maintenance', d: 'Domain, hosting, business email, security and backups. After launch we look after the technical side so you can focus on your business.' },
-      ],
-    },
-    portfolio: { kicker: 'portfolio', title: 'Projects' },
-    process: {
-      kicker: 'how we work',
-      title: 'From idea to launch',
-      items: [
-        { t: 'Discovery', d: 'You tell us what you want to solve. Together we pin down goals, budget and timeline.' },
-        { t: 'Proposal', d: 'You get a clear offer with the project stages, the cost and exactly what you receive at the end.' },
-        { t: 'Development', d: 'We work in short iterations and show you progress along the way, so you can give feedback early.' },
-        { t: 'Launch and support', d: 'We go live, show you how everything works and stay on hand for updates and improvements.' },
-      ],
-    },
-    contact: {
-      kicker: 'contact',
-      title: 'Have a project in mind?',
-      lead: 'Tell us briefly what you want to build. We reply within one business day with the next steps. We work in English and Romanian.',
-    },
-    footer: { home: 'Home', privacy: 'Privacy', terms: 'Terms', legal: 'Legal' },
-    legal: { updated: 'Last updated' },
   },
 };
