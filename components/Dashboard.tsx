@@ -53,7 +53,12 @@ export default function Dashboard() {
     else apply();
   }
 
-  async function logout() { await signOut(); router.replace('/'); }
+  const [leaving, setLeaving] = useState(false);
+  async function logout() {
+    setLeaving(true);
+    await signOut();
+    window.location.replace('/');
+  }
 
   const openProject = (p: Project | 'new', preset?: string, clientId?: string) =>
     setProjectEdit({ project: p === 'new' ? null : p, preset, clientId });
@@ -83,6 +88,9 @@ export default function Dashboard() {
           </button>
           <span className="hi">Salut, {display}!</span>
           <Avatar name={display} size={44} />
+          <button className="logout-btn" onClick={logout} disabled={leaving} aria-label="Ieșire din cont" title="Ieșire din cont">
+            <Icon name="logout" size={18} /><span>{leaving ? 'ieșire…' : 'Ieșire'}</span>
+          </button>
         </div>
       </header>
 
