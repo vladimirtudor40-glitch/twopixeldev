@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OWNERS, emptyClient, ownerLabel, projectStatusLabel, type Client, type ClientInput } from '@/lib/types';
 import Icon from './Icons';
 import { Avatar, Drawer, Empty, Field, PageHead, Search, Select, money } from './ui';
@@ -8,7 +8,50 @@ import { paidOf, type Crm, type Data } from './store';
 
 const telHref = (p: string) => `tel:${p.replace(/[^\d+]/g, '').replace(/^0/, '+40')}`;
 
-export default function Clients({ data, crm, onOpenProject }: { data: Data; crm: Crm; onOpenProject: (clientId: string) => void }) {
+type Tab = 'crm' | 'clients';
+const TAB_KEY = 'tpd-clients-tab';
+
+/**
+ * Clienți = CRM-ul de vânzări (lead-uri → clienți, repo twopixeldev-crm, servit de Worker la /app/crm)
+ * + clienții noștri (proiecte și plăți). Tab-ul ales rămâne ținut minte în browser.
+ */
+export default function Clients(props: { data: Data; crm: Crm; onOpenProject: (clientId: string) => void }) {
+  const [tab, setTab] = useState<Tab>('crm');
+  useEffect(() => {
+    try { if (localStorage.getItem(TAB_KEY) === 'clients') setTab('clients'); } catch {}
+  }, []);
+  const pick = (t: Tab) => {
+    setTab(t);
+    try { localStorage.setItem(TAB_KEY, t); } catch {}
+  };
+  const tabs = (
+    <div className="tabs clients-tabs" role="tablist" aria-label="Clienți">
+      <button role="tab" aria-selected={tab === 'crm'} className={tab === 'crm' ? 'on' : ''} onClick={() => pick('crm')}>
+        <Icon name="target" size={16} />CRM vânzări
+      </button>
+      <button role="tab" aria-selected={tab === 'clients'} className={tab === 'clients' ? 'on' : ''} onClick={() => pick('clients')}>
+        <Icon name="users" size={16} />Clienții noștri
+      </button>
+    </div>
+  );
+  return tab === 'crm' ? <CrmSales tabs={tabs} /> : <OurClients {...props} tabs={tabs} />;
+}
+
+function CrmSales({ tabs }: { tabs: React.ReactNode }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="view">
+      <PageHead title="Clienți" sub="CRM-ul de vânzări: lead-uri, etape, import, până devin clienți." />
+      {tabs}
+      <div className={`crm-frame${loaded ? ' ready' : ''}`}>
+        {!loaded && <p className="crm-frame-wait dim">se încarcă CRM-ul…</p>}
+        <iframe src="/app/crm" title="CRM vânzări" onLoad={() => setLoaded(true)} />
+      </div>
+    </div>
+  );
+}
+
+function OurClients({ data, crm, onOpenProject, tabs }: { data: Data; crm: Crm; onOpenProject: (clientId: string) => void; tabs: React.ReactNode }) {
   const [q, setQ] = useState('');
   const [editing, setEditing] = useState<Client | 'new' | null>(null);
   const term = q.trim().toLowerCase();
@@ -20,6 +63,7 @@ export default function Clients({ data, crm, onOpenProject }: { data: Data; crm:
         <Search value={q} onChange={setQ} placeholder="caută client…" />
         <button className="primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />client nou</button>
       </PageHead>
+      {tabs}
 
       {shown.length === 0 ? (
         <Empty icon="users" text={data.clients.length ? 'Niciun client găsit.' : 'Niciun client încă.'}>
