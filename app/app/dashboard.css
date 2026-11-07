@@ -576,3 +576,15 @@ html[data-theme='light'] .crm .drawer-bg { background: rgba(120, 130, 150, .35);
   .minis { grid-template-columns: 1fr; }
   .glass-sheet { flex-direction: column; }
 }
+
+/* ---------- Clienți → CRM vânzări (repo twopixeldev-crm, servit de Worker la /app/crm) ---------- */
+.crm-frame { position: relative; height: calc(100dvh - 250px); min-height: 560px; border-radius: var(--r-lg); overflow: hidden; background: var(--bg); box-shadow: var(--inset); border: 1px solid var(--rule); }
+.crm-frame iframe { display: block; width: 100%; height: 100%; border: 0; background: transparent; opacity: 0; transition: opacity .35s var(--ease); }
+.crm-frame.ready iframe { opacity: 1; }
+.crm-frame-wait { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; }
+@media (max-width: 760px) {
+  /* mai jos rămâne loc pentru bara de navigare fixă a site-ului */
+  .crm-frame { height: calc(100dvh - 190px); min-height: 480px; margin-bottom: 72px; border-radius: 20px; }
+  .clients-tabs { flex-wrap: nowrap; gap: 8px; }
+  .clients-tabs button { height: 40px; padding: 0 14px; font-size: 13px; }
+}
