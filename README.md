@@ -36,3 +36,10 @@ Without `.env.local` the app runs in DEMO mode (any login works, data stays in t
 - `lib/backend.ts`: Supabase auth + data (or demo mode). `lib/types.ts`: site fields.
 
 `old-landing/` holds the earlier agency landing page.
+
+## CRM (Clienți → CRM vânzări)
+
+`/app/` → Clienți → „CRM vânzări” shows the sales CRM from the `twopixeldev-crm` repo (web build on Netlify's
+free plan). The Worker here forwards `/app/crm/*` to `CRM_ORIGIN`, only for signed-in users, with the account
+email and the `CRM_PROXY_SECRET` secret; without that secret the CRM answers nothing.
+Setup: `docs/WEB.md` in the CRM repo.

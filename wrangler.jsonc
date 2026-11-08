@@ -16,6 +16,8 @@
   // Secrets (set with `npx wrangler secret put`, never committed):
   //   USERS          JSON { "email": "<hash from scripts/hash-password.mjs>" }
   //   SESSION_SECRET random string for signing session cookies
+  //   CRM_ORIGIN       the CRM's Netlify address, e.g. https://twopixeldev-crm.netlify.app (Clienți → CRM vânzări)
+  //   CRM_PROXY_SECRET same random string as in the CRM's Netlify settings (32+ chars)
   "routes": [
     { "pattern": "twopixeldev.com", "custom_domain": true },
     { "pattern": "www.twopixeldev.com", "custom_domain": true }
