@@ -39,7 +39,7 @@ Without `.env.local` the app runs in DEMO mode (any login works, data stays in t
 
 ## CRM (Clienți → CRM vânzări)
 
-`/app/` → Clienți → „CRM vânzări” shows the sales CRM from the `twopixeldev-crm` repo (web build, its own
-Cloudflare Worker `twopixeldev-crm`, no public URL). The Worker here forwards `/app/crm/*` to it through the
-`CRM` service binding, only for signed-in users, with the account email and the `CRM_PROXY_SECRET` secret.
-Setup and first deploy: `docs/WEB.md` in the CRM repo (deploy the CRM first, then this site).
+`/app/` → Clienți → „CRM vânzări” shows the sales CRM from the `twopixeldev-crm` repo (web build on Netlify's
+free plan). The Worker here forwards `/app/crm/*` to `CRM_ORIGIN`, only for signed-in users, with the account
+email and the `CRM_PROXY_SECRET` secret; without that secret the CRM answers nothing.
+Setup: `docs/WEB.md` in the CRM repo.

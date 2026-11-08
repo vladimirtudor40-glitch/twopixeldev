@@ -23,9 +23,9 @@ interface Env {
   SESSION_SECRET: string;
   /** Secret path segment: the login page lives at /app/<LOGIN_KEY>. Unset = no login page. */
   LOGIN_KEY?: string;
-  /** The twopixeldev CRM Worker (service binding, no public URL), shown in /app → Clienți at /app/crm. */
-  CRM?: Fetcher;
-  /** Shared secret the CRM checks on every request (same value as in the CRM Worker, 32+ chars). */
+  /** Where the twopixeldev CRM web build runs (Netlify), e.g. https://twopixeldev-crm.netlify.app */
+  CRM_ORIGIN?: string;
+  /** Shared secret the CRM checks on every request (same value as in the CRM's Netlify settings, 32+ chars). */
   CRM_PROXY_SECRET?: string;
 }
 
@@ -194,7 +194,7 @@ async function api(req: Request, env: Env, path: string) {
 }
 
 // ---------- CRM (twopixeldev-crm repo), embedded in /app → Clienți ----------
-// /app/crm/* goes to the CRM Worker only for signed-in users. The CRM has no login of its own: it trusts
+// /app/crm/* goes to the CRM (Netlify) only for signed-in users. The CRM has no login of its own: it trusts
 // the account email we send in x-tpd-user, because the request also carries CRM_PROXY_SECRET.
 const CRM_PREFIX = '/app/crm';
 
@@ -206,24 +206,39 @@ const crmUnavailable = (msg: string) =>
 
 async function crm(req: Request, env: Env, email: string): Promise<Response> {
   const secret = env.CRM_PROXY_SECRET || '';
-  if (!env.CRM || secret.length < 32) return crmUnavailable('CRM-ul nu e conectat încă (legătura CRM / CRM_PROXY_SECRET lipsește din Worker).');
+  let origin: URL;
+  try { origin = new URL(env.CRM_ORIGIN || ''); } catch {
+    return crmUnavailable('CRM-ul nu e conectat încă (CRM_ORIGIN lipsește din Worker).');
+  }
+  if (secret.length < 32) return crmUnavailable('CRM-ul nu e conectat încă (CRM_PROXY_SECRET lipsește din Worker).');
+
+  const src = new URL(req.url);
+  const target = new URL(src.pathname + src.search, origin);
   const headers = new Headers(req.headers);
   // Never let the browser choose who it is: drop any x-tpd-* it sent, then set ours.
   for (const k of [...headers.keys()]) if (k.startsWith('x-tpd-')) headers.delete(k);
+  headers.delete('host');
+  headers.delete('cookie'); // the site session stays here; the CRM does not need it
   headers.set('x-tpd-user', email);
   headers.set('x-tpd-proxy', secret);
+  headers.set('x-forwarded-host', src.host);
+
   let res: Response;
   try {
-    res = await env.CRM.fetch(new Request(req.url, { method: req.method, headers, body: req.body, redirect: 'manual' }));
+    res = await fetch(target, { method: req.method, headers, body: req.body, redirect: 'manual' });
   } catch {
     return crmUnavailable('CRM-ul nu răspunde acum. Reîncearcă în câteva secunde.');
   }
   const out = new Response(res.body, res);
+  // Redirects that name the CRM host go back through the site.
+  const loc = out.headers.get('location');
+  if (loc && loc.startsWith(origin.origin)) out.headers.set('location', src.origin + loc.slice(origin.origin.length));
+  out.headers.delete('set-cookie');
   // Only this site may frame it; the CRM pages are private.
   out.headers.set('x-frame-options', 'SAMEORIGIN');
   out.headers.set('content-security-policy', "frame-ancestors 'self'");
   out.headers.set('x-robots-tag', 'noindex, nofollow');
-  if (!new URL(req.url).pathname.startsWith(`${CRM_PREFIX}/_next/static/`)) out.headers.set('cache-control', 'no-store');
+  if (!src.pathname.startsWith(`${CRM_PREFIX}/_next/static/`)) out.headers.set('cache-control', 'no-store');
   return out;
 }
 
