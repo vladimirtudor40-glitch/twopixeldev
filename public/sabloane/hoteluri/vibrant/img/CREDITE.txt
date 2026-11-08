@@ -1,0 +1,54 @@
+CREDITE FOTO: template „Vibrant”, twopixeldev
+Toate pozele provin de pe Unsplash (unsplash.com), licența Unsplash: gratuită pentru uz comercial, fără atribuire obligatorie.
+https://unsplash.com/license
+Pozele au fost decupate, redimensionate și comprimate pentru acest template.
+
+[mare]
+img/mare/hero.jpg: Petr Vyšohlíd (@pvysohlid), https://unsplash.com/photos/9fqwGqGLUxc
+img/mare/cazare-1.jpg: Syaiful Lil M (@syaiful_lm), https://unsplash.com/photos/IH_Rxiytymw
+img/mare/cazare-2.jpg: Stephen Crane (@cranesp), https://unsplash.com/photos/XVk-TZWrNYU
+img/mare/zi-1.jpg: Amy Vann (@girl_behindthelens), https://unsplash.com/photos/GFsc977iFL4
+img/mare/zi-2.jpg: Oksana Demenko (@_kseniademenko), https://unsplash.com/photos/tDL0gmzpppw
+img/mare/zi-3.jpg: World Thing (@world_thing), https://unsplash.com/photos/o8eA0PYC_x4
+img/mare/zi-4.jpg: Mary Martin (@martinmc10), https://unsplash.com/photos/MrUvBirPuTY
+img/mare/zi-5.jpg: Jasper Gronewold (@jpeg_jasper), https://unsplash.com/photos/0EwU7IWx1S8
+img/mare/galerie-1.jpg: Lindsay Doyle (@stereobox), https://unsplash.com/photos/VvYgkDlwbkE
+img/mare/galerie-2.jpg: Mohamed Hesham (@h32ham), https://unsplash.com/photos/VLqibdzuxu4
+img/mare/galerie-3.jpg: Marc James (@marcjames), https://unsplash.com/photos/Z557_ZoaNSw
+img/mare/galerie-4.jpg: Annie Spratt (@anniespratt), https://unsplash.com/photos/enwZWTzj2jw
+img/mare/galerie-5.jpg: Iason Raissis (@jay_raissis), https://unsplash.com/photos/S0e53v8k-VA
+img/mare/galerie-6.jpg: Jake Hill (@jakeh280), https://unsplash.com/photos/Fq4fOfcazog
+
+[munte]
+img/munte/hero.jpg: Li Yang (@ly0ns), https://unsplash.com/photos/HpNcXyMfYzw
+img/munte/cazare-1.jpg: Harman Tatla (@harmant), https://unsplash.com/photos/Bp1nHpnlFQs
+img/munte/cazare-2.jpg: Karsten Winegeart (@_karsten), https://unsplash.com/photos/zgn7gvDmUBg
+img/munte/zi-1.jpg: Juzzepo (@juzzepo), https://unsplash.com/photos/CjGl4sBnFtI
+img/munte/zi-2.jpg: Aimee Giles (@aim52), https://unsplash.com/photos/u1QfqxhsrXQ
+img/munte/zi-3.jpg: Andrei Mike (@andreimike), https://unsplash.com/photos/rQT0haHxeJk
+img/munte/zi-4.jpg: Hailey Tong (@haileytong), https://unsplash.com/photos/424XaoTlfxs
+img/munte/zi-5.jpg: Melina Kiefer (@melimascella_), https://unsplash.com/photos/AOZl5nGOb1c
+img/munte/galerie-1.jpg: Clay Banks (@claybanks), https://unsplash.com/photos/oIx5RmkC9Ow
+img/munte/galerie-2.jpg: Michal Janek (@michaljaneck), https://unsplash.com/photos/e9DkjLz5FuU
+img/munte/galerie-3.jpg: Rostyslav Savchyn (@ross_savchyn), https://unsplash.com/photos/4nAh6u7dD1g
+img/munte/galerie-4.jpg: Andrei Mike (@andreimike), https://unsplash.com/photos/R7_q39f0HGM
+img/munte/galerie-5.jpg: Eugene (@eugenegrunge), https://unsplash.com/photos/kWIZs3vALZE
+img/munte/galerie-6.jpg: Andrea Davis (@andreaedavis), https://unsplash.com/photos/Mll-2jMQXpA
+
+[oras]
+img/oras/hero.jpg: Elena Rabkina (@rabkina), https://unsplash.com/photos/RTb2HA-cBlY
+img/oras/cazare-1.jpg: Vincent Yap (@chonky_films), https://unsplash.com/photos/Y7zup896jrI
+img/oras/cazare-2.jpg: Julia (@beazy), https://unsplash.com/photos/ABohRftG_Os
+img/oras/zi-1.jpg: Uliana Kopanytsia (@ulian_ka), https://unsplash.com/photos/Y-u2ZcaCKO4
+img/oras/zi-2.jpg: Calugar Ana Maria (@anamariacalugar), https://unsplash.com/photos/ZoHaCvVW6gE
+img/oras/zi-3.jpg: Tamas Pap (@tamasp), https://unsplash.com/photos/0Q4nVUczg5Q
+img/oras/zi-4.jpg: Stacy (@stacysuxx), https://unsplash.com/photos/jkZ-twg_K0k
+img/oras/zi-5.jpg: BRADLEY (@alldaybradley), https://unsplash.com/photos/s3ZLhrkAh4o
+img/oras/galerie-1.jpg: Ian Kirkland (@jean_luc), https://unsplash.com/photos/fajd6dw7EAA
+img/oras/galerie-2.jpg: Vincent Yap (@chonky_films), https://unsplash.com/photos/lzBp32-SVFU
+img/oras/galerie-3.jpg: Tamas Pap (@tamasp), https://unsplash.com/photos/LC54UhNn95M
+img/oras/galerie-4.jpg: Aleksandra Dementeva (@alexphotogram), https://unsplash.com/photos/xzT55J7D1tg
+img/oras/galerie-5.jpg: Lorena Tintea (@tintealorena), https://unsplash.com/photos/u450hw1m_f0
+img/oras/galerie-6.jpg: Calugar Ana Maria (@anamariacalugar), https://unsplash.com/photos/imcYWgpL2f0
+
+Fișierele *-mic.jpg sunt variante mai mici ale acelorași poze, pentru telefon.

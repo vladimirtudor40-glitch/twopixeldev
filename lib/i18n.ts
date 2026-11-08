@@ -2,7 +2,7 @@
 export type Lang = 'ro';
 
 export const paths = {
-  ro: { home: '/', privacy: '/confidentialitate/', terms: '/termeni/' },
+  ro: { home: '/', privacy: '/confidentialitate/', terms: '/termeni/', simulator: '/simulator/' },
 } as const;
 
 export const t = {
@@ -13,7 +13,7 @@ export const t = {
     ogLocale: 'ro_RO',
     tagline: 'site-uri · aplicații · soluții IT',
     ids: { services: 'servicii', process: 'cum-lucram', contact: 'contact' },
-    nav: { services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp' },
+    nav: { simulator: 'Simulator', services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp' },
     hero: {
       h1a: 'Site-uri, aplicații și soluții IT, construite ',
       h1b: 'pixel cu pixel',
@@ -32,6 +32,12 @@ export const t = {
         { t: 'Design UI/UX', d: 'Interfețe clare, coerente cu brandul tău, de la schița inițială până la prototipul pe care îl poți testa înainte de dezvoltare.' },
         { t: 'Infrastructură și mentenanță', d: 'Domeniu, găzduire, email profesional, securitate și backup. După lansare ne ocupăm noi de partea tehnică, ca tu să te poți ocupa de afacere.' },
       ],
+    },
+    sim: {
+      kicker: 'simulator',
+      title: 'Vezi site-ul înainte să-l comanzi',
+      lead: 'Alege domeniul afacerii și locul unde lucrezi, apoi răsfoiește cinci stiluri de site, live, pe calculator și pe telefon, cu prețul fiecăruia. Începem cu hoteluri și pensiuni, urmează frizeriile și restaurantele.',
+      cta: 'Deschide simulatorul',
     },
     portfolio: { kicker: 'portofoliu', title: 'Proiecte' },
     process: {
