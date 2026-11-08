@@ -1,0 +1,56 @@
+CREDITE FOTO - template Luminos (twopixeldev)
+
+Toate pozele provin de pe Pexels (https://www.pexels.com) si sunt folosite conform licentei Pexels
+(https://www.pexels.com/license/): gratuite pentru uz comercial, fara atribuire obligatorie.
+
+Nota: Unsplash nu a fost folosit, deoarece paginile lui blocheaza accesul automat.
+'de confirmat' = numele autorului nu a putut fi verificat automat; il gasesti pe pagina sursa.
+Persoanele din poze nu trebuie prezentate ca si cum ar recomanda un produs (vezi licenta).
+
+== mare ==
+hero.jpg | Chedi Tanabene | Pexels | https://www.pexels.com/photo/aerial-view-photography-of-umbrellas-on-shore-1710795/
+room-1.jpg | Ahmet ÇÖTÜR | Pexels | https://www.pexels.com/photo/modern-hotel-room-with-ocean-view-and-twin-beds-29702286/
+room-2.jpg | Pauline Raw | Pexels | https://www.pexels.com/photo/sea-view-from-the-hotel-room-window-10389176/
+room-3.jpg | de confirmat | Pexels | https://www.pexels.com/photo/cozy-and-minimalist-hotel-room-7786785/
+room-4.jpg | Mariya Eskina | Pexels | https://www.pexels.com/photo/balcony-in-a-hotel-room-19025564/
+fac-1.jpg | Kindel Media | Pexels | https://www.pexels.com/photo/sun-loungers-beside-the-swimming-pool-9043966/
+fac-2.jpg | Engin Akyurt | Pexels | https://www.pexels.com/photo/assorted-cocktails-2531184/
+fac-3.jpg | M. Emin Bilir | Pexels | https://www.pexels.com/photo/sunbeds-and-beach-umbrellas-on-beach-19131498/
+fac-4.jpg | The 7 Hotel Lisbon | Pexels | https://www.pexels.com/photo/close-up-of-breakfast-served-on-a-table-in-a-restaurant-17598964/
+offer-1.jpg | Rosie C | Pexels | https://www.pexels.com/photo/balcony-with-the-view-of-the-sea-at-sunset-18946698/
+offer-2.jpg | Kindel Media | Pexels | https://www.pexels.com/photo/photo-of-kids-playing-with-sand-7862532/
+offer-3.jpg | ommy | Pexels | https://www.pexels.com/photo/aerial-view-of-beach-with-sunbathers-and-umbrellas-33760751/
+gal-1.jpg | Dale Ale Brechó | Pexels | https://www.pexels.com/photo/summer-day-at-sandy-beach-with-umbrellas-31752572/
+gal-2.jpg | Engin Akyurt | Pexels | https://www.pexels.com/photo/sun-loungers-on-the-deck-2771921/
+
+== munte ==
+hero.jpg | Mikhail Nilov | Pexels | https://www.pexels.com/photo/aerial-view-of-snow-covered-mountain-8412595/
+room-1.jpg | zeng jinwen | Pexels | https://www.pexels.com/photo/serene-hotel-room-with-mountain-view-30835932/
+room-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/wooden-hotel-room-with-beds-covered-in-white-sheets-14465274/
+room-3.jpg | de confirmat | Pexels | https://www.pexels.com/photo/chalet-bedroom-interior-design-7745994/
+room-4.jpg | de confirmat | Pexels | https://www.pexels.com/photo/cozy-interior-with-mountain-view-through-window-29953197/
+fac-1.jpg | de confirmat | Pexels | https://www.pexels.com/photo/big-swimming-pool-in-spacious-house-7061661/
+fac-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/flatlay-of-skiing-equipment-257961/
+fac-3.jpg | Mikhail Nilov | Pexels | https://www.pexels.com/photo/ski-resort-in-snow-8430872/
+fac-4.jpg | Doralin Tunas | Pexels | https://www.pexels.com/photo/a-living-room-with-christmas-decors-10068655/
+offer-1.jpg | de confirmat | Pexels | https://www.pexels.com/photo/photography-of-person-ice-skating-880497/
+offer-2.jpg | Ogy Kovachev | Pexels | https://www.pexels.com/photo/stunning-mountain-ski-resort-in-winter-30401227/
+offer-3.jpg | de confirmat | Pexels | https://www.pexels.com/photo/a-christmas-tree-and-fireplace-in-a-living-room-15061145/
+gal-1.jpg | Mikhail Nilov | Pexels | https://www.pexels.com/photo/ski-resort-in-snow-covered-mountain-8412597/
+gal-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/scenic-snowy-mountain-landscape-with-ski-lift-30816460/
+
+== oras ==
+hero.jpg | Studio Phothograhy | Pexels | https://www.pexels.com/photo/turnul-sfatului-in-sibiu-16752617/
+room-1.jpg | Polina Semernina | Pexels | https://www.pexels.com/photo/pillows-and-book-on-hotel-bed-22469110/
+room-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/an-elegant-modern-hotel-room-design-16975987/
+room-3.jpg | de confirmat | Pexels | https://www.pexels.com/photo/decorated-interior-of-hotel-room-18285946/
+room-4.jpg | de confirmat | Pexels | https://www.pexels.com/photo/bed-and-pillows-in-a-hotel-room-5461582/
+fac-1.jpg | de confirmat | Pexels | https://www.pexels.com/photo/charming-outdoor-cafe-terrace-with-autumn-foliage-34145622/
+fac-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/an-empty-basement-car-park-6915501/
+fac-3.jpg | Elle Hughes | Pexels | https://www.pexels.com/photo/white-laptop-and-monitor-on-table-5155218/
+fac-4.jpg | cottonbro studio | Pexels | https://www.pexels.com/photo/breakfast-table-setting-in-a-hotel-room-6466281/
+offer-1.jpg | Lukas Kaufmann | Pexels | https://www.pexels.com/photo/charming-old-town-rooftops-at-sunset-37111631/
+offer-2.jpg | Adrien Olichon | Pexels | https://www.pexels.com/photo/chairs-and-tables-on-cafe-outdoor-terrace-14973833/
+offer-3.jpg | de confirmat | Pexels | https://www.pexels.com/photo/festival-with-costumes-in-town-11731604/
+gal-1.jpg | de confirmat | Pexels | https://www.pexels.com/photo/breakfast-buffet-at-the-hotel-20661407/
+gal-2.jpg | de confirmat | Pexels | https://www.pexels.com/photo/pillows-on-comfortable-bed-wrapped-in-white-linens-4993080/

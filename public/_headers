@@ -1,0 +1,13 @@
+# Demo templates for the simulator: fictional businesses, keep them out of search results.
+/sabloane/*
+  X-Robots-Tag: noindex, nofollow
+
+# Template-uri barbershop: date de exemplu, în afara căutărilor.
+/barbershop/*
+  X-Robots-Tag: noindex, nofollow
+
+# Prototip client (Roxy's Playground): doar pentru prezentare, in afara cautarilor.
+/demo_roxys_playground/*
+  X-Robots-Tag: noindex, nofollow
+/demo_roxys_playground
+  X-Robots-Tag: noindex, nofollow

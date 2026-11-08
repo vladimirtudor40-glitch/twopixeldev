@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /app/
 Disallow: /api/
+Disallow: /sabloane/
 
 Sitemap: https://twopixeldev.com/sitemap.xml
