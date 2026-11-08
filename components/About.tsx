@@ -1,5 +1,6 @@
 import { site } from '@/site.config';
-import { t, type Lang } from '@/lib/i18n';
+import Link from 'next/link';
+import { paths, t, type Lang } from '@/lib/i18n';
 import WhatsAppIcon from './WhatsAppIcon';
 import Hero3D from './Hero3D';
 
@@ -44,6 +45,17 @@ export default function About({ lang }: { lang: Lang }) {
               <p>{s.d}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="wrap sec">
+        <div className="sim-teaser">
+          <div>
+            <p className="kicker">{c.sim.kicker}</p>
+            <h2 className="h">{c.sim.title}</h2>
+            <p className="lede">{c.sim.lead}</p>
+          </div>
+          <Link className="gbtn gbtn-primary" href={paths[lang].simulator}>{c.sim.cta}</Link>
         </div>
       </section>
 

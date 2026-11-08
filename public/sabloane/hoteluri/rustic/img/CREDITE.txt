@@ -1,0 +1,73 @@
+Credite foto - template Rustic (twopixeldev)
+Toate pozele provin de pe Unsplash, Unsplash License: https://unsplash.com/license
+Gratuite pentru uz comercial, fara atribuire obligatorie. Lista e pastrata pentru evidenta.
+hero-800.jpg e decuparea pentru telefon a aceleiasi fotografii ca hero.jpg.
+
+[mare]
+img/mare/hero.jpg - Frank Albrecht (@shotaspot) - https://unsplash.com/photos/white-motor-boat-in-body-of-water-during-daytime-DJ7vIupYDi8
+img/mare/gazde.jpg - Şahin Sezer Dinçer (@sahinsezerdincer) - https://unsplash.com/photos/man-in-blue-jacket-sitting-beside-man-in-black-jacket-holding-fishing-rod-during-daytime-g9FLy7jjDhA
+img/mare/camera-1-a.jpg - Paris Bilal (@parisbilal) - https://unsplash.com/photos/minimalist-room-with-arched-doorways-GFxWYjaxzZ0
+img/mare/camera-1-b.jpg - mk. s (@mk__s) - https://unsplash.com/photos/a-bedroom-with-a-large-bed-and-a-large-window-FjAKpiVm5Zg
+img/mare/camera-2-a.jpg - curaits (@curaits) - https://unsplash.com/photos/bedroom-with-bed-and-wooden-bench-GkKVXQixXlE
+img/mare/camera-2-b.jpg - Grace Anne Bobadilla (@graceannefully) - https://unsplash.com/photos/cozy-bedroom-with-decorative-pillows-and-a-wicker-headboard-4j6nYFPQrUk
+img/mare/camera-3-a.jpg - Spacejoy (@spacejoy) - https://unsplash.com/photos/a-bedroom-with-a-large-bed-in-a-room-IARlbQa6Kc8
+img/mare/camera-3-b.jpg - Leonardo Vargas (@leovamexican) - https://unsplash.com/photos/cozy-reading-nook-with-ocean-view-and-armchair-9ojG6_UJc58
+img/mare/camera-4-a.jpg - amelia elite (@ameliaelite) - https://unsplash.com/photos/a-bright-coastal-themed-bedroom-with-a-large-bed-d6jN8t0GUF4
+img/mare/camera-4-b.jpg - Monideepa Gupta (@foc_us) - https://unsplash.com/photos/three-wooden-wall-hangings-above-a-bed-g-pXJbjb6GM
+img/mare/baie.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/modern-bathroom-with-double-sinks-and-freestanding-bathtub-j7Uv1Y_A7dY
+img/mare/masa-1.jpg - Gabrielle Cepella (@gabriellecepella) - https://unsplash.com/photos/cooked-egg-with-toasted-bread-xdxN7p-aniI
+img/mare/masa-2.jpg - Keesha's Kitchen (@keeshasskitchen) - https://unsplash.com/photos/a-plate-of-fish-and-lemons-KRbF_wsztBE
+img/mare/masa-3.jpg - Bryony Elena (@b_elena) - https://unsplash.com/photos/vegetable-salad-on-white-ceramic-plate-dJGeISqeEiw
+img/mare/activitate-1.jpg - Iosif Chiriluta (@iosifch) - https://unsplash.com/photos/a-sandy-beach-with-waves-coming-in-to-shore-i5AIHSxjpbo
+img/mare/activitate-2.jpg - Mircea Solomiea (@mirceadrian) - https://unsplash.com/photos/silhouette-of-people-on-beach-during-sunset-Vw_zI3JUuN0
+img/mare/activitate-3.jpg - Alex Braga (@awbraga) - https://unsplash.com/photos/brown-and-black-boat-on-sea-during-daytime-A43QeCFUYno
+img/mare/activitate-4.jpg - Rid Ridichio (@panini_ridichio) - https://unsplash.com/photos/brown-dirt-road-in-beach-wUT1k9VaemM
+img/mare/pachet-1.jpg - Anastasia Palagutina (@rashevsky) - https://unsplash.com/photos/people-on-white-and-blue-boat-during-daytime-txbXuzTJdSA
+img/mare/pachet-2.jpg - Rid Ridichio (@panini_ridichio) - https://unsplash.com/photos/blue-calm-sea-water-at-daytine-zRm-Ac5x0yg
+img/mare/pachet-3.jpg - Juraj Filipeje (@synko666) - https://unsplash.com/photos/green-and-red-round-fruits-V_X0uBi_8eQ
+
+[munte]
+img/munte/hero.jpg - Nadin Nandin (@nadin_nandin) - https://unsplash.com/photos/an-aerial-view-of-a-farm-with-a-small-cabin-LmlvfY6UXCY
+img/munte/gazde.jpg - Land O'Lakes, Inc. (@landolakesinc) - https://unsplash.com/photos/two-women-preparing-food-in-a-kitchen-mpKGpTdCI-E
+img/munte/camera-1-a.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-room-with-a-bed-and-a-table-3qlKV6BX6kI
+img/munte/camera-1-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-bedroom-with-a-bed-and-a-mirror-DuzoUrpdhUA
+img/munte/camera-2-a.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-bedroom-with-two-beds-and-a-desk-rP0OTFdVaak
+img/munte/camera-2-b.jpg - Alexandra Fernandes (@criatvra) - https://unsplash.com/photos/rustic-bedroom-with-wooden-walls-Kvy9OSHoMBE
+img/munte/camera-3-a.jpg - Hans (@hansphoto) - https://unsplash.com/photos/a-room-with-a-stove-and-a-chair-in-it-bQTVoJHrkO0
+img/munte/camera-3-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/cozy-bedroom-with-wood-paneled-walls-and-a-view-0v7DOW9cT_o
+img/munte/camera-4-a.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-D-IPwXyS9J4
+img/munte/camera-4-b.jpg - Cole Ankney (@rcankney) - https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place-vvA1qr8RG34
+img/munte/baie.jpg - Aaron Huber (@aahubs) - https://unsplash.com/photos/comfort-room-with-white-bathtub-and-brown-wooden-cabinets-CMejBwGAdGk
+img/munte/masa-1.jpg - Rohit Tandon (@sepoys) - https://unsplash.com/photos/a-dining-room-table-set-with-place-settings-and-candles-OyH-ig78YO8
+img/munte/masa-2.jpg - Laura Ohlman (@ohlmanphotography) - https://unsplash.com/photos/a-bowl-of-food-y_7KLDoPlAc
+img/munte/masa-3.jpg - Sharon Waldron (@onesmallsquare) - https://unsplash.com/photos/two-jars-of-jam-sit-next-to-a-piece-of-bread-Xgvztgqx0qI
+img/munte/activitate-1.jpg - Shubham Singh (@shubhski) - https://unsplash.com/photos/a-castle-on-top-of-a-mountain-with-a-cloudy-sky-cgKstG5KHj8
+img/munte/activitate-2.jpg - Horia Rață (@horia1967) - https://unsplash.com/photos/a-view-of-a-mountain-range-with-trees-in-the-foreground-41JhzLCbbOY
+img/munte/activitate-3.jpg - Ewoud Van den Branden (@ewoet) - https://unsplash.com/photos/a-couple-of-horses-pulling-a-sleigh-with-people-in-it-MX-04bn3rTU
+img/munte/activitate-4.jpg - Lukas Kubica (@lukaskubica) - https://unsplash.com/photos/a-hot-tub-sitting-in-the-middle-of-a-forest-t4RIvFhX-ls
+img/munte/pachet-1.jpg - Daniela Altorfer (@daniela_altorfer) - https://unsplash.com/photos/brown-and-white-house-covered-with-snow-during-daytime-PbFVg3fe8ls
+img/munte/pachet-2.jpg - Sean C Davis (@seancdavis) - https://unsplash.com/photos/cozy-cabin-glowing-in-the-snowy-woods-at-night-EwwVAaxZ4DM
+img/munte/pachet-3.jpg - Nadin Nandin (@nadin_nandin) - https://unsplash.com/photos/a-landscape-with-trees-and-grass-CnrHMqByFUg
+
+[oras]
+img/oras/hero.jpg - Alisa Anton (@alisaanton) - https://unsplash.com/photos/beige-and-brown-gothic-building-on-hill-VJSUSrgN56w
+img/oras/gazde.jpg - Junior REIS (@juniorreisfoto) - https://unsplash.com/photos/a-man-and-woman-standing-next-to-each-other-near-a-tree-YGXrPe7WvkA
+img/oras/camera-1-a.jpg - Howard Walsh (@hswalsh) - https://unsplash.com/photos/a-vintage-bedroom-with-a-metal-bed-frame-and-window-1yv5NSV0B-Y
+img/oras/camera-1-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-neutral-bedroom-with-a-large-bed-and-wooden-wardrobe-Xbe5BfScmvM
+img/oras/camera-2-a.jpg - Jessica Martins (@jessicamartins08) - https://unsplash.com/photos/bedroom-with-antique-wooden-furniture-and-a-single-bed-yZ4FybCmcgQ
+img/oras/camera-2-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/spacious-bedroom-with-large-bed-and-cozy-seating-area-UrvtBb0-YEw
+img/oras/camera-3-a.jpg - Ambitious Studio - Rick Barrett (@weareambitious) - https://unsplash.com/photos/a-room-with-a-bed-and-a-mirror-NkJAfAOl-K0
+img/oras/camera-3-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/open-book-on-bedside-table-with-lamp-QEVwQcqKRRM
+img/oras/camera-4-a.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/bedroom-with-white-bed-stacked-books-and-ornate-wooden-dresser-Bpaie4LlJSY
+img/oras/camera-4-b.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/spacious-bedroom-with-a-fireplace-and-large-bed-SpDKzy83DmY
+img/oras/baie.jpg - Dan Smedley (@nadyeldems) - https://unsplash.com/photos/a-bathroom-with-a-claw-foot-tub-and-a-wooden-door-N28_W8cQn5M
+img/oras/masa-1.jpg - Caroline Badran (@___atmos) - https://unsplash.com/photos/breakfast-table-set-with-food-and-drinks-in-kitchen-0Kqa4cgqfYQ
+img/oras/masa-2.jpg - Mahmoud Fawzy (@mahmoud_fawzy100) - https://unsplash.com/photos/cooked-food-on-stainless-steel-bowl-sbuXaENCSO0
+img/oras/masa-3.jpg - Evgeni Tcherkasski (@evgenit) - https://unsplash.com/photos/baked-bread-mXOlDLaInFs
+img/oras/activitate-1.jpg - Theo Lonic (@thorai9akira) - https://unsplash.com/photos/a-group-of-buildings-with-a-tower-GegG_U07rvk
+img/oras/activitate-2.jpg - Theo Lonic (@thorai9akira) - https://unsplash.com/photos/a-house-with-trees-around-it-qJsw0sV05Nw
+img/oras/activitate-3.jpg - Liviu Boldis (@livioart) - https://unsplash.com/photos/medieval-reenactors-in-colorful-costumes-walking-outdoors-oeQBu0qtPyI
+img/oras/activitate-4.jpg - Sebastian S (@izeberg) - https://unsplash.com/photos/fortified-church-on-a-hill-under-blue-sky-UonFxrb8Rck
+img/oras/pachet-1.jpg - CALIN STAN (@calinstan) - https://unsplash.com/photos/white-and-brown-concrete-building-surrounded-by-green-trees-under-blue-sky-during-daytime-Q7t2Xj-O-Xc
+img/oras/pachet-2.jpg - Liviu Boldis (@livioart) - https://unsplash.com/photos/group-of-medieval-reenactors-in-armor-holding-spears-Jcj-twKkqDI
+img/oras/pachet-3.jpg - Clay Banks (@claybanks) - https://unsplash.com/photos/a-living-room-filled-with-furniture-and-a-fire-place--_Rvjx9D7QY

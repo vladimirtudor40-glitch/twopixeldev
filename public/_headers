@@ -1,0 +1,3 @@
+# Demo templates for the simulator: fictional businesses, keep them out of search results.
+/sabloane/*
+  X-Robots-Tag: noindex, nofollow
