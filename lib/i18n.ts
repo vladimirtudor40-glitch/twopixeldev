@@ -9,7 +9,7 @@ export const t = {
   ro: {
     title: 'twopixeldev: site-uri, aplicații și soluții IT la comandă',
     description:
-      'twopixeldev este un studio de dezvoltare software condus de Vladimir și Evelina. Construim site-uri, aplicații web și mobile și soluții IT la comandă, de la idee până la lansare și mentenanță.',
+      'twopixeldev este un studio de dezvoltare software. Construim site-uri, aplicații web și mobile și soluții IT la comandă, de la idee până la lansare și mentenanță.',
     ogLocale: 'ro_RO',
     tagline: 'site-uri · aplicații · soluții IT',
     ids: { services: 'servicii', process: 'cum-lucram', contact: 'contact' },
@@ -17,7 +17,7 @@ export const t = {
     hero: {
       h1a: 'Site-uri, aplicații și soluții IT, construite ',
       h1b: 'pixel cu pixel',
-      lead: 'Suntem Vladimir și Evelina, fondatorii twopixeldev. Transformăm ideile în produse digitale, de la un site de prezentare la o aplicație completă sau un sistem intern pentru firma ta. Lucrezi direct cu noi, de la prima discuție până după lansare.',
+      lead: 'Suntem echipa twopixeldev. Transformăm ideile în produse digitale, de la un site de prezentare la o aplicație completă sau un sistem intern pentru firma ta. Lucrezi direct cu noi, de la prima discuție până după lansare.',
       start: 'Începe un proiect',
       see: 'Vezi serviciile',
     },
