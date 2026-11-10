@@ -2,9 +2,6 @@ import type { Metadata } from 'next';
 import LegalPage from '@/components/LegalPage';
 import { site } from '@/site.config';
 
-// Organizer of the campaign, as a private person.
-const ORGANIZER = 'Vladimir Tudor';
-
 export const metadata: Metadata = {
   title: 'Regulament Black Friday: un site gratis | twopixeldev',
   description: 'Regulamentul campaniei de Black Friday în care twopixeldev oferă gratuit un site de prezentare.',
@@ -16,8 +13,7 @@ export default function BlackFridayRules() {
     <LegalPage lang="ro" page="terms" title="Regulament Black Friday: un site gratis">
       <h2>1. Organizatorul</h2>
       <p>
-        Campania „Black Friday: un site gratis” este organizată de {ORGANIZER}, persoană fizică din Constanța, care
-        lucrează sub numele twopixeldev (twopixeldev.com). Contact:{' '}
+        Campania „Black Friday: un site gratis” este organizată de echipa twopixeldev (twopixeldev.com), din Constanța. Contact:{' '}
         <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 

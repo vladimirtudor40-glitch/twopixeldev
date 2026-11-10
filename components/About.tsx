@@ -13,7 +13,6 @@ export default function About({ lang }: { lang: Lang }) {
     description: c.description,
     email: site.email,
     ...(site.whatsapp ? { telephone: `+${site.whatsapp}` } : {}),
-    founder: site.contacts.map((p) => ({ '@type': 'Person', name: p.name, email: p.email })),
     knowsLanguage: ['ro'],
   };
 

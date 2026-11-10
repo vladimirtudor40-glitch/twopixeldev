@@ -9,12 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function Privacy() {
-  const [v, e] = site.contacts;
   return (
     <LegalPage lang="ro" page="privacy" title="Politica de confidențialitate">
       <h2>Cine suntem</h2>
       <p>
-        twopixeldev.com este site-ul studioului twopixeldev, condus de {v.name} și {e.name}. Pentru orice întrebare despre
+        twopixeldev.com este site-ul studioului twopixeldev. Pentru orice întrebare despre
         datele tale ne poți scrie la <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 
