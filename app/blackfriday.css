@@ -28,7 +28,13 @@ html:has(.bfp) { scroll-behavior: smooth; }
 .bf-wrap { width: min(1180px, 100%); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 /* nav */
-.bf-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 22px; padding-bottom: 10px; }
+.bf-top { position: sticky; top: 0; z-index: 40; background: rgba(11, 11, 14, 0.88);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+html:has(.bf-top) { scroll-padding-top: 120px; }
+.bfp .bf-strip { background: var(--mag); }
+.bfp .bf-strip-k { color: #0b0b0e; }
+.bfp .bf-strip-go { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.bf-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; }
 .bf-brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display), sans-serif; font-size: 18px; letter-spacing: -0.01em; color: var(--ink) !important; text-decoration: none; }
 .bf-brand em { font-style: normal; color: var(--mag); }
 .bf-px { display: inline-flex; }

@@ -9,8 +9,10 @@ import '@/app/public.css';
 export default function HomePage({ lang }: { lang: Lang }) {
   return (
     <div className="neu">
-      <BfStrip />
-      <SiteNav lang={lang} page="home" />
+      <div className="site-top">
+        <BfStrip />
+        <SiteNav lang={lang} page="home" />
+      </div>
       <main>
         <About lang={lang} />
       </main>

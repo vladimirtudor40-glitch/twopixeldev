@@ -5,6 +5,7 @@ import { BF, PFA, PACKS, GROUPS, PLANS, half, type Row } from '@/lib/blackfriday
 import TornBand from '@/components/bf/TornBand';
 import Countdown from '@/components/bf/Countdown';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
+import BfStrip from '@/components/bf/BfStrip';
 import '../blackfriday.css';
 
 const title = 'Black Friday −50% la toate serviciile | twopixeldev';
@@ -73,6 +74,8 @@ const FAQ = [
 export default function BlackFriday() {
   return (
     <div className="bfp">
+      <div className="bf-top">
+      <BfStrip href={wa || mail} cta="Cere oferta" />
       <header className="bf-wrap bf-nav">
         <Link className="bf-brand" href="/" aria-label="twopixeldev, acasă">
           <span className="bf-px" aria-hidden><i /><i /></span>
@@ -84,6 +87,7 @@ export default function BlackFriday() {
           <Link href="/">Site</Link>
         </nav>
       </header>
+      </div>
 
       <main>
         {/* hero: the poster */}

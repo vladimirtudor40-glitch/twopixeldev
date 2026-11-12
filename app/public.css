@@ -213,11 +213,10 @@ a.ncard { display: block; text-decoration: none; }
   html:has(.neu) { scroll-behavior: auto; }
 }
 
-/* Black Friday bar (components/bf/BfStrip.tsx), shown only during the campaign */
-.bf-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; padding: 10px 16px;
-  background: #0b0b0e; color: #f4f7fa !important; text-decoration: none; font-size: 13px; text-align: center; }
-.bf-strip-k { color: #00f0ff; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
-.bf-strip-go { color: #ff2a6d; }
-.bf-strip:hover .bf-strip-go { text-decoration: underline; }
-@media (max-width: 560px) { .bf-strip-k { display: none; } }
-@media (max-width: 560px) { .bf-strip { flex-wrap: nowrap; gap: 10px; padding: 9px 12px; font-size: 12px; } .bf-strip-t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; } .bf-strip-go { flex: none; } }
+
+/* sticky top: Black Friday bar + menu stay on screen while scrolling */
+.site-top { position: sticky; top: 0; z-index: 40; background: rgba(232, 235, 240, 0.86);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(40, 50, 70, 0.35); }
+.site-top .nav { padding-top: 12px; padding-bottom: 12px; }
+html:has(.site-top) { scroll-padding-top: 120px; }
