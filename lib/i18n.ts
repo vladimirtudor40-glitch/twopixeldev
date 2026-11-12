@@ -13,7 +13,7 @@ export const t = {
     ogLocale: 'ro_RO',
     tagline: 'site-uri · aplicații · soluții IT',
     ids: { services: 'servicii', process: 'cum-lucram', contact: 'contact' },
-    nav: { services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp' },
+    nav: { services: 'Servicii', process: 'Cum lucrăm', contact: 'Contact', barbershop: 'Barbershop', write: 'Scrie-ne', main: 'Principal', waLabel: 'Scrie-ne pe WhatsApp' },
     hero: {
       h1a: 'Site-uri, aplicații și soluții IT, construite ',
       h1b: 'pixel cu pixel',
