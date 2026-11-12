@@ -1,0 +1,12 @@
+/* Black Friday bar (components/bf/BfStrip.tsx), shown only during the campaign */
+.bf-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; padding: 10px 16px;
+  background: #0b0b0e; color: #f4f7fa !important; text-decoration: none; font-size: 13px; text-align: center; }
+.bf-strip-k { color: #00f0ff; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+.bf-strip-go { color: #ff2a6d; }
+.bf-strip:hover .bf-strip-go { text-decoration: underline; }
+@media (max-width: 560px) { .bf-strip-k { display: none; } }
+@media (max-width: 560px) { .bf-strip { flex-wrap: nowrap; gap: 10px; padding: 9px 12px; font-size: 12px; } .bf-strip-t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; } .bf-strip-go { flex: none; } }
+
+.bf-strip-s { display: none; }
+@media (max-width: 560px) { .bf-strip-t { display: none; } .bf-strip-s { display: inline; white-space: nowrap; } }
+@media (max-width: 400px) { .bf-strip { font-size: 11px; gap: 8px; justify-content: space-between; } .bf-strip-s { overflow: hidden; text-overflow: ellipsis; min-width: 0; } }

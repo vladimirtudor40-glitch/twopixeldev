@@ -212,3 +212,11 @@ a.ncard { display: block; text-decoration: none; }
   .contact-px i, .cookie { animation: none; }
   html:has(.neu) { scroll-behavior: auto; }
 }
+
+
+/* sticky top: Black Friday bar + menu stay on screen while scrolling */
+.site-top { position: sticky; top: 0; z-index: 40; background: rgba(232, 235, 240, 0.86);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(40, 50, 70, 0.35); }
+.site-top .nav { padding-top: 12px; padding-bottom: 12px; }
+html:has(.site-top) { scroll-padding-top: 120px; }

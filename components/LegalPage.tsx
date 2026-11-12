@@ -1,6 +1,7 @@
 import SiteNav from './SiteNav';
 import SiteFooter from './SiteFooter';
 import CookieNotice from './CookieNotice';
+import BfStrip from './bf/BfStrip';
 import { site } from '@/site.config';
 import { t, type Lang } from '@/lib/i18n';
 import '@/app/public.css';
@@ -10,7 +11,10 @@ export default function LegalPage({ lang, page, title, children }: {
 }) {
   return (
     <div className="neu">
-      <SiteNav lang={lang} page={page} />
+      <div className="site-top">
+        <BfStrip />
+        <SiteNav lang={lang} page={page} />
+      </div>
       <main className="wrap">
         <article className="legal-card">
           <h1>{title}</h1>
