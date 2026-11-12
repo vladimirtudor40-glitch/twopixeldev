@@ -62,9 +62,6 @@ h2.bf-h, p.bf-h { margin: 0; font-family: var(--font-display), sans-serif; font-
   .bf-side { align-items: center; text-align: center; }
   .bf-side .bf-count { align-items: center; }
 }
-.bf-small { margin-top: clamp(40px, 6vw, 64px); }
-.bf-small p { margin: 0; max-width: 90ch; font-size: 12px; line-height: 1.7; color: var(--ink-3); }
-.bf-small strong { color: var(--ink-2); font-weight: 500; }
 
 /* countdown */
 .bf-count { display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -91,7 +88,7 @@ h2.bf-h, p.bf-h { margin: 0; font-family: var(--font-display), sans-serif; font-
 @media (max-width: 560px) { .bf-cta { width: 100%; } .bf-btn { flex: 1 1 100%; } }
 
 /* footer */
-.bf-foot { margin-top: 28px; padding-top: 24px; padding-bottom: 30px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.7; color: var(--ink-3); display: grid; gap: 12px; }
+.bf-foot { margin-top: clamp(48px, 7vw, 80px); padding-top: 24px; padding-bottom: 30px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.7; color: var(--ink-3); display: grid; gap: 12px; }
 .bf-foot p { margin: 0; }
 .bf-foot nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .bf-foot a { color: var(--ink-2); text-decoration: none; }
