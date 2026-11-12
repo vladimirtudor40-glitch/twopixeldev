@@ -65,10 +65,14 @@ export function Sites({ data, crm }: { data: Data; crm: Crm }) {
       ) : (
         <div className="panel sheet-wrap">
           <table className="sheet">
+            <colgroup>
+              <col className="w-client" /><col className="w-tel" /><col className="w-mail" /><col className="w-link" /><col className="w-link" />
+              <col className="w-chk" /><col className="w-resp" /><col className="w-obs" /><col className="w-tip" /><col className="w-del" />
+            </colgroup>
             <thead>
               <tr>
-                <th>Client</th><th>Număr de telefon</th><th>Email</th><th>Link Google Maps</th><th>Link site demo</th>
-                <th className="c">Contactat</th><th>Răspuns</th><th>Observații</th><th>Tipul de ofertă</th><th aria-label="Acțiuni" />
+                <th>Client</th><th>Telefon</th><th>Email</th><th title="Link Google Maps">Maps</th><th title="Link site demo">Demo</th>
+                <th className="c" title="Contactat">Contact.</th><th>Răspuns</th><th>Observații</th><th>Tip ofertă</th><th aria-label="Acțiuni" />
               </tr>
             </thead>
             <tbody>
@@ -101,8 +105,8 @@ function SheetRow({ s, onPatch, onDelete }: { s: Site; onPatch: (p: Partial<Site
       <td><Cell value={s.name} field="name" onPatch={onPatch} placeholder="nume client" strong /></td>
       <td><Cell value={s.client_phone} field="client_phone" onPatch={onPatch} type="tel" placeholder="07…" /></td>
       <td><Cell value={s.client_email} field="client_email" onPatch={onPatch} type="email" placeholder="email" /></td>
-      <td><Cell value={s.maps_url} field="maps_url" onPatch={onPatch} placeholder="link Maps" link /></td>
-      <td><Cell value={s.demo_url} field="demo_url" onPatch={onPatch} placeholder="link demo" link /></td>
+      <td><Cell value={s.maps_url} field="maps_url" onPatch={onPatch} placeholder="link" link /></td>
+      <td><Cell value={s.demo_url} field="demo_url" onPatch={onPatch} placeholder="link" link /></td>
       <td className="c">
         <input type="checkbox" className="sheet-check" checked={contacted} aria-label={`Contactat: ${s.name}`}
           onChange={(e) => { setContacted(e.target.checked); onPatch({ contacted: e.target.checked }); }} />
