@@ -2,13 +2,17 @@ import About from './About';
 import SiteNav from './SiteNav';
 import SiteFooter from './SiteFooter';
 import CookieNotice from './CookieNotice';
+import BfStrip from './bf/BfStrip';
 import { type Lang } from '@/lib/i18n';
 import '@/app/public.css';
 
 export default function HomePage({ lang }: { lang: Lang }) {
   return (
     <div className="neu">
-      <SiteNav lang={lang} page="home" />
+      <div className="site-top">
+        <BfStrip />
+        <SiteNav lang={lang} page="home" />
+      </div>
       <main>
         <About lang={lang} />
       </main>
