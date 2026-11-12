@@ -33,12 +33,6 @@ export default function Terms() {
         cumulează cu alte reduceri. Prețurile sunt finale, fără TVA adăugat.
       </p>
 
-      <h2>Zona internă</h2>
-      <p>
-        Secțiunea de login este destinată exclusiv echipei twopixeldev. Încercările de acces neautorizat sunt interzise și
-        pot fi blocate.
-      </p>
-
       <h2>Proprietate intelectuală</h2>
       <p>
         Logo-ul, animația și textele de pe acest site aparțin twopixeldev. Nu le poți copia sau folosi în scop comercial fără
