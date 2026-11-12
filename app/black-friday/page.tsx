@@ -9,7 +9,7 @@ import '../blackfriday.css';
 
 const title = 'Black Friday −50% | twopixeldev';
 const description =
-  'Black Friday la twopixeldev: 50% reducere, până pe 30 noiembrie 2026. Scrie-ne și primești oferta în cel mult o zi lucrătoare.';
+  'Black Friday la twopixeldev: 50% reducere, până pe 30 noiembrie 2026. Scrie-ne și îți trimitem oferta în aceeași zi.';
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const poster = `${base}/black-friday/oferta-speciala`;
@@ -66,8 +66,7 @@ export default function BlackFriday() {
           <p className="bf-kicker">[ black friday // până pe {BF.endShort} ]</p>
           <p className="bf-h">50% reducere, până pe {BF.endShort}</p>
           <p className="bf-lead">
-            Vrei un site, un magazin online sau o aplicație? Scrie-ne pe scurt ce ai nevoie și îți trimitem oferta în cel mult
-            o zi lucrătoare, cu reducerea de Black Friday aplicată. Semnezi până pe {BF.endShort}, iar lucrul poate începe și după.
+            Vrei un site, un magazin online sau o aplicație? Scrie-ne pe scurt ce ai nevoie și îți trimitem oferta în aceeași zi.
           </p>
 
           <div className="bf-cta">
