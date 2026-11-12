@@ -585,7 +585,8 @@ html[data-theme='light'] .crm .drawer-bg { background: rgba(120, 130, 150, .35);
 .sheet col.w-client { width: 15%; } .sheet col.w-tel { width: 10%; } .sheet col.w-mail { width: 13%; }
 .sheet col.w-link { width: 8%; } .sheet col.w-chk { width: 56px; } .sheet col.w-resp { width: 11%; }
 .sheet col.w-obs { width: 17%; } .sheet col.w-tip { width: 12%; } .sheet col.w-del { width: 34px; }
-.sheet th { text-align: left; font-weight: 600; font-size: 11px; padding: 10px 6px; color: #fff; background: #233a83; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sheet thead tr { background: linear-gradient(90deg, var(--c1), color-mix(in srgb, var(--c1) 70%, var(--c3))); }
+.sheet th { text-align: left; font-weight: 600; font-size: 11px; padding: 10px 6px; color: #fff; background: none; border-bottom: 3px solid var(--c2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sheet th:first-child { border-radius: 14px 0 0 0; padding-left: 12px; }
 .sheet th:last-child { border-radius: 0 14px 0 0; }
 .sheet th.c, .sheet td.c { text-align: center; padding-left: 0; padding-right: 0; }
@@ -609,3 +610,5 @@ html[data-theme='light'] .crm .drawer-bg { background: rgba(120, 130, 150, .35);
 .sheet-del:hover { color: var(--c2); background: var(--glass); }
 .sheet-del.on { width: auto; padding: 0 6px; font-size: 11px; color: #fff; background: var(--c2); }
 @media (max-width: 1100px) { .sheet { min-width: 1000px; } }
+/* only one section in the rail for now: no hover label over the page title */
+.rail-g:first-child button span { display: none; }

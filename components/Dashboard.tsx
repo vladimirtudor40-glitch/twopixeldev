@@ -31,11 +31,9 @@ export default function Dashboard() {
   useEffect(() => {
     const h = window.location.hash.slice(1);
     if (VISIBLE.includes(h as Section)) setSection(h as Section);
-    // The public site is light only; the CRM keeps its own saved dark/light choice.
-    let saved: 'dark' | 'light' = 'dark';
-    try { if (localStorage.getItem('tpd-theme') === 'light') saved = 'light'; } catch {}
-    document.documentElement.dataset.theme = saved;
-    setTheme(saved);
+    // Light only for now, like the public site (the dark styles stay in the CSS).
+    document.documentElement.dataset.theme = 'light';
+    setTheme('light');
     currentUser().then((u) => (u ? setUser(u) : router.replace('/')));
   }, [router]);
 
@@ -87,9 +85,6 @@ export default function Dashboard() {
         </a>
         <GlobalSearch data={data} onPick={(s, open) => { go(s); open?.(); }} openProject={(p) => openProject(p)} />
         <div className="top-r">
-          <button className="icon-btn" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Temă deschisă' : 'Temă închisă'} title="Schimbă tema">
-            <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
-          </button>
           <span className="hi">Salut, {display}!</span>
           <Avatar name={display} size={44} />
           <button className="logout-btn" onClick={logout} disabled={leaving} aria-label="Ieșire din cont" title="Ieșire din cont">
