@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { site } from '@/site.config';
-import { BF, PFA, PACKS, half } from '@/lib/blackfriday';
+import { BF, PFA } from '@/lib/blackfriday';
 import Countdown from '@/components/bf/Countdown';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import BfStrip from '@/components/bf/BfStrip';
 import '../blackfriday.css';
 
-const title = 'Black Friday −50%: landing page și site de prezentare | twopixeldev';
+const title = 'Black Friday −50% | twopixeldev';
 const description =
-  'Black Friday twopixeldev, până pe 30 noiembrie 2026: landing page 950 lei (în loc de 1.900) și site de prezentare 1.600 lei (în loc de 3.200).';
+  'Black Friday la twopixeldev: 50% reducere, până pe 30 noiembrie 2026. Scrie-ne și primești oferta în cel mult o zi lucrătoare.';
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const poster = `${base}/black-friday/oferta-speciala`;
@@ -42,14 +42,14 @@ export default function BlackFriday() {
             <span>two<em>pixel</em>dev</span>
           </Link>
           <nav className="bf-nav-end">
-            <a href="#pachete">Prețuri</a>
+            <a href="#oferta">Ofertă</a>
             <Link href="/">Site</Link>
           </nav>
         </header>
       </div>
 
       <main className="bf-wrap bf-one">
-        <h1 className="sr-only">Black Friday la twopixeldev: 50% reducere la landing page și site de prezentare</h1>
+        <h1 className="sr-only">Black Friday la twopixeldev: 50% reducere</h1>
 
         <picture className="bf-poster">
           <source srcSet={`${poster}.webp`} type="image/webp" />
@@ -62,22 +62,13 @@ export default function BlackFriday() {
           />
         </picture>
 
-        <div className="bf-side" id="pachete">
+        <div className="bf-side" id="oferta">
           <p className="bf-kicker">[ black friday // până pe {BF.endShort} ]</p>
-          <div className="bf-cards bf-cards-2">
-            {PACKS.map((p) => (
-              <article key={p.name} className="bf-card">
-                <div className="bf-card-top"><span className="bf-off">−50%</span></div>
-                <h2>{p.name}</h2>
-                <span className="bf-price bf-price-big">
-                  <s aria-label={`preț standard ${p.std} lei`}>{p.std} lei</s>
-                  <b>{half(p.std!)} lei</b>
-                </span>
-                <ul>{p.includes.map((x) => <li key={x}>{x}</li>)}</ul>
-                <p className="bf-term">Termen: {p.term}</p>
-              </article>
-            ))}
-          </div>
+          <p className="bf-h">50% reducere, până pe {BF.endShort}</p>
+          <p className="bf-lead">
+            Vrei un site, un magazin online sau o aplicație? Scrie-ne pe scurt ce ai nevoie și îți trimitem oferta în cel mult
+            o zi lucrătoare, cu reducerea de Black Friday aplicată. Semnezi până pe {BF.endShort}, iar lucrul poate începe și după.
+          </p>
 
           <div className="bf-cta">
             {wa && (
@@ -95,9 +86,9 @@ export default function BlackFriday() {
       <section className="bf-wrap bf-small" aria-label="Condițiile campaniei">
         <p>
           <strong>Condiții:</strong> ofertă valabilă {BF.startLabel} – {BF.endLabel} (ora României), pentru contractele
-          semnate și cu avansul plătit în această perioadă; lucrul poate începe și după. Prețul tăiat este prețul standard
-          twopixeldev, cel mai mic din ultimele 30 de zile înainte de campanie. Nu se cumulează cu alte reduceri. Prețuri
-          finale, fără TVA (prestatorul nu este înregistrat în scopuri de TVA).
+          semnate și cu avansul plătit în această perioadă; lucrul poate începe și după. Reducerea se calculează din prețul
+          standard twopixeldev, cel mai mic din ultimele 30 de zile înainte de campanie, și apare în oferta scrisă. Nu se
+          cumulează cu alte reduceri. Prețuri finale, fără TVA (prestatorul nu este înregistrat în scopuri de TVA).
         </p>
       </section>
 
