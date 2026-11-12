@@ -5,12 +5,12 @@
 
   Câmpuri opționale: dacă lipsesc, secțiunea respectivă nu apare.
   Poze: pune fișierele în /barbershop/clienti/poze/<nume-client>/ și scrie calea aici,
-  ex. "/barbershop/clienti/poze/sterling-barbers/hero.jpg". Fără poză, design-ul pune un loc marcat.
+  ex. "/barbershop/clienti/poze/barber-studio/hero.jpg". Fără poză, design-ul pune un loc marcat.
 */
 window.BARBER_CLIENT = {
   exemplu: true, // true = arată banda „Demo, date de exemplu”. Pune false pentru clientul real.
 
-  nume: "Sterling Barbers",
+  nume: "Barber Studio",
   slogan: "Tunsori precise și bărbierit cu brici, într-un salon unde nimeni nu se grăbește.",
   oras: "Constanța",
   anInfiintare: "", // ex. "2019"; gol = nu apare
