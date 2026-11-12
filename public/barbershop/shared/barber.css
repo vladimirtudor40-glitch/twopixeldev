@@ -1,0 +1,33 @@
+/* Stiluri comune: locuri pentru poze și banda de demo. Culorile vin din variabilele fiecărui design. */
+.bb-img { background: center / cover no-repeat; position: relative; overflow: hidden; }
+.bb-ph {
+  display: flex; align-items: center; justify-content: center;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, var(--ph-line, rgba(127,127,127,.08)) 14px 15px),
+    var(--ph-bg, #1a1a1a);
+  color: var(--ph-fg, rgba(255,255,255,.35));
+}
+.bb-ph-icon { width: min(34%, 120px); opacity: .9; }
+.bb-ph-icon svg { width: 100%; height: auto; display: block; }
+.bb-ph-label {
+  position: absolute; left: 12px; bottom: 10px; font: 500 10px/1.2 system-ui, sans-serif;
+  letter-spacing: .14em; text-transform: uppercase; opacity: .8;
+}
+.bb-mono { display: inline-grid; place-items: center; }
+
+.bb-demo {
+  position: fixed; z-index: 90; left: 50%; bottom: 14px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: calc(100% - 24px); padding: 8px 8px 8px 16px; border-radius: 999px;
+  background: rgba(20,20,22,.88); color: #eee; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font: 500 12px/1.3 system-ui, sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.bb-demo i { font-style: normal; }
+.bb-demo a { color: #0b0b0b; background: #00F0FF; padding: 7px 12px; border-radius: 999px; text-decoration: none; font-weight: 700; white-space: nowrap; }
+.bb-demo a.bb-demo-all { background: transparent; color: #eee; border: 1px solid rgba(255,255,255,.25); }
+@media (max-width: 560px) {
+  .bb-demo { gap: 8px; bottom: 10px; padding: 6px 6px 6px 12px; flex-wrap: nowrap; font-size: 11px; }
+  .bb-demo i { display: none; }
+  .bb-demo a { padding: 7px 10px; }
+}
