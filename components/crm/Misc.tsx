@@ -1,62 +1,144 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteSite, saveSite } from '@/lib/backend';
 import { CATEGORIES, PACKAGES, PLANS, RESALE, RULES, EXTRAS, priceText } from '@/lib/pricing';
-import { STATUSES, daysLeft, ownerLabel, statusLabel, type Site, type SiteInput, type Status } from '@/lib/types';
+import { RESPONSES, daysLeft, emptySite, type OfferResponse, type Site, type SiteInput } from '@/lib/types';
 import SiteForm from '../SiteForm';
 import { Ring } from './Charts';
 import Icon from './Icons';
 import { Empty, PageHead, Pills, Search, dateRo, money } from './ui';
 import type { Crm, Data } from './store';
 
-// ---------- Site-uri ----------
-export function Sites({ data, crm }: { data: Data; crm: Crm }) {
-  const [filter, setFilter] = useState<Status | 'toate'>('toate');
-  const [q, setQ] = useState('');
-  const [editing, setEditing] = useState<Site | 'new' | null>(null);
-  const term = q.trim().toLowerCase();
-  const shown = data.sites.filter((s) => (filter === 'toate' || s.status === filter) &&
-    (!term || [s.name, s.client_name, s.domain, s.hosting, s.notes].some((v) => v?.toLowerCase().includes(term))));
+// ---------- Site-uri: monitorizare clienți & oferte ----------
+type Filter = 'toate' | 'necontactati' | 'contactati' | OfferResponse;
+const OFFER_SUGGESTIONS = ['Website Prezentare + SEO', 'Website Prezentare', 'Landing page', 'Magazin online', 'SEO + Google Business Profile', 'Aplicație web'];
+const href = (u: string) => (/^https?:\/\//i.test(u) ? u : `https://${u}`);
 
-  async function onSave(input: SiteInput, id?: string) { await saveSite(input, id); setEditing(null); await crm.load(); }
-  async function onDelete(id: string) { await deleteSite(id); setEditing(null); await crm.load(); }
+export function Sites({ data, crm }: { data: Data; crm: Crm }) {
+  const [filter, setFilter] = useState<Filter>('toate');
+  const [q, setQ] = useState('');
+  const [adding, setAdding] = useState(false);
+  const [err, setErr] = useState('');
+  const rows = data.sites;
+  const term = q.trim().toLowerCase();
+  const count = (f: Filter) => rows.filter((s) => match(s, f)).length;
+  const shown = rows.filter((s) => match(s, filter) &&
+    (!term || [s.name, s.client_phone, s.client_email, s.notes, s.offer_type].some((v) => v?.toLowerCase().includes(term))));
+
+  async function patch(id: string, p: Partial<Site>) {
+    try { setErr(''); await crm.save('sites', p, id); } catch (e) { setErr(e instanceof Error ? e.message : 'Nu s-a putut salva'); }
+  }
+  async function add() {
+    setAdding(true);
+    try {
+      setErr('');
+      await crm.save('sites', { ...emptySite(), status: 'oferta', maps_url: '', demo_url: '', contacted: false, response: '', offer_type: 'Website Prezentare + SEO' });
+    } catch (e) { setErr(e instanceof Error ? e.message : 'Nu s-a putut adăuga'); }
+    setAdding(false);
+  }
 
   return (
     <div className="view">
-      <PageHead title="Site-uri" sub={`${data.sites.length} site-uri administrate.`}>
-        <Search value={q} onChange={setQ} placeholder="caută site…" />
-        <button className="primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />site nou</button>
+      <PageHead title="Site-uri" sub="Monitorizare clienți & oferte. Modifici direct în tabel, se salvează singur.">
+        <Search value={q} onChange={setQ} placeholder="caută client…" />
+        <button className="primary" onClick={add} disabled={adding}><Icon name="plus" size={16} />client nou</button>
       </PageHead>
-      <Pills label="Filtru site-uri" value={filter} onChange={setFilter}
-        items={[{ id: 'toate', label: 'Toate', count: data.sites.length }, ...STATUSES.map((s) => ({ ...s, count: data.sites.filter((x) => x.status === s.id).length }))]} />
-      {shown.length === 0 ? <Empty icon="globe" text={data.sites.length ? 'Nimic pentru filtrul ăsta.' : 'Niciun site încă.'} /> : (
-        <ul className="cards">
-          {shown.map((s, i) => {
-            const d = daysLeft(s.domain_expires);
-            const zone = s.notes?.split('\n')[0];
-            return (
-              <li key={s.id} style={{ animationDelay: `${Math.min(i, 20) * 30}ms` }}>
-                <button className="card" onClick={() => setEditing(s)}>
-                  <div className="card-head">
-                    <span className={`badge st-${s.status}`}>{statusLabel(s.status)}</span>
-                    <span className="dim small">{ownerLabel(s.owner)}</span>
-                  </div>
-                  <div className="site-thumb" aria-hidden><span>{s.name.slice(0, 1).toUpperCase()}</span><i /><i /><i /></div>
-                  <h3>{s.name}</h3>
-                  <p className="dim small ellipsis">{s.client_name || zone || '—'}</p>
-                  <dl>
-                    <div><dt>domeniu</dt><dd>{s.domain || (s.live_url ? s.live_url.replace(/^https?:\/\//, '').replace(/\/$/, '') : '—')}</dd></div>
-                    <div><dt>expiră</dt><dd className={d !== null && d <= 30 ? 'warn' : ''}>{s.domain_expires ? (d! < 0 ? `expirat` : `${d} zile`) : '—'}</dd></div>
-                  </dl>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+      <div className="kpis">
+        <div className="kpi c1"><b>{rows.length}</b><span>Total clienți</span></div>
+        <div className="kpi c1"><b>{count('contactati')}</b><span>Contactați</span></div>
+        <div className="kpi green"><b>{count('acceptat')}</b><span>Oferte acceptate</span></div>
+        <div className="kpi amber"><b>{count('in_decizie')}</b><span>În decizie</span></div>
+      </div>
+      <Pills label="Filtru clienți" value={filter} onChange={setFilter}
+        items={[
+          { id: 'toate', label: 'Toți', count: rows.length },
+          { id: 'necontactati', label: 'Necontactați', count: count('necontactati') },
+          { id: 'contactati', label: 'Contactați', count: count('contactati') },
+          ...RESPONSES.map((r) => ({ id: r.id, label: r.label, count: count(r.id) })),
+        ]} />
+      {err && <p className="err">{err}</p>}
+      {shown.length === 0 ? (
+        <Empty icon="globe" text={rows.length ? 'Nimic pentru filtrul ăsta.' : 'Niciun client încă.'}>
+          {!rows.length && <button className="primary" onClick={add} disabled={adding}><Icon name="plus" size={16} />adaugă primul client</button>}
+        </Empty>
+      ) : (
+        <div className="panel sheet-wrap">
+          <table className="sheet">
+            <thead>
+              <tr>
+                <th>Client</th><th>Număr de telefon</th><th>Email</th><th>Link Google Maps</th><th>Link site demo</th>
+                <th className="c">Contactat</th><th>Răspuns</th><th>Observații</th><th>Tipul de ofertă</th><th aria-label="Acțiuni" />
+              </tr>
+            </thead>
+            <tbody>
+              {shown.map((s) => <SheetRow key={s.id} s={s} onPatch={(p) => patch(s.id, p)} onDelete={() => crm.remove('sites', s.id)} />)}
+            </tbody>
+          </table>
+          <datalist id="offer-types">{OFFER_SUGGESTIONS.map((o) => <option key={o} value={o} />)}</datalist>
+        </div>
       )}
-      {editing && <SiteForm site={editing === 'new' ? null : editing} onCancel={() => setEditing(null)} onSave={onSave} onDelete={onDelete} />}
     </div>
+  );
+}
+
+function match(s: Site, f: Filter) {
+  if (f === 'toate') return true;
+  if (f === 'contactati') return !!s.contacted;
+  if (f === 'necontactati') return !s.contacted;
+  return s.response === f;
+}
+
+/** One editable row: text cells save on blur, checkbox and dropdown save at once. */
+function SheetRow({ s, onPatch, onDelete }: { s: Site; onPatch: (p: Partial<Site>) => Promise<void>; onDelete: () => Promise<void> }) {
+  const [contacted, setContacted] = useState(!!s.contacted);
+  const [response, setResponse] = useState<string>(s.response || '');
+  const [confirm, setConfirm] = useState(false);
+  useEffect(() => { setContacted(!!s.contacted); setResponse(s.response || ''); }, [s.contacted, s.response]);
+
+  return (
+    <tr className={response ? `rs-${response}` : ''}>
+      <td><Cell value={s.name} field="name" onPatch={onPatch} placeholder="nume client" strong /></td>
+      <td><Cell value={s.client_phone} field="client_phone" onPatch={onPatch} type="tel" placeholder="07…" /></td>
+      <td><Cell value={s.client_email} field="client_email" onPatch={onPatch} type="email" placeholder="email" /></td>
+      <td><Cell value={s.maps_url} field="maps_url" onPatch={onPatch} placeholder="link Maps" link /></td>
+      <td><Cell value={s.demo_url} field="demo_url" onPatch={onPatch} placeholder="link demo" link /></td>
+      <td className="c">
+        <input type="checkbox" className="sheet-check" checked={contacted} aria-label={`Contactat: ${s.name}`}
+          onChange={(e) => { setContacted(e.target.checked); onPatch({ contacted: e.target.checked }); }} />
+      </td>
+      <td>
+        <select className="sheet-sel" value={response} aria-label={`Răspuns: ${s.name}`}
+          onChange={(e) => { setResponse(e.target.value); onPatch({ response: e.target.value as OfferResponse | '' }); }}>
+          <option value="">—</option>
+          {RESPONSES.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
+        </select>
+      </td>
+      <td><Cell value={s.notes} field="notes" onPatch={onPatch} placeholder="observații" wide /></td>
+      <td><Cell value={s.offer_type} field="offer_type" onPatch={onPatch} placeholder="tip ofertă" list="offer-types" wide /></td>
+      <td className="c">
+        {confirm
+          ? <button className="sheet-del on" onClick={onDelete} onBlur={() => setConfirm(false)}>sigur?</button>
+          : <button className="sheet-del" onClick={() => setConfirm(true)} aria-label={`Șterge ${s.name}`}>×</button>}
+      </td>
+    </tr>
+  );
+}
+
+function Cell({ value, field, onPatch, placeholder, type = 'text', link, strong, wide, list }: {
+  value: string | null | undefined; field: keyof Site; onPatch: (p: Partial<Site>) => Promise<void>;
+  placeholder?: string; type?: string; link?: boolean; strong?: boolean; wide?: boolean; list?: string;
+}) {
+  const [v, setV] = useState(value ?? '');
+  useEffect(() => { setV(value ?? ''); }, [value]);
+  const commit = () => { const t = v.trim(); if (t !== (value ?? '')) onPatch({ [field]: t } as Partial<Site>); };
+  return (
+    <span className={`sheet-cell${wide ? ' wide' : ''}${strong ? ' strong' : ''}`}>
+      <input type={type} size={1} value={v} placeholder={placeholder} list={list} aria-label={placeholder}
+        onChange={(e) => setV(e.target.value)} onBlur={commit}
+        onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); if (e.key === 'Escape') { setV(value ?? ''); } }} />
+      {link && value && <a href={href(value)} target="_blank" rel="noopener noreferrer" aria-label="deschide link"><Icon name="link" size={14} /></a>}
+    </span>
   );
 }
 

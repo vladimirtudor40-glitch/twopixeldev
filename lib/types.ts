@@ -33,9 +33,23 @@ export type Site = {
   live_url: string | null;
   repo_url: string | null;
   notes: string | null;
+  // Client & offer tracking (Site-uri table)
+  maps_url?: string | null;
+  demo_url?: string | null;
+  contacted?: boolean;
+  response?: OfferResponse | '';
+  offer_type?: string | null;
   created_at: string;
   updated_at: string;
 };
+
+export const RESPONSES = [
+  { id: 'acceptat', label: 'Acceptat' },
+  { id: 'in_decizie', label: 'În decizie' },
+  { id: 'refuzat', label: 'Refuzat' },
+  { id: 'fara_raspuns', label: 'Fără răspuns' },
+] as const;
+export type OfferResponse = (typeof RESPONSES)[number]['id'];
 
 export type SiteInput = Omit<Site, 'id' | 'created_at' | 'updated_at'>;
 
