@@ -212,3 +212,11 @@ a.ncard { display: block; text-decoration: none; }
   .contact-px i, .cookie { animation: none; }
   html:has(.neu) { scroll-behavior: auto; }
 }
+
+/* Black Friday bar (components/bf/BfStrip.tsx), shown only during the campaign */
+.bf-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; padding: 10px 16px;
+  background: #0b0b0e; color: #f4f7fa !important; text-decoration: none; font-size: 13px; text-align: center; }
+.bf-strip-k { color: #00f0ff; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+.bf-strip-go { color: #ff2a6d; }
+.bf-strip:hover .bf-strip-go { text-decoration: underline; }
+@media (max-width: 560px) { .bf-strip-k { display: none; } }
