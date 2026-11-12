@@ -220,3 +220,4 @@ a.ncard { display: block; text-decoration: none; }
 .bf-strip-go { color: #ff2a6d; }
 .bf-strip:hover .bf-strip-go { text-decoration: underline; }
 @media (max-width: 560px) { .bf-strip-k { display: none; } }
+@media (max-width: 560px) { .bf-strip { flex-wrap: nowrap; gap: 10px; padding: 9px 12px; font-size: 12px; } .bf-strip-t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; } .bf-strip-go { flex: none; } }
