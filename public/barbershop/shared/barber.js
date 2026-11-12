@@ -88,6 +88,23 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
+
+  // Ajutoare pentru programare: zile și intervale de 30 de minute din program.
+  function iso(x) { return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0"); }
+  function dayIdx(x) { return (x.getDay() + 6) % 7; }
+  function slots(prog, date) {
+    var m = String(prog[dayIdx(date)] || "").match(/(\d{1,2}):(\d{2})\D+(\d{1,2}):(\d{2})/), out = [];
+    if (!m) return out;
+    for (var t = +m[1] * 60 + +m[2], b = +m[3] * 60 + +m[4] - 30; t <= b; t += 30)
+      out.push(String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0"));
+    return out;
+  }
+  function nextDays(prog, n) {
+    var out = [], d = new Date();
+    for (var k = 0; out.length < n && k < 21; k++) { if (prog[dayIdx(d)]) out.push(new Date(d)); d.setDate(d.getDate() + 1); }
+    return out;
+  }
+
   function start(render) {
     var q = new URLSearchParams(location.search).get("client") || "exemplu";
     var slug = /^[a-z0-9-]{1,40}$/.test(q) ? q : "exemplu";
@@ -114,6 +131,7 @@
   window.BB = {
     ZILE: ZILE, esc: esc, safeUrl: safeUrl, initials: initials, todayIdx: todayIdx, wa: wa,
     img: img, price: price, bookingUrl: bookingUrl, logo: logo, socials: socials,
-    demoBar: demoBar, reveal: reveal, start: start, ICONS: ICONS
+    demoBar: demoBar, reveal: reveal, start: start, ICONS: ICONS,
+    iso: iso, dayIdx: dayIdx, slots: slots, nextDays: nextDays
   };
 })();
