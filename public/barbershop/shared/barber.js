@@ -106,6 +106,8 @@
       render(d);
       reveal();
     }
+    // Date deja incluse în pagină (ex. previzualizare într-un singur fișier): nu mai încărcăm nimic.
+    if (window.BARBER_CLIENT) { go(); return; }
     load(slug);
   }
 
