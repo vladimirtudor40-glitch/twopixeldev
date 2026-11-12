@@ -21,7 +21,6 @@ export default function SiteNav({ lang, page }: { lang: Lang; page: Page }) {
         <a href={h(c.ids.contact)}>{c.nav.contact}</a>
       </nav>
       <div className="nav-end">
-        <a className="gbtn gbtn-sm nav-barber" href="/barbershop/">{c.nav.barbershop}</a>
         {site.whatsapp && (
           <a className="gbtn icon-btn wa" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" aria-label={c.nav.waLabel} title="WhatsApp">
             <WhatsAppIcon />
