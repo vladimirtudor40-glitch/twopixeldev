@@ -12,7 +12,7 @@ import type { Crm, Data } from './store';
 
 // ---------- Site-uri: monitorizare clienți & oferte ----------
 type Filter = 'toate' | 'necontactati' | 'contactati' | OfferResponse;
-const OFFER_TYPES = ['Black Friday 50%', 'Website Prezentare + SEO', 'Website Prezentare', 'Landing page', 'Magazin online', 'SEO + Google Business Profile', 'Aplicație web'];
+const OFFER_TYPES = ['Black Friday 50%'];
 const href = (u: string) => (/^https?:\/\//i.test(u) ? u : `https://${u}`);
 
 export function Sites({ data, crm }: { data: Data; crm: Crm }) {
@@ -33,7 +33,7 @@ export function Sites({ data, crm }: { data: Data; crm: Crm }) {
     setAdding(true);
     try {
       setErr('');
-      await crm.save('sites', { ...emptySite(), status: 'oferta', maps_url: '', demo_url: '', contacted: false, response: '', offer_type: 'Website Prezentare + SEO' });
+      await crm.save('sites', { ...emptySite(), status: 'oferta', maps_url: '', demo_url: '', contacted: false, response: '', offer_type: 'Black Friday 50%' });
     } catch (e) { setErr(e instanceof Error ? e.message : 'Nu s-a putut adăuga'); }
     setAdding(false);
   }
