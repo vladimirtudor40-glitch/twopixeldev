@@ -35,12 +35,12 @@ BB.start(function (d) {
   if (all.length) {
     h += '<section class="hs" id="servicii"><div class="hs-sticky"><div class="hs-head"><p class="tag">Servicii și prețuri</p><h2>Alege-ți<br>stilul</h2>' +
       (d.exemplu ? '<p class="note">Prețurile afișate sunt de exemplu.</p>' : "") + '<p class="hint">Derulează →</p></div>' +
-      '<div class="hs-track" id="track">' + all.map(function (x, i) {
+      '<div class="hs-view" id="hsview"><div class="hs-track" id="track">' + all.map(function (x, i) {
         return '<article class="svc"><span class="svc-n">' + String(i + 1).padStart(2, "0") + '</span><span class="svc-cat">' + e(x.cat) + "</span>" +
           "<h3>" + e(x.s.nume) + "</h3><p>" + e(x.s.descriere || "") + "</p>" +
           '<div class="svc-foot"><b>' + BB.price(d, x.s.pret) + "</b>" + (x.s.durata ? "<span>" + e(x.s.durata) + " min</span>" : "") + "</div>" +
           '<a class="svc-go" href="#programare" data-s="' + e(x.s.nume) + '">Rezervă →</a></article>';
-      }).join("") + "</div></div></section>";
+      }).join("") + "</div></div></div></section>";
   }
 
   // Despre + pași
@@ -110,7 +110,7 @@ BB.start(function (d) {
   function sizeHs() {
     if (!hs) return;
     if (!mq.matches) { hs.style.height = ""; track.style.transform = ""; return; }
-    var extra = Math.max(0, track.scrollWidth - innerWidth + 80);
+    var view = document.getElementById("hsview"); var extra = Math.max(0, track.scrollWidth - view.clientWidth + parseFloat(getComputedStyle(track).paddingRight || 0));
     hs.style.height = (innerHeight + extra) + "px"; hs.dataset.extra = extra; moveHs();
   }
   function moveHs() {

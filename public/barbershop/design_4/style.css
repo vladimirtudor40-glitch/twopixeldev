@@ -191,3 +191,8 @@ h2 { font: 600 clamp(38px, 6vw, 88px)/.95 var(--font); letter-spacing: -.045em; 
 .hs-track { position: relative; z-index: 1; }
 @media (max-width: 899px) { .hs-head { box-shadow: none; background: none; } }
 @media (max-width: 560px) { .hero h1 { font-size: 21vw; } }
+/* fix: cardurile se taie la marginea titlului, nu trec pe sub el */
+.hs-head { background: none; box-shadow: none; }
+.hs-view { flex: 1; min-width: 0; overflow: hidden; padding: 12px 0; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px); mask-image: linear-gradient(90deg, transparent 0, #000 48px); }
+.hs-view .hs-track { padding-left: 24px; }
+@media (max-width: 899px) { .hs-view { overflow: visible; padding: 0; -webkit-mask-image: none; mask-image: none; } .hs-view .hs-track { padding-left: var(--gut); } }
