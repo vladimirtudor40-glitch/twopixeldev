@@ -17,7 +17,7 @@ export default function BfStrip({ href, cta }: { href?: string; cta?: string } =
   const inner = (
     <>
       <span className="bf-strip-k">[ black friday // −50% ]</span>
-      <span className="bf-strip-t">Totul la jumătate de preț, până pe {BF.endShort}.</span>
+      <span className="bf-strip-t">Black Friday: 50% reducere, până pe {BF.endShort}.</span>
       <span className="bf-strip-s">Black Friday −50% · {BF.endShort}</span>
       <span className="bf-strip-go">{cta ?? 'Vezi oferta'} →</span>
     </>
