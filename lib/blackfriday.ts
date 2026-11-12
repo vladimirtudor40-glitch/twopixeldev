@@ -15,7 +15,6 @@ export const PFA = {
   cui: '55831473',
   orc: 'F2026049416004',
   euid: 'ROONRC.F2026049416004',
-  seat: 'București',
 };
 
 /** A price row. `std` is the standard price as written in the price list ("1.900", "12.000–25.000",

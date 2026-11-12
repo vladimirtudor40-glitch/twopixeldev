@@ -190,7 +190,7 @@ export default function BlackFriday() {
               <li>Prețurile „de la” și intervalele sunt de pornire; prețul exact apare în oferta scrisă pentru proiectul tău, tot cu 50% reducere.</li>
             </ul>
             <p className="bf-org">
-              Campania este organizată de <strong>twopixeldev</strong>, nume comercial al {PFA.name}, sediu în {PFA.seat},
+              Campania este organizată de <strong>twopixeldev</strong>, nume comercial al {PFA.name},
               CUI {PFA.cui}, Nr. ORC {PFA.orc}, EUID {PFA.euid}. Contact: <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
           </div>
