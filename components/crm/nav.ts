@@ -13,3 +13,7 @@ export const SECTIONS = [
 ] as const satisfies readonly { id: string; label: string; icon: IconName }[];
 
 export type Section = (typeof SECTIONS)[number]['id'];
+
+/** Sections shown in the app for now. The others stay in the code, hidden; add their ids back here to show them. */
+export const VISIBLE: readonly Section[] = ['sites'];
+export const NAV = SECTIONS.filter((s) => VISIBLE.includes(s.id));

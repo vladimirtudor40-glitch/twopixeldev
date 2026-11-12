@@ -12,7 +12,7 @@ import type { Crm, Data } from './store';
 
 // ---------- Site-uri: monitorizare clienți & oferte ----------
 type Filter = 'toate' | 'necontactati' | 'contactati' | OfferResponse;
-const OFFER_SUGGESTIONS = ['Website Prezentare + SEO', 'Website Prezentare', 'Landing page', 'Magazin online', 'SEO + Google Business Profile', 'Aplicație web'];
+const OFFER_TYPES = ['Black Friday 50%', 'Website Prezentare + SEO', 'Website Prezentare', 'Landing page', 'Magazin online', 'SEO + Google Business Profile', 'Aplicație web'];
 const href = (u: string) => (/^https?:\/\//i.test(u) ? u : `https://${u}`);
 
 export function Sites({ data, crm }: { data: Data; crm: Crm }) {
@@ -79,7 +79,6 @@ export function Sites({ data, crm }: { data: Data; crm: Crm }) {
               {shown.map((s) => <SheetRow key={s.id} s={s} onPatch={(p) => patch(s.id, p)} onDelete={() => crm.remove('sites', s.id)} />)}
             </tbody>
           </table>
-          <datalist id="offer-types">{OFFER_SUGGESTIONS.map((o) => <option key={o} value={o} />)}</datalist>
         </div>
       )}
     </div>
@@ -97,8 +96,9 @@ function match(s: Site, f: Filter) {
 function SheetRow({ s, onPatch, onDelete }: { s: Site; onPatch: (p: Partial<Site>) => Promise<void>; onDelete: () => Promise<void> }) {
   const [contacted, setContacted] = useState(!!s.contacted);
   const [response, setResponse] = useState<string>(s.response || '');
+  const [offer, setOffer] = useState(s.offer_type || '');
   const [confirm, setConfirm] = useState(false);
-  useEffect(() => { setContacted(!!s.contacted); setResponse(s.response || ''); }, [s.contacted, s.response]);
+  useEffect(() => { setContacted(!!s.contacted); setResponse(s.response || ''); setOffer(s.offer_type || ''); }, [s.contacted, s.response, s.offer_type]);
 
   return (
     <tr className={response ? `rs-${response}` : ''}>
@@ -119,7 +119,13 @@ function SheetRow({ s, onPatch, onDelete }: { s: Site; onPatch: (p: Partial<Site
         </select>
       </td>
       <td><Cell value={s.notes} field="notes" onPatch={onPatch} placeholder="observații" wide /></td>
-      <td><Cell value={s.offer_type} field="offer_type" onPatch={onPatch} placeholder="tip ofertă" list="offer-types" wide /></td>
+      <td>
+        <select className="sheet-sel" value={offer} aria-label={`Tip ofertă: ${s.name}`}
+          onChange={(e) => { setOffer(e.target.value); onPatch({ offer_type: e.target.value }); }}>
+          <option value="">—</option>
+          {(offer && !OFFER_TYPES.includes(offer) ? [offer, ...OFFER_TYPES] : OFFER_TYPES).map((o) => <option key={o} value={o}>{o}</option>)}
+        </select>
+      </td>
       <td className="c">
         {confirm
           ? <button className="sheet-del on" onClick={onDelete} onBlur={() => setConfirm(false)}>sigur?</button>

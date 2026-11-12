@@ -12,7 +12,7 @@ import Projects, { ProjectForm } from './crm/Projects';
 import Clients from './crm/Clients';
 import Payments, { PaymentForm } from './crm/Payments';
 import { Domains, Prices, Sites } from './crm/Misc';
-import { SECTIONS, type Section } from './crm/nav';
+import { NAV, VISIBLE, type Section } from './crm/nav';
 import { useCrm } from './crm/store';
 import { Avatar, PageHead } from './crm/ui';
 
@@ -21,7 +21,7 @@ type ProjectEdit = { project: Project | null; preset?: string; clientId?: string
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState<string | null>(null);
-  const [section, setSection] = useState<Section>('overview');
+  const [section, setSection] = useState<Section>(VISIBLE[0]);
   const [projectEdit, setProjectEdit] = useState<ProjectEdit | null>(null);
   const [paymentEdit, setPaymentEdit] = useState<Payment | 'new' | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -30,7 +30,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const h = window.location.hash.slice(1);
-    if (SECTIONS.some((x) => x.id === h)) setSection(h as Section);
+    if (VISIBLE.includes(h as Section)) setSection(h as Section);
     // The public site is light only; the CRM keeps its own saved dark/light choice.
     let saved: 'dark' | 'light' = 'dark';
     try { if (localStorage.getItem('tpd-theme') === 'light') saved = 'light'; } catch {}
@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const go = useCallback((s: Section) => {
     setSection(s);
-    history.replaceState(null, '', s === 'overview' ? window.location.pathname : `#${s}`);
+    history.replaceState(null, '', s === VISIBLE[0] ? window.location.pathname : `#${s}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -100,7 +100,7 @@ export default function Dashboard() {
 
       <nav className="rail" aria-label="Secțiuni">
         <div className="rail-g">
-          {SECTIONS.map((s) => (
+          {NAV.map((s) => (
             <button key={s.id} className={section === s.id ? 'on' : ''} aria-current={section === s.id ? 'page' : undefined} onClick={() => go(s.id)} data-tip={s.label}>
               <Icon name={s.icon} size={20} /><span>{s.label}</span>
             </button>
@@ -168,7 +168,7 @@ function GlobalSearch({ data, onPick, openProject }: {
       ...data.clients.filter((c) => has(c.name, c.company, c.email, c.phone)).map((c) => ({ key: c.id, label: c.name, sub: 'client', section: 'clients' as Section })),
       ...data.sites.filter((s) => has(s.name, s.domain, s.client_name)).map((s) => ({ key: s.id, label: s.name, sub: s.domain || 'site', section: 'sites' as Section })),
       ...data.leads.filter((l) => has(l.name, l.category, l.city)).map((l) => ({ key: l.id, label: l.name, sub: 'lead', section: 'leads' as Section })),
-    ].slice(0, 8);
+    ].filter((h) => VISIBLE.includes(h.section)).slice(0, 8);
   }, [q, data, openProject]);
 
   return (
