@@ -8,11 +8,11 @@ BB.start(function (d) {
   (d.servicii || []).forEach(function (g) { (g.items || []).forEach(function (s) { allServices.push(s); }); });
 
   var sections = [
-    ["atelier", "Atelierul", d.despre],
+    ["atelier", "Despre", d.despre],
     ["servicii", "Servicii", allServices.length],
-    ["ritual", "Ritualul", (d.ritual || []).length],
+    ["ritual", "Experiența", (d.ritual || []).length],
     ["echipa", "Echipa", (d.echipa || []).length],
-    ["galerie", "Galerie", ((d.poze || {}).galerie || []).length],
+    ["galerie", "Lucrări", ((d.poze || {}).galerie || []).length],
     ["programare", "Programare", true],
     ["contact", "Contact", true]
   ].filter(function (s) { return s[2]; });
@@ -21,7 +21,7 @@ BB.start(function (d) {
 
   var todayTxt = prog[today] ? "Azi deschis · " + e(prog[today]) : "Azi închis";
   var book = BB.bookingUrl(d);
-  var demoNote = d.exemplu ? '<p class="note">Prețuri de exemplu, orientative.</p>' : "";
+  var demoNote = d.exemplu ? '<p class="note">Prețurile afișate sunt de exemplu.</p>' : "";
 
   var html = "";
 
@@ -50,9 +50,9 @@ BB.start(function (d) {
     '<p class="hero-k rv"><i></i>Barbershop' + (d.oras ? " · " + e(d.oras) : "") + "</p>" +
     '<h1 class="rv"><span>' + e(first) + "</span>" + (rest ? "<em>" + e(rest) + "</em>" : "") + "</h1>" +
     (d.slogan ? '<p class="hero-sub rv">' + e(d.slogan) + "</p>" : "") +
-    '<div class="hero-cta rv"><a class="btn gold" href="#programare">Rezervă un loc</a><a class="link" href="#servicii">Vezi serviciile</a></div>' +
+    '<div class="hero-cta rv"><a class="btn gold" href="#programare">Programează-te</a><a class="link" href="#servicii">Vezi prețurile</a></div>' +
     "</div>" +
-    '<p class="hero-vert">' + (d.anInfiintare ? "Est. " + e(d.anInfiintare) : "Atelier de bărbierit") + "</p>" +
+    '<p class="hero-vert">' + (d.anInfiintare ? "Est. " + e(d.anInfiintare) : "Barbershop") + "</p>" +
     '<p class="hero-today"><span class="dot' + (prog[today] ? "" : " off") + '"></span>' + todayTxt + "</p>" +
     '<a class="scroll" href="#atelier" aria-label="Derulează"><i></i></a>' +
     "</section>";
@@ -76,7 +76,7 @@ BB.start(function (d) {
   // Servicii, ca un meniu de restaurant
   if (allServices.length) {
     html += '<section class="sec servicii" id="servicii"><div class="wrap">' +
-      '<div class="sec-head">' + eyebrow("servicii") + '<h2 class="rv">Meniul <em>casei</em></h2></div>' +
+      '<div class="sec-head">' + eyebrow("servicii") + '<h2 class="rv">Servicii <em>și prețuri</em></h2></div>' +
       '<div class="menu-cards">' + (d.servicii || []).map(function (g) {
         return '<div class="mc rv"><h3>' + e(g.categorie) + "</h3><ul>" + (g.items || []).map(function (s) {
           return '<li><a href="' + e(BB.bookingUrl(d, s.nume)) + '" target="_blank" rel="noopener" aria-label="Programează: ' + e(s.nume) + '">' +
@@ -88,9 +88,9 @@ BB.start(function (d) {
 
   // Ritualul
   if ((d.ritual || []).length) {
-    var roman = ["I", "II", "III", "IV", "V", "VI"];
+    var roman = ["01", "02", "03", "04", "05", "06"];
     html += '<section class="sec ritual" id="ritual"><div class="wrap">' +
-      '<div class="sec-head">' + eyebrow("ritual") + '<h2 class="rv">O oră care e <em>doar a ta</em></h2></div>' +
+      '<div class="sec-head">' + eyebrow("ritual") + '<h2 class="rv">Cum decurge <em>vizita</em></h2></div>' +
       '<ol class="steps">' + d.ritual.map(function (r, i) {
         return '<li class="rv" style="--i:' + i + '"><span class="rn">' + roman[i] + "</span><h3>" + e(r.titlu) + "</h3><p>" + e(r.text) + "</p></li>";
       }).join("") + "</ol></div></section>";
@@ -100,7 +100,7 @@ BB.start(function (d) {
   if ((d.echipa || []).length) {
     var icons = ["scissors", "razor", "comb", "brush"];
     html += '<section class="sec echipa" id="echipa"><div class="wrap">' +
-      '<div class="sec-head">' + eyebrow("echipa") + '<h2 class="rv">Mâinile din <em>spatele</em> scaunului</h2></div>' +
+      '<div class="sec-head">' + eyebrow("echipa") + '<h2 class="rv">Oamenii <em>din salon</em></h2></div>' +
       '<div class="team">' + d.echipa.map(function (m, i) {
         return '<figure class="member rv" style="--i:' + i + '">' + BB.img(m.poza, m.nume, icons[i % 4], "pic") +
           "<figcaption><b>" + e(m.nume) + "</b><span>" + e(m.rol) + "</span></figcaption></figure>";
@@ -112,19 +112,19 @@ BB.start(function (d) {
   if (gal.length) {
     var gi = ["scissors", "razor", "comb", "chair", "brush"];
     html += '<section class="sec galerie" id="galerie"><div class="wrap">' +
-      '<div class="sec-head">' + eyebrow("galerie") + '<h2 class="rv">Din <em>atelier</em></h2></div>' +
+      '<div class="sec-head">' + eyebrow("galerie") + '<h2 class="rv">Lucrări <em>recente</em></h2></div>' +
       '<div class="gal">' + gal.map(function (u, i) {
         return '<div class="g g' + (i % 6) + ' rv">' + BB.img(u, "lucrare " + (i + 1), gi[i % 5], "pic") + "</div>";
       }).join("") + "</div>" +
-      (c.instagram ? '<p class="gal-more"><a class="link" href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Mai multe pe Instagram</a></p>' : "") +
+      (c.instagram ? '<p class="gal-more"><a class="link" href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Vezi mai multe pe Instagram</a></p>' : "") +
       "</div></section>";
   }
 
   // Programare
   var isLink = (d.programare || {}).tip === "link" && BB.safeUrl((d.programare || {}).link);
   html += '<section class="sec programare" id="programare"><div class="wrap prog-grid">' +
-    '<div>' + eyebrow("programare") + '<h2 class="rv">Rezervă-ți <em>scaunul</em></h2>' +
-    '<p class="rv lead">' + (isLink ? "Alege ora direct în calendarul online." : "Alegi serviciul și ora, iar noi îți confirmăm pe WhatsApp în cel mai scurt timp.") + "</p></div>" +
+    '<div>' + eyebrow("programare") + '<h2 class="rv">Fă-ți <em>programarea</em></h2>' +
+    '<p class="rv lead">' + (isLink ? "Alege ora direct în calendarul online." : "Alegi serviciul, ziua și ora. Mesajul pleacă pe WhatsApp, iar noi îți confirmăm locul.") + "</p></div>" +
     (isLink
       ? '<div class="rv"><a class="btn gold big" href="' + e(book) + '" target="_blank" rel="noopener">Deschide calendarul</a></div>'
       : '<form class="form rv" id="bookForm">' +
@@ -141,7 +141,7 @@ BB.start(function (d) {
   // Contact
   var soc = BB.socials(d);
   html += '<section class="sec contact" id="contact"><div class="wrap">' +
-    '<div class="sec-head">' + eyebrow("contact") + '<h2 class="rv">Te <em>așteptăm</em></h2></div>' +
+    '<div class="sec-head">' + eyebrow("contact") + '<h2 class="rv">Unde <em>ne găsești</em></h2></div>' +
     '<div class="contact-grid">' +
     '<div class="rv"><h3>Adresă</h3><p>' + e(c.adresa || "") + "</p>" +
     (BB.safeUrl(c.maps) ? '<a class="link" href="' + e(BB.safeUrl(c.maps)) + '" target="_blank" rel="noopener">Deschide în Maps</a>' : "") + "</div>" +

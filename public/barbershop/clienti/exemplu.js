@@ -11,7 +11,7 @@ window.BARBER_CLIENT = {
   exemplu: true, // true = arată banda „Demo, date de exemplu”. Pune false pentru clientul real.
 
   nume: "Casa Brici",
-  slogan: "Tunsoare de autor. Bărbierit tradițional.",
+  slogan: "Tunsori precise și bărbierit cu brici, într-un salon unde nimeni nu se grăbește.",
   oras: "Constanța",
   anInfiintare: "", // ex. "2019"; gol = nu apare
   logo: "", // cale spre logo (SVG/PNG); gol = monogramă din inițiale
@@ -20,10 +20,10 @@ window.BARBER_CLIENT = {
   culori: { accent: "", fundal: "", text: "" },
 
   despre: {
-    titlu: "Un atelier, nu o linie de producție",
+    titlu: "O oră întreagă, doar pentru tine",
     text: [
-      "Fiecare client are rezervată o oră întreagă, fără grabă și fără coadă. Începem cu o discuție despre forma feței, stilul de viață și cât timp vrei să petreci dimineața în fața oglinzii.",
-      "Lucrăm cu foarfecă, brici și prosop cald, iar produsele le alegem pentru tipul tău de păr și de piele. Pleci cu o tunsoare care arată bine și peste trei săptămâni."
+      "Programările nu se suprapun, așa că nu aștepți și nimeni nu lucrează în grabă. Înainte de primul fir tăiat, stabilim ce ți se potrivește: forma feței, tipul de păr și cât timp vrei să-i acorzi dimineața.",
+      "Lucrăm cu foarfecă, brici și prosop cald, cu produse alese pentru părul și pielea ta. Rezultatul e o tunsoare care arată la fel de bine și după trei săptămâni."
     ]
   },
 
@@ -46,7 +46,7 @@ window.BARBER_CLIENT = {
     {
       categorie: "Ritualuri",
       items: [
-        { nume: "Tuns + barbă", descriere: "Combinația preferată a clienților", pret: 120, durata: 75 },
+        { nume: "Tuns + barbă", descriere: "Tunsoare completă și barbă aranjată", pret: 120, durata: 75 },
         { nume: "Ritualul complet", descriere: "Tuns, barbă, mască facială, masaj scalp", pret: 180, durata: 100 }
       ]
     }
@@ -55,10 +55,10 @@ window.BARBER_CLIENT = {
 
   // Pași / experiența clientului (opțional)
   ritual: [
-    { titlu: "Consultanță", text: "Stabilim împreună forma, lungimea și cât de ușor vrei să se întrețină." },
-    { titlu: "Prosop cald", text: "Pielea se relaxează, firul se înmoaie, iar bărbieritul nu mai irită." },
-    { titlu: "Lucru de mână", text: "Foarfecă, brici și răbdare. Fără grabă, fără programări suprapuse." },
-    { titlu: "Finisaj", text: "Styling cu produsul potrivit și sfaturi ca să arate la fel și acasă." }
+    { titlu: "Discuția", text: "Stabilim forma, lungimea și cât de ușor vrei să se întrețină acasă." },
+    { titlu: "Prosopul cald", text: "Pielea se relaxează și firul se înmoaie, așa că bărbieritul nu irită." },
+    { titlu: "Tunsoarea", text: "Lucru de mână, cu foarfecă și brici, în ritmul de care are nevoie." },
+    { titlu: "Finisajul", text: "Styling cu produsul potrivit și câteva sfaturi ca să arate la fel și acasă." }
   ],
 
   echipa: [
