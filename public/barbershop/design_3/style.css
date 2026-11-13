@@ -187,3 +187,23 @@ body.dr-open { overflow: hidden; }
   html { scroll-behavior: auto; }
 }
 .about h2 { font-size: clamp(28px, 3.2vw, 44px); }
+
+/* ===== finisaj premium (2026-11-13) ===== */
+::selection { background: var(--accent); color: var(--ink); }
+html { scrollbar-color: #2c5146 var(--deep); scrollbar-width: thin; accent-color: var(--accent); }
+input, select { caret-color: #8a6531; }
+.row span, .hours li span:last-child, .strip { font-variant-numeric: tabular-nums lining-nums; }
+.hero { padding-top: clamp(72px, 10vw, 128px); }
+.hero h1 { margin-top: 0; text-wrap: balance; }
+.place { margin-top: 14px; font: 600 11px/1 var(--head); letter-spacing: .32em; text-transform: uppercase; color: var(--accent); opacity: .85; }
+.head h2, .about h2, .card h2 { text-wrap: balance; }
+.about h2 { margin-top: 0; }
+.bb-ph { --ph-bg: #143429; --ph-hi: rgba(197,155,95,.12); --ph-lo: rgba(0,0,0,.35); --ph-fg: rgba(197,155,95,.6); }
+.btn { outline: 0; box-shadow: 0 0 0 1px var(--bg), 0 0 0 2px var(--line), 0 14px 30px -18px rgba(0,0,0,.6); }
+.btn.ghost { box-shadow: none; }
+.booking .btn { box-shadow: 0 0 0 1px var(--cream), 0 0 0 2px rgba(15,42,34,.25); }
+.board-in { background: radial-gradient(80% 60% at 50% 0%, rgba(197,155,95,.06), transparent 70%); }
+.row b { letter-spacing: .08em; font-weight: 400; }
+.arches li { box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px rgba(197,155,95,.18); }
+.cat small { color: color-mix(in srgb, var(--fg) 62%, transparent); }
+.about-txt p:not(.label), .arches p, .sub { color: color-mix(in srgb, var(--fg) 72%, transparent); }

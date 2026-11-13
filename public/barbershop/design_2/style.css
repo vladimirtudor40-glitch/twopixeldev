@@ -212,3 +212,26 @@ a.tr:hover .t-go { color: var(--accent); transform: translateX(4px); }
   html { scroll-behavior: auto; }
 }
 .facts dd.md { font-size: clamp(20px, 1.9vw, 28px); letter-spacing: -.03em; }
+
+/* ===== finisaj premium (2026-11-13) ===== */
+::selection { background: var(--accent); color: #fff; }
+html { scrollbar-color: #bdbab3 var(--bg); scrollbar-width: thin; accent-color: var(--accent); }
+input { caret-color: var(--accent); }
+.mono { font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: .01em; text-transform: none; font-variant-numeric: tabular-nums; }
+.t-price, .facts dd, .chart .v, .chip, .opt small, .status { font-variant-numeric: tabular-nums; }
+.sh { grid-template-columns: 1fr auto; }
+.sh h2 { text-wrap: balance; }
+.side-nav a { padding: 12px 0; }
+.side-nav a.on { padding-left: 16px; }
+.team figcaption { grid-template-columns: 1fr; row-gap: 2px; }
+.t-go { display: flex; justify-content: flex-end; font-size: 18px; }
+.sh-a a { display: inline-flex; align-items: center; gap: 4px; }
+.hero-top { font-size: 13px; }
+.hero-top .mono { font-size: 13px; color: var(--muted); }
+.bb-ph { --ph-bg: #E4E1DA; --ph-hi: rgba(255,255,255,.55); --ph-lo: rgba(17,17,17,.06); --ph-fg: rgba(17,17,17,.4); }
+.btn { border-radius: 2px; letter-spacing: -.005em; }
+.btn.acc { box-shadow: 0 10px 24px -14px rgba(255,74,28,.9); }
+.facts dt { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-size: 13px; }
+.th { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-size: 13px; }
+.foot { font-family: var(--sans); text-transform: none; letter-spacing: 0; }
+.steps .mono { color: var(--accent); font-weight: 600; }

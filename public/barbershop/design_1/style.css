@@ -228,3 +228,28 @@ body.menu-open .bb-demo { display: none; }
   .hero-today { bottom: 74px; }
   .hero-in { padding-bottom: 120px; }
 }
+
+/* ===== finisaj premium (2026-11-13) ===== */
+::selection { background: var(--accent); color: #0A0A0B; }
+html { scrollbar-color: #3a3326 var(--bg); scrollbar-width: thin; accent-color: var(--accent); }
+input, select { caret-color: var(--accent); }
+.mc-price, .hours td, .hero-today, .menu-side p { font-variant-numeric: tabular-nums; }
+.sec-head { display: flex; align-items: flex-end; gap: clamp(20px, 3vw, 40px); }
+.sec-head::after { content: ""; flex: 1; height: 1px; background: var(--line); margin-bottom: .9em; min-width: 40px; }
+.atelier-txt h2 { margin-top: 0; }
+.prog-grid h2 { margin-top: 0; }
+.marquee-track b { width: 7px; height: 7px; transform: rotate(45deg); background: var(--accent); display: inline-block; flex: none; }
+.marquee { padding: 26px 0; }
+.marquee-track { font-weight: 200; }
+.menu-list a { gap: 0; }
+.hero-vert { color: color-mix(in srgb, var(--fg) 55%, transparent); }
+.hero h1 { text-wrap: balance; }
+h2 { text-wrap: balance; }
+.hero-bg.bb-ph { --ph-hi: rgba(198,161,91,.10); }
+.bb-ph { --ph-bg: #121214; --ph-hi: rgba(198,161,91,.09); --ph-lo: rgba(0,0,0,.4); --ph-fg: rgba(198,161,91,.55); }
+.member .pic, .atelier-pic .pic, .g .pic { filter: saturate(.9) contrast(1.04); }
+.btn { letter-spacing: .18em; }
+.btn.gold { box-shadow: 0 10px 30px -12px rgba(198,161,91,.55); }
+.mc li a { border-bottom-color: rgba(237,230,216,.06); }
+.foot-name { -webkit-text-stroke-color: rgba(198,161,91,.22); }
+@media (max-width: 640px) { .sec-head::after { display: none; } }

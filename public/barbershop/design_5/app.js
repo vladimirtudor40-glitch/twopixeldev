@@ -18,7 +18,7 @@ BB.start(function (d) {
   // Stânga: fixă
   h += '<aside class="left"><div class="left-bg">' + BB.img((d.poze || {}).hero, "fotografia principală", "chair", "pic") + '</div><div class="left-in">' +
     '<a class="brand" href="#">' + BB.logo(d) + "</a>" +
-    '<div class="left-mid"><p class="eyebrow">Barbershop' + (d.oras ? " · " + e(d.oras) : "") + "</p><h1>" + e(d.nume) + "</h1>" +
+    '<div class="left-mid"><h1>' + e(d.nume) + "</h1>" +
     (d.slogan ? '<p class="slogan">' + e(d.slogan) + "</p>" : "") + "</div>" +
     '<div class="left-foot"><p class="state' + (open ? "" : " off") + '"><i></i>' + (open ? "Deschis azi, " + e(prog[today]) : "Închis azi") + "</p>" + bookBtn +
     '<p class="mini">' + (tel ? '<a href="' + e(tel) + '">' + e(c.telefon) + "</a>" : "") + (c.adresa ? "<span>" + e(c.adresa) + "</span>" : "") + "</p></div>" +
@@ -54,14 +54,14 @@ BB.start(function (d) {
   if (gal.length) {
     var gi = ["scissors", "razor", "comb", "chair", "brush"];
     h += panel("galerie", "<h2>Galerie</h2>" + '<div class="gal">' + gal.map(function (u, i) { return '<div class="g">' + BB.img(u, "lucrare " + (i + 1), gi[i % 5], "pic") + "</div>"; }).join("") + "</div>" +
-      (BB.safeUrl(c.instagram) ? '<p class="more"><a href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Mai multe pe Instagram →</a></p>' : ""));
+      (BB.safeUrl(c.instagram) ? '<p class="more"><a href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Mai multe pe Instagram ' + BB.ICONS.out + '</a></p>' : ""));
   }
   var soc = BB.socials(d);
   h += panel("vizita", "<h2>Vizită</h2>" + '<div class="visit"><div><h3 class="sub">Program</h3><ul class="hours">' + BB.ZILE.map(function (z, i) {
       return "<li" + (i === today ? ' class="on"' : "") + "><span>" + z + "</span><span>" + (prog[i] ? e(prog[i]) : "Închis") + "</span></li>";
     }).join("") + "</ul></div>" +
     '<div><h3 class="sub">Adresă</h3><p class="big">' + e(c.adresa || "") + "</p>" +
-    (BB.safeUrl(c.maps) ? '<a class="link" href="' + e(BB.safeUrl(c.maps)) + '" target="_blank" rel="noopener">Deschide în Maps →</a>' : "") +
+    (BB.safeUrl(c.maps) ? '<a class="link" href="' + e(BB.safeUrl(c.maps)) + '" target="_blank" rel="noopener">Deschide în Maps ' + BB.ICONS.out + '</a>' : "") +
     '<h3 class="sub">Contact</h3>' + (tel ? '<p><a href="' + e(tel) + '">' + e(c.telefon) + "</a></p>" : "") + (c.email ? '<p><a href="mailto:' + e(c.email) + '">' + e(c.email) + "</a></p>" : "") +
     (soc.length ? '<p class="soc">' + soc.map(function (s) { return '<a href="' + e(s.url) + '" target="_blank" rel="noopener">' + s.label + "</a>"; }).join("") + "</p>" : "") + "</div></div>");
 
@@ -70,7 +70,7 @@ BB.start(function (d) {
   // Panou de programare
   if (!isLink) {
     h += '<div class="veil" id="veil" hidden></div><aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" hidden><div class="sheet-in">' +
-      '<div class="sheet-top"><h2 id="sh-t">Programare</h2><button type="button" class="x" id="close" aria-label="Închide">×</button></div>' +
+      '<div class="sheet-top"><h2 id="sh-t">Programare</h2><button type="button" class="x" id="close" aria-label="Închide">' + BB.ICONS.close + '</button></div>' +
       '<form id="bf"><label><span>Serviciu</span><select name="s">' + all.map(function (s) { return '<option value="' + e(s.nume) + '">' + e(s.nume) + (s.pret ? " · " + BB.price(d, s.pret) : "") + "</option>"; }).join("") + "</select></label>" +
       '<div><span class="lb">Ziua</span><div class="row" id="days"></div></div><div><span class="lb">Ora</span><div class="grid" id="hrs"></div></div>' +
       '<label><span>Numele tău</span><input name="n" required autocomplete="name" placeholder="Prenume și nume"></label>' +

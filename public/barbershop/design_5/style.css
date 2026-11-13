@@ -157,3 +157,23 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .sheet-in { overflow: hidden; }
 body.sheet-open .bb-demo { display: none; }
 .tabs { flex: none; }
+
+/* ===== finisaj premium (2026-11-13) ===== */
+::selection { background: var(--accent); color: var(--paper); }
+html { scrollbar-color: #cfc5b7 var(--bg); scrollbar-width: thin; accent-color: var(--accent); }
+input, select, textarea { caret-color: var(--accent); }
+.acc li, .hours li, .row button { font-variant-numeric: tabular-nums; }
+h1, h2 { text-wrap: balance; }
+.acc summary small::after { content: ""; background:
+  linear-gradient(currentColor, currentColor) center / 11px 1.5px no-repeat,
+  linear-gradient(currentColor, currentColor) center / 1.5px 11px no-repeat; }
+.acc[open] summary small::after { transform: rotate(45deg); }
+.x { display: grid; place-items: center; color: var(--fg); cursor: pointer; transition: background .2s; }
+.x:hover { background: var(--bg); }
+.x .bb-ic { width: 18px; height: 18px; }
+.more a, .link { display: inline-flex; align-items: center; gap: 8px; }
+.more .bb-ic, .link .bb-ic { width: 15px; height: 15px; }
+.acc li { box-shadow: 0 1px 0 rgba(42,38,34,.04), 0 12px 24px -20px rgba(42,38,34,.35); }
+.btn { box-shadow: 0 14px 28px -18px rgba(42,38,34,.55); }
+.bb-ph { --ph-bg: #E2DACE; --ph-hi: rgba(255,255,255,.45); --ph-lo: rgba(156,91,63,.1); --ph-fg: rgba(42,38,34,.38); }
+.left-bg .bb-ph { --ph-bg: #2f2924; --ph-hi: rgba(156,91,63,.22); --ph-lo: rgba(0,0,0,.4); --ph-fg: rgba(248,245,240,.3); }

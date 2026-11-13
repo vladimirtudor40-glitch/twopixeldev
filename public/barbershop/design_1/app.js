@@ -17,7 +17,7 @@ BB.start(function (d) {
     ["contact", "Contact", true]
   ].filter(function (s) { return s[2]; });
   var num = {}; sections.forEach(function (s, i) { num[s[0]] = String(i + 1).padStart(2, "0"); });
-  function eyebrow(id) { return '<p class="eyebrow rv"><span>' + num[id] + "</span>" + e(sections.filter(function (s) { return s[0] === id; })[0][1]) + "</p>"; }
+  function eyebrow() { return ""; }
 
   var todayTxt = prog[today] ? "Azi deschis · " + e(prog[today]) : "Azi închis";
   var book = BB.bookingUrl(d);
@@ -34,7 +34,7 @@ BB.start(function (d) {
 
   html += '<nav class="menu" id="menu" aria-label="Meniu principal" hidden><div class="menu-inner">' +
     '<ol class="menu-list">' + sections.map(function (s, i) {
-      return '<li style="--i:' + i + '"><a href="#' + s[0] + '"><span>' + num[s[0]] + "</span>" + e(s[1]) + "</a></li>";
+      return '<li style="--i:' + i + '"><a href="#' + s[0] + '">' + e(s[1]) + "</a></li>";
     }).join("") + "</ol>" +
     '<div class="menu-side"><p class="menu-k">Program azi</p><p>' + todayTxt + "</p>" +
     (c.adresa ? '<p class="menu-k">Adresă</p><p>' + e(c.adresa) + "</p>" : "") +
@@ -47,19 +47,18 @@ BB.start(function (d) {
     BB.img((d.poze || {}).hero, "fotografia principală", "scissors", "hero-bg") +
     '<div class="hero-shade"></div>' +
     '<div class="hero-in">' +
-    '<p class="hero-k rv"><i></i>Barbershop' + (d.oras ? " · " + e(d.oras) : "") + "</p>" +
-    '<h1 class="rv"><span>' + e(first) + "</span>" + (rest ? "<em>" + e(rest) + "</em>" : "") + "</h1>" +
+        '<h1 class="rv"><span>' + e(first) + "</span>" + (rest ? "<em>" + e(rest) + "</em>" : "") + "</h1>" +
     (d.slogan ? '<p class="hero-sub rv">' + e(d.slogan) + "</p>" : "") +
     '<div class="hero-cta rv"><a class="btn gold" href="#programare">Programează-te</a><a class="link" href="#servicii">Vezi prețurile</a></div>' +
     "</div>" +
-    '<p class="hero-vert">' + (d.anInfiintare ? "Est. " + e(d.anInfiintare) : "Barbershop") + "</p>" +
+    '<p class="hero-vert">' + "Barbershop" + (d.oras ? " · " + e(d.oras) : "") + (d.anInfiintare ? " · din " + e(d.anInfiintare) : "") + "</p>" +
     '<p class="hero-today"><span class="dot' + (prog[today] ? "" : " off") + '"></span>' + todayTxt + "</p>" +
     '<a class="scroll" href="#atelier" aria-label="Derulează"><i></i></a>' +
     "</section>";
 
   // Bandă cu servicii
   if (allServices.length) {
-    var strip = allServices.map(function (s) { return "<span>" + e(s.nume) + "</span><b>✦</b>"; }).join("");
+    var strip = allServices.map(function (s) { return "<span>" + e(s.nume) + "</span><b aria-hidden=\"true\"></b>"; }).join("");
     html += '<div class="marquee" aria-hidden="true"><div class="marquee-track">' + strip + strip + "</div></div>";
   }
 

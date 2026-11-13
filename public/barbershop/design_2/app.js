@@ -21,7 +21,7 @@ BB.start(function (d) {
   ].filter(function (n) { return n[2]; });
   var idx = {}; nav.forEach(function (n, i) { idx[n[0]] = String(i).padStart(2, "0"); });
   function head(id, title, aside) {
-    return '<header class="sh rv"><span class="sh-n">' + idx[id] + '</span><h2>' + title + "</h2>" + (aside ? '<p class="sh-a">' + aside + "</p>" : "") + "</header>";
+    return '<header class="sh rv"><h2>' + title + "</h2>" + (aside ? '<p class="sh-a">' + aside + "</p>" : "") + "</header>";
   }
   var open = !!prog[today];
   var status = open ? "Deschis azi · " + e(prog[today]) : "Închis azi";
@@ -32,7 +32,7 @@ BB.start(function (d) {
   h += '<aside class="side" id="side">' +
     '<a class="side-brand" href="#acasa">' + BB.logo(d) + "<span>" + e(d.nume) + "</span></a>" +
     '<nav aria-label="Meniu principal"><ol class="side-nav">' + nav.map(function (n) {
-      return '<li><a href="#' + n[0] + '" data-id="' + n[0] + '"><span>' + idx[n[0]] + "</span>" + e(n[1]) + "</a></li>";
+      return '<li><a href="#' + n[0] + '" data-id="' + n[0] + '">' + e(n[1]) + "</a></li>";
     }).join("") + "</ol></nav>" +
     '<div class="side-foot"><p class="status' + (open ? "" : " off") + '"><i></i>' + status + "</p>" +
     '<a class="btn acc" href="' + (isLink ? e(book) : "#programare") + '"' + (isLink ? ' target="_blank" rel="noopener"' : "") + ">Programează-te</a>" +
@@ -70,7 +70,7 @@ BB.start(function (d) {
           '<span class="t-desc">' + e(x.s.descriere || "") + "</span>" +
           '<span class="mono">' + (x.s.durata ? e(x.s.durata) + " min" : "") + "</span>" +
           '<span class="t-price">' + BB.price(d, x.s.pret) + "</span>" +
-          '<span class="t-go" aria-hidden="true">→</span></a>';
+          '<span class="t-go">' + BB.ICONS.arrow + "</span></a>";
       }).join("") + "</div></section>";
   }
 
@@ -95,14 +95,14 @@ BB.start(function (d) {
     h += '<section class="sec" id="echipa">' + head("echipa", "Echipa") +
       '<div class="team">' + d.echipa.map(function (m, i) {
         return '<figure class="rv" style="--i:' + i + '">' + BB.img(m.poza, m.nume, ic[i % 4], "pic") +
-          '<figcaption><span class="mono">' + String(i + 1).padStart(2, "0") + "</span><b>" + e(m.nume) + "</b><span>" + e(m.rol) + "</span></figcaption></figure>";
+          '<figcaption><b>' + e(m.nume) + "</b><span>" + e(m.rol) + "</span></figcaption></figure>";
       }).join("") + "</div></section>";
   }
 
   // Lucrări
   if (gal.length) {
     var gi = ["scissors", "razor", "comb", "chair", "brush"];
-    h += '<section class="sec" id="lucrari">' + head("lucrari", "Lucrări recente", BB.safeUrl(c.instagram) ? '<a href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Instagram →</a>' : "") +
+    h += '<section class="sec" id="lucrari">' + head("lucrari", "Lucrări recente", BB.safeUrl(c.instagram) ? '<a href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Instagram ' + BB.ICONS.out + "</a>" : "") +
       '<div class="works">' + gal.map(function (u, i) { return '<div class="rv" style="--i:' + (i % 3) + '">' + BB.img(u, "lucrare " + (i + 1), gi[i % 5], "pic") + "</div>"; }).join("") + "</div></section>";
   }
 

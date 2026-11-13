@@ -30,9 +30,9 @@ BB.start(function (d) {
 
   // Hero centrat, cu arcadă
   h += '<section class="hero" id="acasa"><div class="hero-in">' +
-    '<p class="kicker rv">' + (d.anInfiintare ? "Din " + e(d.anInfiintare) + " · " : "") + "Barbershop" + (d.oras ? " · " + e(d.oras) : "") + "</p>" +
-    '<h1 class="rv">' + e(d.nume) + "</h1>" + '<div class="rv">' + orn + "</div>" +
+        '<h1 class="rv">' + e(d.nume) + "</h1>" + '<div class="rv">' + orn + "</div>" +
     (d.slogan ? '<p class="sub rv">' + e(d.slogan) + "</p>" : "") +
+    '<p class="place rv">Barbershop' + (d.oras ? " în " + e(d.oras) : "") + (d.anInfiintare ? ", din " + e(d.anInfiintare) : "") + "</p>" +
     '<div class="cta rv"><a class="btn" href="#programare">Rezervă o oră</a><a class="btn ghost" href="#servicii">Lista de prețuri</a></div>' +
     '<div class="arch rv">' + BB.img((d.poze || {}).hero, "fotografia principală", "chair", "pic") + "</div>" +
     "</div></section>";
@@ -41,14 +41,14 @@ BB.start(function (d) {
   if (d.despre) {
     h += '<section class="sec about" id="despre"><div class="wrap">' +
       '<div class="about-pic rv">' + BB.img((d.poze || {}).despre, "interiorul salonului", "brush", "pic") + "</div>" +
-      '<div class="about-txt">' + fan + '<p class="label rv">Despre noi</p><h2 class="rv">' + e(d.despre.titlu) + "</h2>" +
+      '<div class="about-txt">' + fan + '<h2 class="rv">' + e(d.despre.titlu) + "</h2>" +
       (d.despre.text || []).map(function (p) { return '<p class="rv">' + e(p) + "</p>"; }).join("") + "</div></div></section>";
   }
 
   // Servicii: tablă de prețuri cu ramă dublă
   if (all.length) {
     h += '<section class="sec services" id="servicii"><div class="wrap">' +
-      '<div class="head rv"><p class="label">Servicii</p><h2>Lista de prețuri</h2>' + orn + "</div>" +
+      '<div class="head rv"><h2>Lista de prețuri</h2>' + orn + "</div>" +
       '<div class="board rv"><div class="board-in">' + (d.servicii || []).map(function (g) {
         return '<div class="cat"><h3><span>' + e(g.categorie) + "</span></h3><ul>" + (g.items || []).map(function (s) {
           return "<li><div class=\"row\"><b>" + e(s.nume) + '</b><i></i><span>' + BB.price(d, s.pret) + "</span></div>" +
@@ -60,7 +60,7 @@ BB.start(function (d) {
 
   // Experiența
   if ((d.ritual || []).length) {
-    h += '<section class="sec ritual"><div class="wrap"><div class="head rv"><p class="label">Experiența</p><h2>Cum decurge vizita</h2>' + orn + "</div>" +
+    h += '<section class="sec ritual"><div class="wrap"><div class="head rv"><h2>Cum decurge vizita</h2>' + orn + "</div>" +
       '<ol class="arches">' + d.ritual.map(function (r, i) {
         return '<li class="rv" style="--i:' + i + '"><span class="num">' + ["I", "II", "III", "IV", "V", "VI"][i] + "</span><h3>" + e(r.titlu) + "</h3><p>" + e(r.text) + "</p></li>";
       }).join("") + "</ol></div></section>";
@@ -69,7 +69,7 @@ BB.start(function (d) {
   // Echipa
   if ((d.echipa || []).length) {
     var ic = ["scissors", "razor", "comb", "brush"];
-    h += '<section class="sec team" id="echipa"><div class="wrap"><div class="head rv"><p class="label">Echipa</p><h2>Barberii noștri</h2>' + orn + "</div>" +
+    h += '<section class="sec team" id="echipa"><div class="wrap"><div class="head rv"><h2>Barberii noștri</h2>' + orn + "</div>" +
       '<div class="people">' + d.echipa.map(function (m, i) {
         return '<figure class="rv" style="--i:' + i + '"><div class="portrait">' + BB.img(m.poza, m.nume, ic[i % 4], "pic") + "</div><figcaption><b>" + e(m.nume) + "</b><span>" + e(m.rol) + "</span></figcaption></figure>";
       }).join("") + "</div></div></section>";
@@ -78,7 +78,7 @@ BB.start(function (d) {
   // Galerie: rând de arcade care se derulează
   if (gal.length) {
     var gi = ["scissors", "razor", "comb", "chair", "brush"];
-    h += '<section class="sec gallery" id="galerie"><div class="wrap"><div class="head rv"><p class="label">Galerie</p><h2>Din salon</h2>' + orn + "</div></div>" +
+    h += '<section class="sec gallery" id="galerie"><div class="wrap"><div class="head rv"><h2>Din salon</h2>' + orn + "</div></div>" +
       '<div class="rail" tabindex="0" aria-label="Galerie foto">' + gal.map(function (u, i) { return '<div class="cell">' + BB.img(u, "lucrare " + (i + 1), gi[i % 5], "pic") + "</div>"; }).join("") + "</div>" +
       (BB.safeUrl(c.instagram) ? '<p class="more"><a class="btn ghost" href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Urmărește-ne pe Instagram</a></p>' : "") +
       "</section>";
@@ -86,7 +86,7 @@ BB.start(function (d) {
 
   // Programare: card tip invitație
   h += '<section class="sec booking" id="programare"><div class="wrap"><div class="card rv"><div class="card-in">' +
-    '<p class="label">Programare</p><h2>Rezervă o oră</h2>' + orn +
+    '<h2>Rezervă o oră</h2>' + orn +
     (isLink
       ? '<p class="lead">Alege ora direct din calendarul nostru online.</p><a class="btn" href="' + e(book) + '" target="_blank" rel="noopener">Deschide calendarul</a>'
       : '<p class="lead">Completează mai jos, iar mesajul pleacă pe WhatsApp. Îți confirmăm ora cât de repede putem.</p>' +

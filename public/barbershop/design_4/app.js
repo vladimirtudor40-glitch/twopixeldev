@@ -25,27 +25,27 @@ BB.start(function (d) {
   // Hero cu text mare și insignă rotativă
   var words = String(d.nume || "").split(/\s+/);
   h += '<section class="hero" id="acasa"><div class="glow g1"></div><div class="glow g2"></div>' +
-    '<p class="tag rv">Barbershop' + (d.oras ? " · " + e(d.oras) : "") + "</p>" +
+    
     '<h1 class="rv">' + words.map(function (w, i) { return '<span class="w' + i % 3 + '">' + e(w) + "</span>"; }).join("") + "</h1>" +
     '<div class="hero-row"><p class="sub rv">' + e(d.slogan || "") + "</p>" +
-    '<a class="badge rv" href="#programare" aria-label="Programează-te"><svg viewBox="0 0 120 120"><defs><path id="cp" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#cp">PROGRAMEAZĂ-TE · PROGRAMEAZĂ-TE · </textPath></text></svg><span>↘</span></a></div>' +
+    '<a class="badge rv" href="#programare" aria-label="Programează-te"><svg viewBox="0 0 120 120"><defs><path id="cp" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#cp">PROGRAMEAZĂ-TE · PROGRAMEAZĂ-TE · </textPath></text></svg><span>' + BB.ICONS.down + '</span></a></div>' +
     '<div class="hero-pic rv">' + BB.img((d.poze || {}).hero, "fotografia principală", "scissors", "pic") + "</div></section>";
 
   // Servicii pe orizontală (derulare verticală → mișcare orizontală pe desktop)
   if (all.length) {
-    h += '<section class="hs" id="servicii"><div class="hs-sticky"><div class="hs-head"><p class="tag">Servicii și prețuri</p><h2>Alege-ți<br>stilul</h2>' +
-      (d.exemplu ? '<p class="note">Prețurile afișate sunt de exemplu.</p>' : "") + '<p class="hint">Derulează →</p></div>' +
+    h += '<section class="hs" id="servicii"><div class="hs-sticky"><div class="hs-head"><h2>Alege-ți<br>stilul</h2>' +
+      (d.exemplu ? '<p class="note">Prețurile afișate sunt de exemplu.</p>' : "") + '<p class="hint">Derulează ' + BB.ICONS.arrow + '</p></div>' +
       '<div class="hs-view" id="hsview"><div class="hs-track" id="track">' + all.map(function (x, i) {
-        return '<article class="svc"><span class="svc-n">' + String(i + 1).padStart(2, "0") + '</span><span class="svc-cat">' + e(x.cat) + "</span>" +
+        return '<article class="svc"><span class="svc-cat">' + e(x.cat) + "</span>" +
           "<h3>" + e(x.s.nume) + "</h3><p>" + e(x.s.descriere || "") + "</p>" +
           '<div class="svc-foot"><b>' + BB.price(d, x.s.pret) + "</b>" + (x.s.durata ? "<span>" + e(x.s.durata) + " min</span>" : "") + "</div>" +
-          '<a class="svc-go" href="#programare" data-s="' + e(x.s.nume) + '">Rezervă →</a></article>';
+          '<a class="svc-go" href="#programare" data-s="' + e(x.s.nume) + '">Rezervă ' + BB.ICONS.arrow + '</a></article>';
       }).join("") + "</div></div></div></section>";
   }
 
   // Despre + pași
   if (d.despre) {
-    h += '<section class="sec about"><div class="wrap"><p class="tag rv">Despre</p><h2 class="rv big">' + e(d.despre.titlu) + "</h2>" +
+    h += '<section class="sec about"><div class="wrap"><h2 class="rv big">' + e(d.despre.titlu) + "</h2>" +
       '<div class="about-grid"><div class="rv">' + BB.img((d.poze || {}).despre, "interiorul salonului", "chair", "pic") + "</div>" +
       '<div class="about-txt">' + (d.despre.text || []).map(function (p) { return '<p class="rv">' + e(p) + "</p>"; }).join("") +
       ((d.ritual || []).length ? '<ol class="flow">' + d.ritual.map(function (r, i) { return '<li class="rv" style="--i:' + i + '"><b>' + e(r.titlu) + "</b><span>" + e(r.text) + "</span></li>"; }).join("") + "</ol>" : "") +
@@ -55,7 +55,7 @@ BB.start(function (d) {
   // Echipa
   if ((d.echipa || []).length) {
     var ic = ["scissors", "razor", "comb", "brush"];
-    h += '<section class="sec" id="echipa"><div class="wrap"><p class="tag rv">Echipa</p><h2 class="rv">Cine te tunde</h2>' +
+    h += '<section class="sec" id="echipa"><div class="wrap"><h2 class="rv">Cine te tunde</h2>' +
       '<div class="crew">' + d.echipa.map(function (m, i) {
         return '<figure class="tilt rv" style="--i:' + i + '">' + BB.img(m.poza, m.nume, ic[i % 4], "pic") + "<figcaption><b>" + e(m.nume) + "</b><span>" + e(m.rol) + "</span></figcaption></figure>";
       }).join("") + "</div></div></section>";
@@ -64,26 +64,26 @@ BB.start(function (d) {
   // Lucrări (bento)
   if (gal.length) {
     var gi = ["scissors", "razor", "comb", "chair", "brush"];
-    h += '<section class="sec" id="lucrari"><div class="wrap"><p class="tag rv">Lucrări</p><h2 class="rv">Ultimele tunsori</h2>' +
+    h += '<section class="sec" id="lucrari"><div class="wrap"><h2 class="rv">Ultimele tunsori</h2>' +
       '<div class="bento">' + gal.map(function (u, i) { return '<div class="b b' + (i % 6) + ' rv">' + BB.img(u, "lucrare " + (i + 1), gi[i % 5], "pic") + "</div>"; }).join("") + "</div>" +
-      (BB.safeUrl(c.instagram) ? '<a class="pill" href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Mai multe pe Instagram ↗</a>' : "") + "</div></section>";
+      (BB.safeUrl(c.instagram) ? '<a class="pill" href="' + e(BB.safeUrl(c.instagram)) + '" target="_blank" rel="noopener">Mai multe pe Instagram ' + BB.ICONS.out + '</a>' : "") + "</div></section>";
   }
 
   // Programare ca o conversație
-  h += '<section class="sec" id="programare"><div class="wrap"><p class="tag rv">Programare</p><h2 class="rv">Rezervă în 30 de secunde</h2>' +
-    (isLink ? '<a class="pill big rv" href="' + e(book) + '" target="_blank" rel="noopener">Deschide calendarul online ↗</a>'
+  h += '<section class="sec" id="programare"><div class="wrap"><h2 class="rv">Rezervă în 30 de secunde</h2>' +
+    (isLink ? '<a class="pill big rv" href="' + e(book) + '" target="_blank" rel="noopener">Deschide calendarul online ' + BB.ICONS.out + '</a>'
       : '<div class="chat rv" id="chat" aria-live="polite"></div>') + "</div></section>";
 
   // Contact (bento)
   var soc = BB.socials(d);
-  h += '<section class="sec" id="contact"><div class="wrap"><p class="tag rv">Contact</p><h2 class="rv">Treci pe la noi</h2><div class="tiles">' +
-    '<div class="tile t-addr rv"><span class="k">Adresă</span><p>' + e(c.adresa || "") + "</p>" + (BB.safeUrl(c.maps) ? '<a class="pill" href="' + e(BB.safeUrl(c.maps)) + '" target="_blank" rel="noopener">Navighează ↗</a>' : "") + "</div>" +
+  h += '<section class="sec" id="contact"><div class="wrap"><h2 class="rv">Treci pe la noi</h2><div class="tiles">' +
+    '<div class="tile t-addr rv"><span class="k">Adresă</span><p>' + e(c.adresa || "") + "</p>" + (BB.safeUrl(c.maps) ? '<a class="pill" href="' + e(BB.safeUrl(c.maps)) + '" target="_blank" rel="noopener">Navighează ' + BB.ICONS.out + '</a>' : "") + "</div>" +
     '<div class="tile t-hours rv"><span class="k">Program</span><ul>' + BB.ZILE.map(function (z, i) {
       return "<li" + (i === today ? ' class="on"' : "") + "><span>" + z + "</span><span>" + (prog[i] ? e(prog[i]) : "Închis") + "</span></li>";
     }).join("") + "</ul></div>" +
     '<div class="tile t-call rv"><span class="k">Sună sau scrie</span>' + (c.telefon ? '<a class="huge" href="tel:' + e(c.telefon.replace(/\s/g, "")) + '">' + e(c.telefon) + "</a>" : "") +
     (c.email ? '<a href="mailto:' + e(c.email) + '">' + e(c.email) + "</a>" : "") + "</div>" +
-    (soc.length ? '<div class="tile t-soc rv"><span class="k">Social</span>' + soc.map(function (s) { return '<a class="pill" href="' + e(s.url) + '" target="_blank" rel="noopener">' + s.label + " ↗</a>"; }).join("") + "</div>" : "") +
+    (soc.length ? '<div class="tile t-soc rv"><span class="k">Social</span>' + soc.map(function (s) { return '<a class="pill" href="' + e(s.url) + '" target="_blank" rel="noopener">' + s.label + " ' + BB.ICONS.out + '</a>"; }).join("") + "</div>" : "") +
     "</div></div></section>";
 
   h += '<footer class="foot"><span>© ' + new Date().getFullYear() + " " + e(d.nume) + '</span><a href="https://twopixeldev.com/" target="_blank" rel="noopener">Site realizat de twopixeldev</a></footer>';
@@ -155,7 +155,7 @@ BB.start(function (d) {
     out += me(st.n) + bot("Perfect, " + e(st.n.split(" ")[0]) + "! Trimite cererea pe WhatsApp și îți confirmăm ora.") +
       '<div class="sum"><p><b>' + e(st.s) + "</b><br>" + e(zi) + ", ora " + e(st.t) + '</p><a class="pill big" target="_blank" rel="noopener" href="' +
       e(BB.wa(c.whatsapp, "Bună ziua! Sunt " + st.n + " și aș vrea o programare la " + d.nume + ":\n• " + st.s + "\n• " + zi + ", ora " + st.t + "\nMulțumesc!")) +
-      '">Trimite pe WhatsApp ↗</a><button type="button" class="reset" id="reset">Ia-o de la capăt</button></div>';
+      '">Trimite pe WhatsApp ' + BB.ICONS.out + '</a><button type="button" class="reset" id="reset">Ia-o de la capăt</button></div>';
     chat.innerHTML = out;
   }
   chat.addEventListener("click", function (ev) {

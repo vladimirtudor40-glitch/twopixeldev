@@ -20,6 +20,10 @@
   function wa(num, text) { return "https://wa.me/" + String(num || "").replace(/\D/g, "") + "?text=" + encodeURIComponent(text || ""); }
 
   var ICONS = {
+    arrow: '<svg class="bb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+    out: '<svg class="bb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+    down: '<svg class="bb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 8v9H8"/></svg>',
+    close: '<svg class="bb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     scissors: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="46" r="8"/><circle cx="16" cy="18" r="8"/><path d="M22 41 56 14M22 23l34 27"/><circle cx="31" cy="32" r="1.2" fill="currentColor"/></svg>',
     razor: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 40h34l8-8H14c-4 0-8 4-8 8Z"/><path d="M40 40l6 6c2 2 6 2 8 0l4-4-10-10"/><circle cx="50" cy="36" r="1.4"/></svg>',
     comb: '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="22" width="52" height="9" rx="2"/><path d="M10 31v13M15 31v13M20 31v13M25 31v13M30 31v13M35 31v10M40 31v10M45 31v10M50 31v10M55 31v10"/></svg>',
@@ -33,7 +37,7 @@
     if (u) return '<div class="bb-img ' + (cls || "") + '" role="img" aria-label="' + esc(label) + '" style="background-image:url(\'' + esc(u) + '\')"></div>';
     return '<div class="bb-img bb-ph ' + (cls || "") + '" role="img" aria-label="Loc pentru poză: ' + esc(label) + '">' +
       '<span class="bb-ph-icon">' + (ICONS[icon] || ICONS.scissors) + '</span>' +
-      '<span class="bb-ph-label">Poza ta · ' + esc(label) + '</span></div>';
+      '<span class="bb-ph-label">Poza ta: ' + esc(label) + '</span></div>';
   }
 
   function price(d, p) { return p == null || p === "" ? "" : esc(p) + " " + esc(d.moneda || "lei"); }
