@@ -64,3 +64,7 @@ export async function saveItem<T = unknown>(col: Col, input: object, id?: string
 export async function deleteItem(col: Col, id: string): Promise<void> {
   await call(`/api/c/${col}/${encodeURIComponent(id)}`, { method: 'DELETE', body: '{}' });
 }
+
+export async function importItems(col: Col, items: object[]): Promise<number> {
+  return (await call<{ added: number }>(`/api/c/${col}/import`, { method: 'POST', body: JSON.stringify({ items }) })).added;
+}
