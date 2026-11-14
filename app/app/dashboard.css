@@ -612,3 +612,13 @@ html[data-theme='light'] .crm .drawer-bg { background: rgba(120, 130, 150, .35);
 @media (max-width: 1100px) { .sheet { min-width: 1000px; } }
 /* only one section in the rail for now: no hover label over the page title */
 .rail-g:first-child button span { display: none; }
+
+/* Importă leaduri (CSV din google-maps-scraper) */
+.page-h-r { position: relative; }
+.imp-box { position: absolute; top: calc(100% + 10px); right: 0; z-index: 20; width: min(360px, calc(100vw - 32px)); padding: 16px 18px; border-radius: 18px;
+  background: var(--bg); border: 1px solid var(--glass-edge); box-shadow: 0 24px 50px -20px rgba(0,0,0,.35); font-size: 13px; color: var(--ink); }
+.imp-box p { margin: 0 0 8px; }
+.imp-box ul { margin: 0 0 14px; padding-left: 18px; color: var(--ink-2); line-height: 1.7; }
+.imp-act { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.imp-act p { margin: 0; flex: 1; }
+.page-h-r .imp-box .primary { width: auto; }

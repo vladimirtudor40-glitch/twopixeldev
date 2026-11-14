@@ -158,6 +158,17 @@ async function saveItem(req: Request, env: Env, col: string, user: string) {
   return json(saved);
 }
 
+// Many new items in one KV write (CSV lead import), so rapid single saves can't overwrite each other.
+async function importItems(req: Request, env: Env, col: string, user: string) {
+  const input = (await req.json()) as { items?: Partial<Item>[] };
+  const list = Array.isArray(input.items) ? input.items.slice(0, 1000) : [];
+  if (!list.length) return json({ error: 'empty' }, 400);
+  const now = new Date().toISOString();
+  const added = list.map((x) => ({ ...x, id: crypto.randomUUID(), created_at: now, updated_at: now, updated_by: user }));
+  await storeCol(env, col, [...added, ...(await loadCol(env, col))]);
+  return json({ added: added.length });
+}
+
 async function deleteItem(env: Env, col: string, id: string) {
   await storeCol(env, col, (await loadCol(env, col)).filter((s) => s.id !== id));
   return json({ ok: true });
@@ -183,6 +194,7 @@ async function api(req: Request, env: Env, path: string) {
     const [, col, id] = m;
     if (!id && method === 'GET') return json(await loadCol(env, col));
     if (!id && method === 'POST') return saveItem(req, env, col, user);
+    if (id === 'import' && method === 'POST') return importItems(req, env, col, user);
     if (id && method === 'DELETE') return deleteItem(env, col, id);
   }
 

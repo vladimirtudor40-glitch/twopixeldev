@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { deleteSite, saveSite } from '@/lib/backend';
+import { useEffect, useRef, useState } from 'react';
+import { deleteSite, importItems, saveSite } from '@/lib/backend';
+import { leadNotes, planImport, type ImportPlan } from '@/lib/leadsImport';
 import { CATEGORIES, PACKAGES, PLANS, RESALE, RULES, EXTRAS, priceText } from '@/lib/pricing';
 import { RESPONSES, daysLeft, emptySite, type OfferResponse, type Site, type SiteInput } from '@/lib/types';
 import SiteForm from '../SiteForm';
@@ -42,6 +43,7 @@ export function Sites({ data, crm }: { data: Data; crm: Crm }) {
     <div className="view">
       <PageHead title="Site-uri" sub="Monitorizare clienți & oferte. Modifici direct în tabel, se salvează singur.">
         <Search value={q} onChange={setQ} placeholder="caută client…" />
+        <ImportLeads data={data} crm={crm} />
         <button className="primary" onClick={add} disabled={adding}><Icon name="plus" size={16} />client nou</button>
       </PageHead>
       <div className="kpis">
@@ -82,6 +84,68 @@ export function Sites({ data, crm }: { data: Data; crm: Crm }) {
         </div>
       )}
     </div>
+  );
+}
+
+/** „Importă leaduri”: reads a google-maps-scraper CSV, keeps businesses without a website, skips duplicates. */
+function ImportLeads({ data, crm }: { data: Data; crm: Crm }) {
+  const input = useRef<HTMLInputElement>(null);
+  const [plan, setPlan] = useState<(ImportPlan & { file: string }) | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  async function pick(f: File | undefined) {
+    if (!f) return;
+    setMsg('');
+    try { setPlan({ ...planImport(await f.text(), data.sites), file: f.name }); }
+    catch (e) { setPlan(null); setMsg(e instanceof Error ? e.message : 'Nu am putut citi fișierul.'); }
+    if (input.current) input.current.value = '';
+  }
+  async function run() {
+    if (!plan?.leads.length) return;
+    setBusy(true);
+    try {
+      const n = await importItems('sites', plan.leads.map((l) => ({
+        ...emptySite(), status: 'oferta', name: l.name, client_phone: l.phone, client_email: l.email,
+        maps_url: l.maps_url, demo_url: '', contacted: false, response: '', offer_type: 'Black Friday 50%', notes: leadNotes(l),
+      })));
+      await crm.load();
+      setPlan(null);
+      setMsg(`Am adăugat ${n} ${n === 1 ? 'client' : 'clienți'} în tabel.`);
+    } catch (e) { setMsg(e instanceof Error ? e.message : 'Importul a eșuat.'); }
+    setBusy(false);
+  }
+
+  return (
+    <>
+      <input ref={input} type="file" accept=".csv,text/csv" hidden onChange={(e) => pick(e.target.files?.[0])} />
+      <button className="ghost" onClick={() => input.current?.click()} disabled={busy}>
+        <Icon name="plus" size={14} />importă leaduri
+      </button>
+      {(plan || msg) && (
+        <div className="imp-box" role="status">
+          {plan ? (
+            <>
+              <p><b>{plan.file}</b>: {plan.total} firme găsite.</p>
+              <ul>
+                <li>{plan.withSite} au deja site (sărite)</li>
+                {plan.closed > 0 && <li>{plan.closed} închise definitiv (sărite)</li>}
+                <li>{plan.duplicates} sunt deja în tabel (sărite)</li>
+                <li><b>{plan.leads.length} fără site, noi</b></li>
+              </ul>
+              <div className="imp-act">
+                <button className="primary" onClick={run} disabled={busy || !plan.leads.length}>
+                  {busy ? 'se importă…' : `importă ${plan.leads.length}`}
+                </button>
+                <button className="ghost" onClick={() => setPlan(null)} disabled={busy}>anulează</button>
+              </div>
+            </>
+          ) : (
+            <div className="imp-act"><p>{msg}</p><button className="ghost" onClick={() => setMsg('')}>ok</button></div>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 
