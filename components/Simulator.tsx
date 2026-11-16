@@ -6,7 +6,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { site } from '@/site.config';
-import { LOCATIONS, SECTORS, stylePrice, templateUrl, type LocId } from '@/lib/simulator';
+import { LOCATIONS, SECTORS, templateUrl, type LocId } from '@/lib/simulator';
 import WhatsAppIcon from './WhatsAppIcon';
 
 type Device = 'desktop' | 'phone';
@@ -37,7 +37,6 @@ export default function Simulator() {
 
   const sector = SECTORS.find((s) => s.id === sectorId)!;
   const style = sector.styles.find((s) => s.id === styleId) ?? sector.styles[0];
-  const price = style ? stylePrice(style) : null;
 
   // Read a shared link (?tip=&loc=&stil=&ecran=) once, and default to the phone frame on phones.
   useEffect(() => {
@@ -163,7 +162,7 @@ export default function Simulator() {
         </div>
       </section>
 
-      {style && price && (
+      {style && (
         <section className="wrap sim-main" aria-label="Previzualizare">
           <div className="sim-view">
             <div className="sim-bar">
@@ -206,7 +205,7 @@ export default function Simulator() {
                 </div>
               </div>
             </div>
-            <p className="sim-note">Firma, prețurile și recenziile din exemplu sunt fictive. Pe site-ul tău punem numele, pozele și textele tale.</p>
+            <p className="sim-note">Firma, tarifele camerelor și recenziile din exemplu sunt fictive. Pe site-ul tău punem numele, pozele și textele tale.</p>
           </div>
 
           <aside className="sim-info">
@@ -217,17 +216,11 @@ export default function Simulator() {
             <ul className="sim-feat">
               {style.features.map((f) => <li key={f}>{f}</li>)}
             </ul>
-            <div className="sim-price">
-              <span>{price.name}</span>
-              <strong>{price.price}</strong>
-              <small>fără TVA{price.term ? ` · gata în ${price.term}` : ''}</small>
-              {price.monthly && <small>după lansare: {price.monthly}</small>}
-            </div>
             <div className="sim-cta">
               <a className="gbtn gbtn-wa" href={wa} target="_blank" rel="noopener"><WhatsAppIcon /> Vreau acest site</a>
               <a className="gbtn" href={mail}>Scrie-ne pe email</a>
             </div>
-            <p className="sim-small">Îți răspundem în cel mult o zi lucrătoare, cu o ofertă pe măsura afacerii tale.</p>
+            <p className="sim-small">Îți răspundem în cel mult o zi lucrătoare, și stabilim împreună ce îi trebuie afacerii tale.</p>
           </aside>
         </section>
       )}

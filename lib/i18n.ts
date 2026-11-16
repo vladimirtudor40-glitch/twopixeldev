@@ -36,7 +36,7 @@ export const t = {
     sim: {
       kicker: 'simulator',
       title: 'Vezi site-ul înainte să-l comanzi',
-      lead: 'Alege domeniul afacerii și locul unde lucrezi, apoi răsfoiește cinci stiluri de site, live, pe calculator și pe telefon, cu prețul fiecăruia. Începem cu hoteluri și pensiuni, urmează frizeriile și restaurantele.',
+      lead: 'Alege domeniul afacerii și locul unde lucrezi, apoi răsfoiește cinci stiluri de site, live, pe calculator și pe telefon. Începem cu hoteluri și pensiuni, urmează frizeriile și restaurantele.',
       cta: 'Deschide simulatorul',
     },
     portfolio: { kicker: 'portofoliu', title: 'Proiecte' },
