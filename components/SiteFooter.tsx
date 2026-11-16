@@ -11,6 +11,7 @@ export default function SiteFooter({ lang }: { lang: Lang }) {
         <span>© {new Date().getFullYear()} {site.name}</span>
         <nav aria-label={c.legal}>
           <Link href={p.home}>{c.home}</Link>
+          <Link href={p.simulator}>Simulator</Link>
           <Link href={p.privacy}>{c.privacy}</Link>
           <Link href={p.terms}>{c.terms}</Link>
           <a href={`mailto:${site.email}`}>{site.email}</a>

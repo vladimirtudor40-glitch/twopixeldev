@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pensiune de familie</title>
+  <meta name="description" content="Template demo pentru o pensiune de familie, realizat de twopixeldev.com.">
+  <meta name="theme-color" content="#2F4A3A">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232F4A3A'/%3E%3Cpath d='M16 5l7 10h-4l5 8H8l5-8H9z' fill='%23F6F0E6'/%3E%3C/svg%3E">
+  <script>
+    /* Pornește devreme descărcarea pozei din hero, în funcție de locație. */
+    (function () {
+      var l = new URLSearchParams(location.search).get('loc');
+      if (['mare', 'munte', 'oras'].indexOf(l) < 0) l = 'munte';
+      var small = window.matchMedia('(max-width: 700px)').matches;
+      var p = document.createElement('link');
+      p.rel = 'preload'; p.as = 'image'; p.fetchPriority = 'high';
+      p.href = 'img/' + l + (small ? '/hero-800.jpg' : '/hero.jpg');
+      document.head.appendChild(p);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;600;700;800&display=swap&subset=latin-ext" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css">
+  <script src="content.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="sari" href="#continut">Sari la conținut</a>
+
+  <header class="antet" id="antet"></header>
+  <main id="continut" tabindex="-1"></main>
+  <footer class="subsol" id="subsol"></footer>
+
+  <a class="wa-plutitor" id="wa-plutitor" href="#" aria-label="Scrie-ne pe WhatsApp"></a>
+
+  <div class="comutator" id="comutator" role="group" aria-label="Alege locația afacerii">
+    <button type="button" data-loc="mare">Mare</button>
+    <button type="button" data-loc="munte">Munte</button>
+    <button type="button" data-loc="oras">Oraș</button>
+  </div>
+
+  <div class="cookies" id="cookies" role="region" aria-label="Cookie-uri" hidden>
+    <p>Folosim cookie-uri necesare pentru funcționarea site-ului și, cu acordul tău, pentru statistici. <button type="button" class="link" data-legal="confidentialitate">Detalii</button></p>
+    <div class="cookies__btn">
+      <button type="button" class="btn btn--mic btn--contur" data-cookie="necesare">Doar necesare</button>
+      <button type="button" class="btn btn--mic" data-cookie="toate">Accept</button>
+    </div>
+  </div>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Galerie foto">
+    <button type="button" class="lightbox__x" data-lb-inchide aria-label="Închide galeria">×</button>
+    <button type="button" class="lightbox__nav lightbox__nav--st" data-lb-pas="-1" aria-label="Poza anterioară">‹</button>
+    <figure>
+      <img id="lb-img" src="data:," alt="" width="900" height="675">
+      <figcaption id="lb-text"></figcaption>
+    </figure>
+    <button type="button" class="lightbox__nav lightbox__nav--dr" data-lb-pas="1" aria-label="Poza următoare">›</button>
+  </dialog>
+
+  <dialog class="fereastra" id="fereastra" aria-labelledby="fereastra-titlu">
+    <h2 id="fereastra-titlu"></h2>
+    <div id="fereastra-text"></div>
+    <button type="button" class="btn" data-fereastra-inchide>Am înțeles</button>
+  </dialog>
+
+  <noscript><p class="fara-js">Pentru a vedea acest site, activează JavaScript în browser.</p></noscript>
+</body>
+</html>

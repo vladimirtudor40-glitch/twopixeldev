@@ -16,6 +16,7 @@ export default function SiteNav({ lang, page }: { lang: Lang; page: Page }) {
         twopixeldev
       </Link>
       <nav className="nav-links" aria-label={c.nav.main}>
+        <Link href={paths[lang].simulator}>{c.nav.simulator}</Link>
         <a href={h(c.ids.services)}>{c.nav.services}</a>
         <a href={h(c.ids.process)}>{c.nav.process}</a>
         <a href={h(c.ids.contact)}>{c.nav.contact}</a>

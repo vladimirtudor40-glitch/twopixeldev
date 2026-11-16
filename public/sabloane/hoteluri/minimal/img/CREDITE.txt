@@ -1,0 +1,47 @@
+Credite foto - template Minimal (twopixeldev)
+Toate pozele provin de pe Unsplash (https://unsplash.com), filtrul „Free”, licența Unsplash: uz comercial gratuit, atribuirea nu e obligatorie.
+Format: fișier | autor (profil Unsplash) | sursă
+
+img/oras/hero.jpg | @mateipruteanu (https://unsplash.com/@mateipruteanu) | https://images.unsplash.com/photo-1629826958301-2d6c17de6874
+img/oras/a1.jpg | @huynguyen_pch (https://unsplash.com/@huynguyen_pch) | https://images.unsplash.com/photo-1628592102751-ba83b0314276
+img/oras/a2.jpg | @lotusdnp (https://unsplash.com/@lotusdnp) | https://images.unsplash.com/photo-1666282167632-c613fbeb163c
+img/oras/a3.jpg | @prydumanodesign (https://unsplash.com/@prydumanodesign) | https://images.unsplash.com/photo-1738168279272-c08d6dd22002
+img/oras/a4.jpg | @bardhplluzhina (https://unsplash.com/@bardhplluzhina) | https://images.unsplash.com/photo-1682184805271-11671b7ecf4c
+img/oras/a5.jpg | @bozica24 (https://unsplash.com/@bozica24) | https://images.unsplash.com/photo-1663756915304-40b7eda63e41
+img/oras/a6.jpg | @prydumanodesign (https://unsplash.com/@prydumanodesign) | https://images.unsplash.com/photo-1738168246881-40f35f8aba0a
+img/oras/b1.jpg | @adryan_studio (https://unsplash.com/@adryan_studio) | https://images.unsplash.com/photo-1765862835319-18fb6f8caff6
+img/oras/b2.jpg | @obegihome (https://unsplash.com/@obegihome) | https://images.unsplash.com/photo-1760072513376-67a46aab0fd1
+img/oras/b3.jpg | @lianfirmansyah (https://unsplash.com/@lianfirmansyah) | https://images.unsplash.com/photo-1699942681763-d1da9f692489
+img/oras/b4.jpg | @jjemanuel (https://unsplash.com/@jjemanuel) | https://images.unsplash.com/photo-1781572725438-ac8c41476752
+img/oras/k1.jpg | @naomish (https://unsplash.com/@naomish) | https://images.unsplash.com/photo-1484154218962-a197022b5858
+img/oras/k2.jpg | @poojanclicks (https://unsplash.com/@poojanclicks) | https://images.unsplash.com/photo-1755624222023-621f7718950b
+img/mare/hero.jpg | @liveauthentic (https://unsplash.com/@liveauthentic) | https://images.unsplash.com/photo-1588314786489-62d1a1d74c1a
+img/mare/a1.jpg | @___atmos (https://unsplash.com/@___atmos) | https://images.unsplash.com/photo-1779903726439-5c27e3996c8a
+img/mare/a2.jpg | @___atmos (https://unsplash.com/@___atmos) | https://images.unsplash.com/photo-1779903726785-7cf25bed78f7
+img/mare/a3.jpg | @collovhome (https://unsplash.com/@collovhome) | https://images.unsplash.com/photo-1600493505873-cddd69453072
+img/mare/a4.jpg | @francotheshooter (https://unsplash.com/@francotheshooter) | https://images.unsplash.com/photo-1785528266150-3154b0c13dc1
+img/mare/a5.jpg | @rico_russo (https://unsplash.com/@rico_russo) | https://images.unsplash.com/photo-1766513997564-8c5396f17716
+img/mare/a6.jpg | @___atmos (https://unsplash.com/@___atmos) | https://images.unsplash.com/photo-1779903726781-7d2ccb810558
+img/mare/b1.jpg | @francotheshooter (https://unsplash.com/@francotheshooter) | https://images.unsplash.com/photo-1785528266178-81cdec8eacf4
+img/mare/b2.jpg | @___atmos (https://unsplash.com/@___atmos) | https://images.unsplash.com/photo-1779903726446-6f796d533d47
+img/mare/b3.jpg | @nekandinskaya (https://unsplash.com/@nekandinskaya) | https://images.unsplash.com/photo-1779364867798-386fb7213a2c
+img/mare/b4.jpg | @enka80 (https://unsplash.com/@enka80) | https://images.unsplash.com/photo-1552558636-f6a8f071c2b3
+img/mare/k1.jpg | @akasm (https://unsplash.com/@akasm) | https://images.unsplash.com/photo-1759691337957-ebc9ed54dc44
+img/mare/k2.jpg | @andreaedavis (https://unsplash.com/@andreaedavis) | https://images.unsplash.com/photo-1610527003928-47afd5f470c6
+img/munte/hero.jpg | @mechaowlstudios (https://unsplash.com/@mechaowlstudios) | https://images.unsplash.com/photo-1688559581417-656693faf76a
+img/munte/a1.jpg | @nomadicfitlust (https://unsplash.com/@nomadicfitlust) | https://images.unsplash.com/photo-1634849662801-a00d83441092
+img/munte/a2.jpg | @nomadicfitlust (https://unsplash.com/@nomadicfitlust) | https://images.unsplash.com/photo-1647452375084-3ad0db6c9331
+img/munte/a3.jpg | @andreaedavis (https://unsplash.com/@andreaedavis) | https://images.unsplash.com/photo-1785513911122-7d25582b3621
+img/munte/a4.jpg | @justindkauffman (https://unsplash.com/@justindkauffman) | https://images.unsplash.com/photo-1545158535-c3f7168c28b6
+img/munte/a5.jpg | @claybanks (https://unsplash.com/@claybanks) | https://images.unsplash.com/photo-1720877851762-1fd589e96311
+img/munte/a6.jpg | @claybanks (https://unsplash.com/@claybanks) | https://images.unsplash.com/photo-1774311237295-a65a4c1ff38a
+img/munte/b1.jpg | @smitik (https://unsplash.com/@smitik) | https://images.unsplash.com/photo-1758983065583-9cea714214f9
+img/munte/b2.jpg | @raido_33 (https://unsplash.com/@raido_33) | https://images.unsplash.com/photo-1785235193338-7efa7816c33f
+img/munte/b3.jpg | @poojanclicks (https://unsplash.com/@poojanclicks) | https://images.unsplash.com/photo-1757344454333-cc666252e596
+img/munte/b4.jpg | @deconovo (https://unsplash.com/@deconovo) | https://images.unsplash.com/photo-1617325247661-675ab4b64ae2
+img/munte/k1.jpg | @iistyle (https://unsplash.com/@iistyle) | https://images.unsplash.com/photo-1781249144275-c04daed37031
+img/munte/k2.jpg | @3dottawa (https://unsplash.com/@3dottawa) | https://images.unsplash.com/photo-1630699294256-29a004b85f7d
+img/mare/a7.jpg | @summitangel (https://unsplash.com/@summitangel) | https://images.unsplash.com/photo-1603072845032-7b5bd641a82a
+img/mare/a8.jpg | @andreas_haslinger (https://unsplash.com/@andreas_haslinger) | https://images.unsplash.com/photo-1786107727662-43269dc921ec
+
+Fișierele *-s.jpg sunt variante mai mici ale acelorași poze, pentru telefon și carduri.
