@@ -7,7 +7,7 @@ export const site = {
   // Public contact address (an alias/forward in Namecheap Private Email).
   email: 'contact@twopixeldev.com',
   // WhatsApp number in international format, digits only (e.g. 40712345678). Empty = no WhatsApp buttons.
-  whatsapp: '40724464297',
+  whatsapp: '40750460451',
   // Add finished client sites here; the Portfolio section appears once the list is not empty.
   portfolio: [] as { name: string; url: string; note: string }[],
   updated: '2026-11-06',
